@@ -39,7 +39,24 @@ html, body {
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
-  scroll-behavior: smooth;
+}
+
+/* Lenis Recommended Styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis-stopped {
+  overflow: hidden;
 }
 
 /* Custom Scrollbar */

@@ -6,7 +6,7 @@ const animations = [
   {
     id: "01",
     name: "Gravity Drop",
-    route: "/gravity-drop",
+    route: "/01-gravity-drop",
     bgColor: "bg-wtf-orange",
     textColor: "text-white",
     description: "Staggered letters falling down onto a shelf collider with realistic physics bounce.",
@@ -15,7 +15,7 @@ const animations = [
   {
     id: "02",
     name: "Scroll Tags Assembly",
-    route: "/scroll-tags-assembly",
+    route: "/02-scroll-tags-assembly",
     bgColor: "bg-wtf-green",
     textColor: "text-white",
     description: "Interactive scroll-triggered tags that fly into a grid board container from all offscreen directions.",
@@ -24,7 +24,7 @@ const animations = [
   {
     id: "03",
     name: "Inward-Outward Border Reveal",
-    route: "/inward-outward-border-reveal",
+    route: "/03-inward-outward-border-reveal",
     bgColor: "bg-wtf-red",
     textColor: "text-white",
     description: "Premium horizontal text scroll where letters fly in and out from top/bottom screen borders.",
@@ -32,17 +32,17 @@ const animations = [
   },
   {
     id: "04",
-    name: "Blue Canvas Sandbox",
-    route: "/blue-canvas-sandbox",
+    name: "Horizontal Cards Showcase",
+    route: "/04-horizontal-cards-showcase",
     bgColor: "bg-wtf-blue",
     textColor: "text-white",
-    description: "Blueprint sandbox template ready for Custom GSAP timeline integrations.",
+    description: "Premium horizontal scroll layout where colorful Neo-Brutalist cards slide, float, enter from the bottom, and exit off the top of the viewport.",
     tiltClass: "tilt-left-lg",
   },
   {
     id: "05",
     name: "Tactile Yellow Sandbox",
-    route: "/tactile-yellow-sandbox",
+    route: "/05-tactile-yellow-sandbox",
     bgColor: "bg-wtf-yellow",
     textColor: "text-black",
     description: "Vibrant yellow dashboard sandbox ready for hover and scroll interactions.",
@@ -51,13 +51,22 @@ const animations = [
   {
     id: "06",
     name: "Kinetic Purple Sandbox",
-    route: "/kinetic-purple-sandbox",
+    route: "/06-kinetic-purple-sandbox",
     bgColor: "bg-wtf-purple",
     textColor: "text-white",
     description: "High-contrast purple workspace template for advanced kinetic typography.",
     tiltClass: "tilt-left",
   },
 ];
+
+const hoverColorsMap: Record<string, string> = {
+  "bg-wtf-orange": "hover:bg-wtf-orange hover:text-white",
+  "bg-wtf-green": "hover:bg-wtf-green hover:text-white",
+  "bg-wtf-red": "hover:bg-wtf-red hover:text-white",
+  "bg-wtf-blue": "hover:bg-wtf-blue hover:text-white",
+  "bg-wtf-yellow": "hover:bg-wtf-yellow hover:text-black",
+  "bg-wtf-purple": "hover:bg-wtf-purple hover:text-white",
+};
 
 export default function Home() {
   return (
@@ -127,7 +136,7 @@ export default function Home() {
               </div>
 
               <Link href={anim.route} className="w-full mt-2 block">
-                <button className={`w-full brutalist-btn bg-white hover:${anim.bgColor} hover:${anim.textColor} border-[#2a2a2a] text-[#2a2a2a] font-mono font-bold text-xs py-3 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150`}>
+                <button className={`w-full brutalist-btn bg-white ${hoverColorsMap[anim.bgColor] || ""} border-[#2a2a2a] text-[#2a2a2a] font-mono font-bold text-xs py-3 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150`}>
                   Open Sandbox →
                 </button>
               </Link>
