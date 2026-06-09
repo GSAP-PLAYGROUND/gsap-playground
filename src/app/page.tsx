@@ -41,11 +41,11 @@ const animations = [
   },
   {
     id: "05",
-    name: "Tactile Yellow Sandbox",
+    name: "Tactile Stack Showcase",
     route: "/05-tactile-yellow-sandbox",
     bgColor: "bg-wtf-yellow",
     textColor: "text-black",
-    description: "Vibrant yellow dashboard sandbox ready for hover and scroll interactions.",
+    description: "Premium stacked page-peel scroll animation where color-themed sections slide up and overlap with dynamic skewing.",
     tiltClass: "tilt-right",
   },
   {
