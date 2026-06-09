@@ -144,3 +144,24 @@ html.lenis body {
 .will-animate-both {
   will-change: transform, opacity;
 }
+
+/* Scrollbar none utility */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Panel 3D animation optimization */
+.panel-item {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Scroll viewport: preserve-3d so perspective shows through */
+.scroll-viewport {
+  transform-style: preserve-3d;
+}

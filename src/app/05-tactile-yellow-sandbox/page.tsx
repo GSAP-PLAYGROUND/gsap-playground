@@ -5,51 +5,46 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLenis } from "lenis/react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const navItems = ["podcast", "community", "offline", "fund", "careers"];
+const navItems = ["pulsars", "nebulae", "gravity", "supernova", "darkness"];
 
 const hoverClasses: Record<string, string> = {
-  podcast: "hover:bg-[#0c9367] hover:text-white",
-  community: "hover:bg-[#c53b3a] hover:text-white",
-  offline: "hover:bg-[#3b82f6] hover:text-white",
-  fund: "hover:bg-[#f1b333] hover:text-black",
-  careers: "hover:bg-[#6758a5] hover:text-white",
+  pulsars: "hover:bg-[#0c9367] hover:text-white",
+  nebulae: "hover:bg-[#c53b3a] hover:text-white",
+  gravity: "hover:bg-[#3b82f6] hover:text-white",
+  supernova: "hover:bg-[#f1b333] hover:text-black",
+  darkness: "hover:bg-[#6758a5] hover:text-white",
 };
 
 export default function AnimationFivePage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollSectionRef = useRef<HTMLDivElement>(null);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const lenis = useLenis();
 
   useGSAP(() => {
-    // Set initial states for all panels to ensure off-screen panels are fully hidden
-    gsap.set(".panel-0", { y: "0vh", scale: 1, autoAlpha: 1 });
-    gsap.set(".panel-1, .panel-2, .panel-3, .panel-4", { y: "100vh", scale: 1, autoAlpha: 0 });
+    // Set initial states for all panels and their content
+    gsap.set(".panel-0", { y: "0vh", scale: 1, rotateX: 0, autoAlpha: 1 });
+    gsap.set(".panel-1, .panel-2, .panel-3, .panel-4", { y: "100vh", scale: 1, rotateX: 0, autoAlpha: 0 });
+    gsap.set(".panel-1-content, .panel-2-content, .panel-3-content, .panel-4-content", { y: "15vh" });
 
     // Master timeline linked to vertical scroll pinning
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: scrollSectionRef.current,
         pin: true,
-        scrub: 0.5,
+        scrub: 0.3,
         start: "top top",
-        end: "+=4000",
+        end: "+=3000",
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           // Dynamic calculation of active section to highlight sidebar items
           const progress = self.progress;
-          let active = "podcast";
-          if (progress > 0.82) {
-            active = "careers";
-          } else if (progress > 0.58) {
-            active = "fund";
-          } else if (progress > 0.35) {
-            active = "offline";
-          } else if (progress > 0.1) {
-            active = "community";
-          }
+          const index = Math.min(Math.floor(progress * 4 + 0.5), 4);
+          const active = navItems[index];
 
           // Directly update DOM nodes for high-performance scroll transitions
           navItems.forEach((item) => {
@@ -58,19 +53,19 @@ export default function AnimationFivePage() {
               if (item === active) {
                 el.classList.add("shadow-[3px_3px_0px_#000]", "scale-105", "!rotate-[-4deg]");
                 el.classList.remove("opacity-60", "rotate-[2deg]");
-                if (item === "podcast") {
+                if (item === "pulsars") {
                   el.style.backgroundColor = "#0c9367";
                   el.style.color = "white";
-                } else if (item === "community") {
+                } else if (item === "nebulae") {
                   el.style.backgroundColor = "#c53b3a";
                   el.style.color = "white";
-                } else if (item === "offline") {
+                } else if (item === "gravity") {
                   el.style.backgroundColor = "#3b82f6";
                   el.style.color = "white";
-                } else if (item === "fund") {
+                } else if (item === "supernova") {
                   el.style.backgroundColor = "#f1b333";
                   el.style.color = "black";
-                } else if (item === "careers") {
+                } else if (item === "darkness") {
                   el.style.backgroundColor = "#6758a5";
                   el.style.color = "white";
                 }
@@ -88,81 +83,72 @@ export default function AnimationFivePage() {
 
     tlRef.current = tl;
 
-    // Initial label and hold/cushion for podcast
-    tl.addLabel("podcast", 0);
-    tl.to({}, { duration: 0.5 });
+    // Initial hold so user reads the first panel
+    tl.addLabel("pulsars", 0);
+    tl.to({}, { duration: 0.1 });
 
-    // Section 2 (Community) Slides Up Over Green
-    tl.set(".panel-1", { autoAlpha: 1 });
-    tl.to(".panel-1", {
-      y: "0vh",
-      duration: 1.0,
-      ease: "power2.inOut",
-    });
+    /*
+     * PREMIUM 3D STACKED + PARALLAX TRANSITIONS:
+     *
+     *  INCOMING  ─ slides up from y:100vh → y:0 over 1.4s (power3.out).
+     *              its inner content container slides up from y:15vh → y:0 in sync to create
+     *              a beautiful 3D parallax depth effect.
+     *  OUTGOING  ─ scales down slightly to 0.85, tilts back (rotateX: 12), and dims (opacity: 0.4)
+     *              over the same 1.4s (power3.out). This preserves it as a background stacked layer
+     *              until the incoming card completely slides over and covers it.
+     *  CLEANUP   ─ the card that is 2 steps back fades out completely (autoAlpha: 0) to save GPU memory.
+     */
+
+    // — TRANSITION 1: Green (Pulsars) → Red (Nebulae) —
+    tl.set(".panel-1", { y: "100vh", rotateX: 0, scale: 1, autoAlpha: 1 });
+    tl.set(".panel-1-content", { y: "15vh" });
+    tl.to(".panel-1", { y: "0vh", duration: 1.4, ease: "power3.out" });
+    tl.to(".panel-1-content", { y: "0vh", duration: 1.4, ease: "power3.out" }, "<");
     tl.to(".panel-0", {
-      scale: 0.85,
-      y: "-10vh",
-      autoAlpha: 0,
-      transformOrigin: "center center",
-      duration: 1.0,
-      ease: "power2.inOut",
+      scale: 0.85, y: "-8vh", rotateX: 12, opacity: 0.4,
+      transformOrigin: "center 30%", duration: 1.4, ease: "power3.out",
     }, "<");
-    tl.addLabel("community");
-    tl.to({}, { duration: 0.5 }); // Hold state
+    tl.addLabel("nebulae");
+    tl.to({}, { duration: 0.1 });
 
-    // Section 3 (Offline) Slides Up Over Red
-    tl.set(".panel-2", { autoAlpha: 1 });
-    tl.to(".panel-2", {
-      y: "0vh",
-      duration: 1.0,
-      ease: "power2.inOut",
-    });
+    // — TRANSITION 2: Red (Nebulae) → Blue (Gravity) —
+    tl.set(".panel-2", { y: "100vh", rotateX: 0, scale: 1, autoAlpha: 1 });
+    tl.set(".panel-2-content", { y: "15vh" });
+    tl.to(".panel-2", { y: "0vh", duration: 1.4, ease: "power3.out" });
+    tl.to(".panel-2-content", { y: "0vh", duration: 1.4, ease: "power3.out" }, "<");
     tl.to(".panel-1", {
-      scale: 0.85,
-      y: "-10vh",
-      autoAlpha: 0,
-      transformOrigin: "center center",
-      duration: 1.0,
-      ease: "power2.inOut",
+      scale: 0.85, y: "-8vh", rotateX: 12, opacity: 0.4,
+      transformOrigin: "center 30%", duration: 1.4, ease: "power3.out",
     }, "<");
-    tl.addLabel("offline");
-    tl.to({}, { duration: 0.5 }); // Hold state
+    tl.to(".panel-0", { autoAlpha: 0, duration: 0.5, ease: "power3.out" }, "<");
+    tl.addLabel("gravity");
+    tl.to({}, { duration: 0.1 });
 
-    // Section 4 (Fund) Slides Up Over Blue
-    tl.set(".panel-3", { autoAlpha: 1 });
-    tl.to(".panel-3", {
-      y: "0vh",
-      duration: 1.0,
-      ease: "power2.inOut",
-    });
+    // — TRANSITION 3: Blue (Gravity) → Yellow (Supernova) —
+    tl.set(".panel-3", { y: "100vh", rotateX: 0, scale: 1, autoAlpha: 1 });
+    tl.set(".panel-3-content", { y: "15vh" });
+    tl.to(".panel-3", { y: "0vh", duration: 1.4, ease: "power3.out" });
+    tl.to(".panel-3-content", { y: "0vh", duration: 1.4, ease: "power3.out" }, "<");
     tl.to(".panel-2", {
-      scale: 0.85,
-      y: "-10vh",
-      autoAlpha: 0,
-      transformOrigin: "center center",
-      duration: 1.0,
-      ease: "power2.inOut",
+      scale: 0.85, y: "-8vh", rotateX: 12, opacity: 0.4,
+      transformOrigin: "center 30%", duration: 1.4, ease: "power3.out",
     }, "<");
-    tl.addLabel("fund");
-    tl.to({}, { duration: 0.5 }); // Hold state
+    tl.to(".panel-1", { autoAlpha: 0, duration: 0.5, ease: "power3.out" }, "<");
+    tl.addLabel("supernova");
+    tl.to({}, { duration: 0.1 });
 
-    // Section 5 (Careers) Slides Up Over Yellow
-    tl.set(".panel-4", { autoAlpha: 1 });
-    tl.to(".panel-4", {
-      y: "0vh",
-      duration: 1.0,
-      ease: "power2.inOut",
-    });
+    // — TRANSITION 4: Yellow (Supernova) → Purple (Darkness) —
+    tl.set(".panel-4", { y: "100vh", rotateX: 0, scale: 1, autoAlpha: 1 });
+    tl.set(".panel-4-content", { y: "15vh" });
+    tl.to(".panel-4", { y: "0vh", duration: 1.4, ease: "power3.out" });
+    tl.to(".panel-4-content", { y: "0vh", duration: 1.4, ease: "power3.out" }, "<");
     tl.to(".panel-3", {
-      scale: 0.85,
-      y: "-10vh",
-      autoAlpha: 0,
-      transformOrigin: "center center",
-      duration: 1.0,
-      ease: "power2.inOut",
+      scale: 0.85, y: "-8vh", rotateX: 12, opacity: 0.4,
+      transformOrigin: "center 30%", duration: 1.4, ease: "power3.out",
     }, "<");
-    tl.addLabel("careers");
-    tl.to({}, { duration: 0.5 }); // End Hold
+    tl.to(".panel-2", { autoAlpha: 0, duration: 0.5, ease: "power3.out" }, "<");
+    tl.addLabel("darkness");
+    tl.to({}, { duration: 0.1 }); // final hold
 
   }, { scope: containerRef });
 
@@ -170,10 +156,14 @@ export default function AnimationFivePage() {
     const tl = tlRef.current;
     if (tl && tl.scrollTrigger) {
       const scrollPos = tl.scrollTrigger.labelToScroll(label);
-      window.scrollTo({
-        top: scrollPos,
-        behavior: "smooth",
-      });
+      if (lenis) {
+        lenis.scrollTo(scrollPos);
+      } else {
+        window.scrollTo({
+          top: scrollPos,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
@@ -203,41 +193,41 @@ export default function AnimationFivePage() {
         ))}
       </div>
 
-      {/* Main Pinned Scroll Section Container */}
-      <div ref={scrollSectionRef} className="h-screen w-full relative overflow-hidden">
+      {/* Main Pinned Scroll Section Container — perspective + preserve-3d enables rotateX fall-back */}
+      <div ref={scrollSectionRef} className="scroll-viewport h-screen w-full relative overflow-hidden" style={{ perspective: "1400px", perspectiveOrigin: "50% 40%" }}>
         
-        {/* PANEL 0: GREEN SECTION (Podcasts) */}
-        <section className="panel-0 absolute inset-0 bg-[#0c9367] text-white flex flex-col justify-between p-8 md:p-16 z-10 select-none">
+        {/* PANEL 0: GREEN SECTION (Pulsars) */}
+        <section className="panel-item panel-0 absolute inset-0 bg-[#0c9367] text-white flex flex-col justify-between p-8 md:p-16 z-10 select-none">
           <div className="flex justify-between items-center w-full">
-            <span className="font-mono text-[10px] uppercase tracking-wider opacity-75">/ sandbox-05 / module-01</span>
-            <span className="font-serif font-black text-xl tracking-tight">DEV</span>
+            <span className="font-mono text-[10px] uppercase tracking-wider opacity-75">/ cosmos-05 / module-01</span>
+            <span className="font-serif font-black text-xl tracking-tight">COSMOS</span>
           </div>
 
           <div className="flex-1 flex flex-col justify-center items-center text-center gap-6 max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-black uppercase tracking-tight leading-[1.05] border-b-6 border-white pb-3">
-              PODCASTS & TALKS
+              PULSARS & BEACONS
             </h1>
             <p className="text-sm md:text-base font-sans font-medium max-w-2xl leading-relaxed opacity-90">
-              Weekly unscripted development talk sessions covering core compiler engineering, VM performance, layout engines, and the realities of developer productivity.
+              Rapidly rotating neutron stars that emit highly focused beams of electromagnetic radiation. Observed as periodic pulses of energy as their beams sweep across the Earth.
             </p>
             <div className="flex gap-4 mt-2">
               <button className="brutalist-btn bg-white text-black px-6 py-3 rounded-full font-mono text-xs font-bold uppercase cursor-pointer">
-                Listen on Spotify
+                Explore Pulsars
               </button>
               <button className="brutalist-btn bg-black text-white px-6 py-3 rounded-full font-mono text-xs font-bold uppercase cursor-pointer">
-                Read Notes
+                View Spectral Data
               </button>
             </div>
           </div>
 
           <div className="w-full flex flex-col gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-wider font-bold opacity-75">Recent Episodes:</span>
+            <span className="font-mono text-[10px] uppercase tracking-wider font-bold opacity-75">Recent Discoveries:</span>
             <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-none w-full">
               {[
-                { ep: "EP-42", title: "Compilers in Rust", dur: "48 MIN" },
-                { ep: "EP-43", title: "React 19 Server Actions", dur: "52 MIN" },
-                { ep: "EP-44", title: "Is CSS Turing Complete?", dur: "37 MIN" },
-                { ep: "EP-45", title: "The Vim Exit Protocol", dur: "41 MIN" },
+                { ep: "PSR B1919+21", title: "First Pulsar Discovered", dur: "1.33 SEC PERIOD" },
+                { ep: "CRAB NEBULA", title: "Young Energetic Pulsar", dur: "33 MSEC PERIOD" },
+                { ep: "VELA PULSAR", title: "Gamma-Ray Source", dur: "89 MSEC PERIOD" },
+                { ep: "J1748-2446AD", title: "Fastest Spinning Star", dur: "716 HZ ROTATION" },
               ].map((item, i) => (
                 <div key={i} className="bg-[#fbfaf7] text-[#2a2a2a] border-3 border-black p-4 rounded-xl flex flex-col justify-between gap-3 shadow-[4px_4px_0px_rgba(0,0,0,0.95)] w-56 h-32 shrink-0">
                   <span className="font-mono text-[9px] font-bold text-zinc-400">{item.ep}</span>
@@ -249,39 +239,39 @@ export default function AnimationFivePage() {
           </div>
         </section>
 
-        {/* PANEL 1: RED SECTION (Community) */}
-        <section className="panel-1 absolute inset-0 bg-[#c53b3a] text-white flex flex-col justify-between p-8 md:p-16 z-12 transform translate-y-[120vh] select-none origin-bottom-left">
+        {/* PANEL 1: RED SECTION (Nebulae) */}
+        <section className="panel-item panel-1 absolute inset-0 bg-[#c53b3a] text-white flex flex-col justify-between p-8 md:p-16 z-[12] select-none">
           <div className="panel-1-content flex flex-col justify-between h-full w-full origin-bottom-left">
             <div className="flex justify-between items-center w-full">
-              <span className="font-mono text-[10px] uppercase tracking-wider opacity-75">/ sandbox-05 / module-02</span>
-              <span className="font-serif font-black text-xl tracking-tight">DEV</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider opacity-75">/ cosmos-05 / module-02</span>
+              <span className="font-serif font-black text-xl tracking-tight">COSMOS</span>
             </div>
 
             <div className="flex-1 flex flex-col justify-center items-center text-center gap-6 max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-black uppercase tracking-tight leading-[1.05] border-b-6 border-white pb-3">
-                DEV COMMUNITY
+                STELLAR NEBULAE
               </h1>
               <p className="text-sm md:text-base font-sans font-medium max-w-2xl leading-relaxed opacity-90">
-                An invite-only global guild for high-agency engineers, systems programmers, and active open-source contributors to share architectural plans and build side projects.
+                Giant interstellar clouds of dust, hydrogen, helium, and other ionized gases where new solar systems and stars are born over millions of years of gravitational collapse.
               </p>
               <div className="flex gap-4 mt-2">
                 <button className="brutalist-btn bg-white text-black px-6 py-3 rounded-full font-mono text-xs font-bold uppercase cursor-pointer">
-                  Apply to Guild
+                  Catalog Nebulae
                 </button>
                 <button className="brutalist-btn bg-black text-white px-6 py-3 rounded-full font-mono text-xs font-bold uppercase cursor-pointer">
-                  View Charter
+                  Hubble Gallery
                 </button>
               </div>
             </div>
 
             <div className="w-full flex flex-col gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-wider font-bold opacity-75">Community Highlights:</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider font-bold opacity-75">Nebula Highlights:</span>
               <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-none w-full">
                 {[
-                  { tag: "HACKATHON", title: "Tokyo War Room Meetup", size: "32 ENGINEERS" },
-                  { tag: "COLLABORATION", title: "Open Source CSS Parser", size: "4 MAINTAINERS" },
-                  { tag: "MEETUP", title: "London Rust Coffee Jam", size: "18 INDIE BUILDERS" },
-                  { tag: "WORKSHOP", title: "Wasm Assembly Hacks", size: "24 DEVELOPERS" },
+                  { tag: "ORION M42", title: "Brightest Diffuse Nebula", size: "1,344 LIGHT YRS" },
+                  { tag: "EAGLE M16", title: "Pillars of Creation", size: "7,000 LIGHT YRS" },
+                  { tag: "CARINA NGC 3372", title: "Massive Hypergiant Star", size: "8,500 LIGHT YRS" },
+                  { tag: "HELIX NGC 7293", title: "Planetary Cosmic Eye", size: "650 LIGHT YRS" },
                 ].map((item, i) => (
                   <div key={i} className="bg-[#fbfaf7] text-[#2a2a2a] border-3 border-black p-4 rounded-xl flex flex-col justify-between gap-3 shadow-[4px_4px_0px_rgba(0,0,0,0.95)] w-56 h-32 shrink-0">
                     <span className="font-mono text-[9px] font-bold text-zinc-400">[{item.tag}]</span>
@@ -294,39 +284,39 @@ export default function AnimationFivePage() {
           </div>
         </section>
 
-        {/* PANEL 2: BLUE SECTION (Offline Events) */}
-        <section className="panel-2 absolute inset-0 bg-[#3b82f6] text-white flex flex-col justify-between p-8 md:p-16 z-14 transform translate-y-[120vh] select-none origin-bottom-left">
+        {/* PANEL 2: BLUE SECTION (Gravity) */}
+        <section className="panel-item panel-2 absolute inset-0 bg-[#3b82f6] text-white flex flex-col justify-between p-8 md:p-16 z-[14] select-none">
           <div className="panel-2-content flex flex-col justify-between h-full w-full origin-bottom-left">
             <div className="flex justify-between items-center w-full">
-              <span className="font-mono text-[10px] uppercase tracking-wider opacity-75">/ sandbox-05 / module-03</span>
-              <span className="font-serif font-black text-xl tracking-tight">DEV</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider opacity-75">/ cosmos-05 / module-03</span>
+              <span className="font-serif font-black text-xl tracking-tight">COSMOS</span>
             </div>
 
             <div className="flex-1 flex flex-col justify-center items-center text-center gap-6 max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-black uppercase tracking-tight leading-[1.05] border-b-6 border-white pb-3">
-                OFFLINE EVENTS
+                EVENT HORIZONS
               </h1>
               <p className="text-sm md:text-base font-sans font-medium max-w-2xl leading-relaxed opacity-90">
-                Digital is where we chat, offline is where we ship. Face-to-face debugging rooms, technical weekend builds, and structured coffee talks without slides.
+                Gravitational fields so intense that nothing—no particles or electromagnetic radiation—can escape from them. Space-time is warped infinitely at the singularity.
               </p>
               <div className="flex gap-4 mt-2">
                 <button className="brutalist-btn bg-white text-black px-6 py-3 rounded-full font-mono text-xs font-bold uppercase cursor-pointer">
-                  Schedule List
+                  Hawking Radiation
                 </button>
                 <button className="brutalist-btn bg-black text-white px-6 py-3 rounded-full font-mono text-xs font-bold uppercase cursor-pointer">
-                  Host an Event
+                  Simulate Orbit
                 </button>
               </div>
             </div>
 
             <div className="w-full flex flex-col gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-wider font-bold opacity-75">Upcoming Locations:</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider font-bold opacity-75">Key Singularities:</span>
               <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-none w-full">
                 {[
-                  { tag: "SF", title: "Mission Hackathon Room", date: "DECEMBER 12-14" },
-                  { tag: "TOKYO", title: "Shibuya Coffee Hack", date: "JANUARY 8" },
-                  { tag: "BERLIN", title: "Kreuzberg Rust Day", date: "FEBRUARY 1" },
-                  { tag: "MUMBAI", title: "Bandra Web3 Summit", date: "MARCH 22" },
+                  { tag: "SAGITTARIUS A*", title: "Milky Way Center Core", date: "4.1M SOLAR MASS" },
+                  { tag: "M87* SINGULARITY", title: "First Directly Imaged", date: "6.5B SOLAR MASS" },
+                  { tag: "TON 618", title: "Largest Known Hole", date: "66B SOLAR MASS" },
+                  { tag: "CYGNUS X-1", title: "Stellar-Mass Black Hole", date: "21.2 SOLAR MASS" },
                 ].map((item, i) => (
                   <div key={i} className="bg-[#fbfaf7] text-[#2a2a2a] border-3 border-black p-4 rounded-xl flex flex-col justify-between gap-3 shadow-[4px_4px_0px_rgba(0,0,0,0.95)] w-56 h-32 shrink-0">
                     <span className="font-mono text-[9px] font-bold text-zinc-400">[{item.tag}]</span>
@@ -339,39 +329,39 @@ export default function AnimationFivePage() {
           </div>
         </section>
 
-        {/* PANEL 3: YELLOW SECTION (Fund) */}
-        <section className="panel-3 absolute inset-0 bg-[#f1b333] text-[#2a2a2a] flex flex-col justify-between p-8 md:p-16 z-16 transform translate-y-[120vh] select-none origin-bottom-left">
+        {/* PANEL 3: YELLOW SECTION (Supernova) */}
+        <section className="panel-item panel-3 absolute inset-0 bg-[#f1b333] text-[#2a2a2a] flex flex-col justify-between p-8 md:p-16 z-[16] select-none">
           <div className="panel-3-content flex flex-col justify-between h-full w-full origin-bottom-left">
             <div className="flex justify-between items-center w-full">
-              <span className="font-mono text-[10px] uppercase tracking-wider opacity-75">/ sandbox-05 / module-04</span>
-              <span className="font-serif font-black text-xl tracking-tight">DEV</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider opacity-75">/ cosmos-05 / module-04</span>
+              <span className="font-serif font-black text-xl tracking-tight">COSMOS</span>
             </div>
 
             <div className="flex-1 flex flex-col justify-center items-center text-center gap-6 max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-black uppercase tracking-tight leading-[1.05] border-b-6 border-[#2a2a2a] pb-3">
-                OPEN SOURCE FUND
+                COSMIC EXPLOSIONS
               </h1>
               <p className="text-sm md:text-base font-sans font-medium max-w-2xl leading-relaxed opacity-90 text-zinc-800">
-                Direct equity-free micro-grants for developers under 25 who are creating devtools, utility compilers, packaging libraries, and essential web components.
+                The final spectacular collapse of massive stars, seeding the surrounding space with heavy elements like gold, platinum, and iron necessary for the formation of planets and life.
               </p>
               <div className="flex gap-4 mt-2">
                 <button className="brutalist-btn bg-white text-[#2a2a2a] px-6 py-3 rounded-full font-mono text-xs font-bold uppercase cursor-pointer">
-                  Submit Project
+                  Elemental Yields
                 </button>
                 <button className="brutalist-btn bg-black text-white px-6 py-3 rounded-full font-mono text-xs font-bold uppercase cursor-pointer">
-                  View Grantees
+                  Map Remnants
                 </button>
               </div>
             </div>
 
             <div className="w-full flex flex-col gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-wider font-bold opacity-75">Funded Projects:</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider font-bold opacity-75">Supernova Remnants:</span>
               <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-none w-full">
                 {[
-                  { type: "UTILITY", name: "Indie CSS Parser engine", grant: "$5,000 GRANT" },
-                  { type: "DEVTOOL", name: "Wasm Terminal Emulator", grant: "$5,000 GRANT" },
-                  { type: "COMPILER", name: "Rust to JS AST transpiler", grant: "$7,500 GRANT" },
-                  { type: "LIBRARY", name: "Neo-Brutalism CSS framework", grant: "$4,000 GRANT" },
+                  { type: "SN 1054", name: "Crab Nebula Exploded", grant: "OBSERVED 1054 AD" },
+                  { type: "CASSIOPEIA A", name: "Brightest Radio Source", grant: "340 YEARS OLD" },
+                  { type: "SN 1987A", name: "Closest Observed Star", grant: "168K LIGHT YRS" },
+                  { type: "KEPLER'S REMNANT", name: "Last Milky Way Supernova", grant: "OBSERVED 1604 AD" },
                 ].map((item, i) => (
                   <div key={i} className="bg-white text-[#2a2a2a] border-3 border-black p-4 rounded-xl flex flex-col justify-between gap-3 shadow-[4px_4px_0px_rgba(0,0,0,0.95)] w-56 h-32 shrink-0">
                     <span className="font-mono text-[9px] font-bold text-zinc-400">[{item.type}]</span>
@@ -384,39 +374,39 @@ export default function AnimationFivePage() {
           </div>
         </section>
 
-        {/* PANEL 4: PURPLE SECTION (Careers) */}
-        <section className="panel-4 absolute inset-0 bg-[#6758a5] text-white flex flex-col justify-between p-8 md:p-16 z-18 transform translate-y-[120vh] select-none origin-bottom-left">
+        {/* PANEL 4: PURPLE SECTION (Darkness) */}
+        <section className="panel-item panel-4 absolute inset-0 bg-[#6758a5] text-white flex flex-col justify-between p-8 md:p-16 z-[18] select-none">
           <div className="panel-4-content flex flex-col justify-between h-full w-full origin-bottom-left">
             <div className="flex justify-between items-center w-full">
-              <span className="font-mono text-[10px] uppercase tracking-wider opacity-75">/ sandbox-05 / module-05</span>
-              <span className="font-serif font-black text-xl tracking-tight">DEV</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider opacity-75">/ cosmos-05 / module-05</span>
+              <span className="font-serif font-black text-xl tracking-tight">COSMOS</span>
             </div>
 
             <div className="flex-1 flex flex-col justify-center items-center text-center gap-6 max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-black uppercase tracking-tight leading-[1.05] border-b-6 border-white pb-3">
-                DEV CAREERS
+                THE INVISIBLE WEB
               </h1>
               <p className="text-sm md:text-base font-sans font-medium max-w-2xl leading-relaxed opacity-90">
-                Skip HR and standard application tracking algorithms. Get placed directly into engineering roles at early-stage open source startups and engineering teams.
+                Mysterious components making up 95% of the total universe. Dark matter binds galaxies together structurally, while dark energy accelerates the expansion of space-time itself.
               </p>
               <div className="flex gap-4 mt-2">
                 <button className="brutalist-btn bg-white text-black px-6 py-3 rounded-full font-mono text-xs font-bold uppercase cursor-pointer">
-                  Submit Profile
+                  WIMP Experiments
                 </button>
                 <button className="brutalist-btn bg-black text-white px-6 py-3 rounded-full font-mono text-xs font-bold uppercase cursor-pointer">
-                  Browse Roles
+                  Map Expansion
                 </button>
               </div>
             </div>
 
             <div className="w-full flex flex-col gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-wider font-bold opacity-75">Active Open Roles:</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider font-bold opacity-75">Astrophysics Focus:</span>
               <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-none w-full">
                 {[
-                  { tag: "SYSTEMS", title: "Rust Compiler Dev", location: "TOKYO / REMOTE" },
-                  { tag: "FRONTEND", title: "NextJS Component Lead", location: "SAN FRANCISCO" },
-                  { tag: "DATABASE", title: "Wasm SQL Parser Engineer", location: "REMOTE" },
-                  { tag: "ENGINEERING", title: "Founding Infra Architect", location: "BERLIN / ONSITE" },
+                  { tag: "COSMIC WEB", title: "Dark Matter Filaments", location: "LARGE-SCALE CORE" },
+                  { tag: "BULLET CLUSTER", title: "Matter-Separation Proof", location: "EMPIRICAL PROOF" },
+                  { tag: "LAMBDA-CDM", title: "Big Bang Cosmology Model", location: "STANDARD MODEL" },
+                  { tag: "WFIRST MISSION", title: "Nancy Roman Telescope", location: "LAUNCHING 2027" },
                 ].map((item, i) => (
                   <div key={i} className="bg-[#fbfaf7] text-[#2a2a2a] border-3 border-black p-4 rounded-xl flex flex-col justify-between gap-3 shadow-[4px_4px_0px_rgba(0,0,0,0.95)] w-56 h-32 shrink-0">
                     <span className="font-mono text-[9px] font-bold text-zinc-400">[{item.tag}]</span>
