@@ -66,6 +66,24 @@ const animations = [
     description: "Premium scroll-driven layout where orbiting abstract cards converge into a sleek horizontal timeline.",
     tiltClass: "tilt-right",
   },
+  {
+    id: "08",
+    name: "Blueprint Scatter Gallery",
+    route: "/08-blueprint-scatter",
+    bgColor: "bg-wtf-purple",
+    textColor: "text-white",
+    description: "Premium page-load exploding cards and text scramble animation matching the layout of blueprintapps.io.",
+    tiltClass: "tilt-left",
+  },
+  {
+    id: "09",
+    name: "Circular Scatter Gallery",
+    route: "/09-circular-scatter",
+    bgColor: "bg-wtf-orange",
+    textColor: "text-white",
+    description: "Circular loop scatter animation where cards stack one-by-one at screen center, then scatter to the outer edges with hero text centered.",
+    tiltClass: "tilt-right",
+  },
 ];
 
 const hoverColorsMap: Record<string, string> = {
