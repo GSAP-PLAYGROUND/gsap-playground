@@ -84,6 +84,15 @@ const animations = [
     description: "Circular loop scatter animation where cards stack one-by-one at screen center, then scatter to the outer edges with hero text centered.",
     tiltClass: "tilt-right",
   },
+  {
+    id: "10",
+    name: "Screen for Skills",
+    route: "/10-screen-skill-fit",
+    bgColor: "bg-wtf-green",
+    textColor: "text-white",
+    description: "Premium candidate profile showcase animation with vertical ScrollTrigger pinning and technology staggers.",
+    tiltClass: "tilt-left",
+  },
 ];
 
 const hoverColorsMap: Record<string, string> = {
