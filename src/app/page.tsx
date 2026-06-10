@@ -42,7 +42,7 @@ const animations = [
   {
     id: "05",
     name: "PAGE CHANGE ANIMATION",
-    route: "/05-tactile-yellow-sandbox",
+    route: "/05-page-change-animation",
     bgColor: "bg-wtf-yellow",
     textColor: "text-black",
     description: "Premium stacked page-peel scroll animation where color-themed sections slide up and overlap with dynamic skewing.",
@@ -51,7 +51,7 @@ const animations = [
   {
     id: "06",
     name: "Adding soon",
-    route: "/06-kinetic-purple-sandbox",
+    route: "/06-adding-soon",
     bgColor: "bg-wtf-purple",
     textColor: "text-white",
     description: "High-contrast purple workspace template for advanced kinetic typography.",
