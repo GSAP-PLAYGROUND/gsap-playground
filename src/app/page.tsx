@@ -135,11 +135,16 @@ export default function Home() {
                 </p>
               </div>
 
-              <Link href={anim.route} className="w-full mt-2 block">
-                <button className={`w-full brutalist-btn bg-white ${hoverColorsMap[anim.bgColor] || ""} border-[#2a2a2a] text-[#2a2a2a] font-mono font-bold text-xs py-3 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150`}>
-                  Open →
+              <div className="w-full mt-2 flex gap-3">
+                <Link href={anim.route} className="flex-1">
+                  <button className={`w-full brutalist-btn bg-white ${hoverColorsMap[anim.bgColor] || ""} border-[#2a2a2a] text-[#2a2a2a] font-mono font-bold text-xs py-3 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150`}>
+                    View →
+                  </button>
+                </Link>
+                <button className={`flex-1 brutalist-btn bg-white ${hoverColorsMap[anim.bgColor] || ""} border-[#2a2a2a] text-[#2a2a2a] font-mono font-bold text-xs py-3 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150`}>
+                  Get Code
                 </button>
-              </Link>
+              </div>
             </div>
           ))}
         </div>
