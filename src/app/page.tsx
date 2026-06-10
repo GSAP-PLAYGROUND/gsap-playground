@@ -50,11 +50,11 @@ const animations = [
   },
   {
     id: "06",
-    name: "Adding soon",
-    route: "/06-adding-soon",
+    name: "Kinetic Typography",
+    route: "/06-kinetic-typography",
     bgColor: "bg-wtf-purple",
     textColor: "text-white",
-    description: "High-contrast purple workspace template for advanced kinetic typography.",
+    description: "Interactive kinetic text sandbox showcasing liquid wave, character scramble, and magnetic motion.",
     tiltClass: "tilt-left",
   },
 ];
