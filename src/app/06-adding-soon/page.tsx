@@ -2,27 +2,27 @@
 
 import Link from "next/link";
 
-export default function AnimationSixPage() {
+export default function AddingSoonPage() {
   return (
     <div className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center justify-center p-4 selection:bg-wtf-yellow selection:text-black">
       <div className="absolute inset-0 dot-grid pointer-events-none z-0" />
-      
+
       <div className="z-10 w-full max-w-xl brutalist-card p-8 bg-white flex flex-col gap-6 text-center">
-        <div className="inline-flex self-center items-center gap-2 bg-wtf-purple border-2 border-[#2a2a2a] px-4 py-1.5 rounded-full text-[10px] font-mono font-bold text-white uppercase tracking-widest shadow-[3px_3px_0px_#2a2a2a] tilt-right">
-          <span>Kinetic Purple Sandbox</span>
+        <div className="inline-flex self-center items-center gap-2 bg-wtf-purple border-2 border-[#2a2a2a] px-4 py-1.5 rounded-full text-[10px] font-mono font-bold text-white uppercase tracking-widest shadow-[3px_3px_0px_#2a2a2a] tilt-left">
+          <span>Adding Soon</span>
         </div>
-        
+
         <h1 className="text-4xl font-serif font-black uppercase tracking-tight leading-none">
-          Kinetic Purple Sandbox
+          Adding Soon
         </h1>
-        
+
         <p className="text-sm font-sans font-medium text-zinc-700">
-          This is your sandbox page for <span className="font-bold">Kinetic Purple Sandbox</span>. Replace this content with your custom layouts and GSAP animations.
+          This animation is not ready yet. Check back later for advanced kinetic typography.
         </p>
 
         <div className="border-3 border-dashed border-zinc-300 rounded-xl p-8 bg-zinc-50 flex flex-col items-center justify-center gap-2">
           <span className="text-2xl">⚡</span>
-          <span className="font-mono text-xs font-bold text-zinc-500">Animation Sandbox Ready</span>
+          <span className="font-mono text-xs font-bold text-zinc-500">Coming Soon</span>
         </div>
 
         <Link href="/" className="inline-block mt-2">
