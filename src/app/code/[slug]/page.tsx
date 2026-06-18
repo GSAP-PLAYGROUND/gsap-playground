@@ -47,15 +47,15 @@ function parseHowToUse(markdown: string): ParsedMarkdown {
       continue;
     }
 
-    const headerText = headerMatch[2].toLowerCase();
+    const headerText = headerMatch[2].toLowerCase().trim();
     const codeBlockMatch = sec.match(/```[a-z]*\n([\s\S]*?)```/);
     const code = codeBlockMatch ? codeBlockMatch[1].trim() : null;
 
-    if (headerText.includes("standalone") || headerText.includes("component")) {
+    if (headerText.startsWith("standalone component") || headerText.startsWith("standalone react")) {
       result.standalone = code;
-    } else if (headerText.includes("core") || headerText.includes("animation")) {
+    } else if (headerText.startsWith("core gsap") || headerText.startsWith("core animation")) {
       result.coreGsap = code;
-    } else if (headerText.includes("setup") || headerText.includes("dependenc")) {
+    } else if (headerText.startsWith("setup & integration") || headerText.startsWith("setup and integration")) {
       result.setupGuide = sec.trim();
     }
   }

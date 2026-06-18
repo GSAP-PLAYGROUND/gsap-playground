@@ -289,10 +289,10 @@ export default function CodePageClient({
 }: CodePageClientProps) {
   // Determine available tabs
   const tabs = [];
+  tabs.push({ id: "page", label: "Full Sandbox Page", code: pageCode, file: "page.tsx" });
   if (standaloneCode) {
     tabs.push({ id: "standalone", label: "Standalone React Component", code: standaloneCode, file: `${getClassName(slug)}.tsx` });
   }
-  tabs.push({ id: "page", label: "Full Sandbox Page", code: pageCode, file: "page.tsx" });
   if (coreGsapCode) {
     tabs.push({ id: "core", label: "Core GSAP Timeline", code: coreGsapCode, file: "animation.js" });
   }
@@ -318,7 +318,13 @@ export default function CodePageClient({
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = activeTab.file;
+    
+    let fileName = activeTab.file;
+    if (activeTab.id === "page") {
+      fileName = `${getClassName(slug)}.tsx`;
+    }
+    
+    link.download = fileName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -443,14 +449,14 @@ export default function CodePageClient({
           </div>
 
           {/* Code Body */}
-          <div className="relative flex-1 max-h-[600px] min-h-[300px] overflow-y-auto overscroll-contain font-mono text-[13px] bg-[#121212] py-5 px-4 flex">
+          <div className="relative flex-1 font-mono text-[13px] bg-[#121212] py-5 px-4 flex items-start">
             {/* Line Numbers */}
             <pre className="select-none text-right pr-4 border-r border-zinc-800 text-zinc-650 min-w-[3.5rem] whitespace-pre scrollbar-none">
               {activeTab.code.split("\n").map((_, i) => i + 1).join("\n")}
             </pre>
 
             {/* Highlighted Code */}
-            <pre className="pl-5 flex-1 overflow-x-auto overflow-y-hidden text-[#abb2bf] scrollbar-none whitespace-pre select-text selection:bg-wtf-orange selection:text-white">
+            <pre className="pl-5 flex-1 overflow-x-auto text-[#abb2bf] scrollbar-none whitespace-pre select-text selection:bg-wtf-orange selection:text-white">
               <code dangerouslySetInnerHTML={{ __html: highlighted }} />
             </pre>
           </div>
