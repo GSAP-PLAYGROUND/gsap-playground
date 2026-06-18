@@ -275,7 +275,7 @@ export default function ShowUpCardsPage() {
                   {/* Back Side Face (Scroll-revealed) */}
                   <div className="flip-card-back absolute inset-0 brutalist-card p-4 bg-white border-3 border-[#2a2a2a] text-[#2a2a2a] flex flex-col justify-between rotate-y-180 backface-hidden cursor-pointer select-none">
                     <div className="w-full flex justify-between font-mono font-bold text-[9px] uppercase border-b-2 border-black pb-2 items-center">
-                      <span className="text-zinc-400">0{stage.id} // NODE DETAILS</span>
+                      <span className="text-zinc-400">0{stage.id} {"//"} NODE DETAILS</span>
                       <span className={`h-2.5 w-2.5 rounded-full border border-black animate-pulse ${stage.accentClass}`} />
                     </div>
 

@@ -84,71 +84,73 @@ export default function MorphingAccordionPage() {
 
   const { contextSafe } = useGSAP({ scope: containerRef });
 
-  const handleToggle = contextSafe((index: number) => {
+  const handleToggle = (index: number) => {
     const isExpanding = activeIndex !== index;
     setActiveIndex(isExpanding ? index : null);
 
     const activeItem = accordionItems[index];
 
-    // Morph the page background & main card border color
-    gsap.to(containerRef.current, {
-      backgroundColor: isExpanding ? activeItem.bgTint : "#f0eadf",
-      duration: 0.5,
-      ease: "power2.out",
-    });
+    contextSafe(() => {
+      // Morph the page background & main card border color
+      gsap.to(containerRef.current, {
+        backgroundColor: isExpanding ? activeItem.bgTint : "#f0eadf",
+        duration: 0.5,
+        ease: "power2.out",
+      });
 
-    gsap.to(cardRef.current, {
-      borderColor: isExpanding ? activeItem.color : "#2a2a2a",
-      boxShadow: isExpanding ? `8px 8px 0px ${activeItem.color}` : "6px 6px 0px #2a2a2a",
-      duration: 0.5,
-      ease: "power2.out",
-    });
+      gsap.to(cardRef.current, {
+        borderColor: isExpanding ? activeItem.color : "#2a2a2a",
+        boxShadow: isExpanding ? `8px 8px 0px ${activeItem.color}` : "6px 6px 0px #2a2a2a",
+        duration: 0.5,
+        ease: "power2.out",
+      });
 
-    // Animate all height transitions
-    accordionItems.forEach((_, idx) => {
-      const el = contentRefs.current[idx];
-      if (!el) return;
+      // Animate all height transitions
+      accordionItems.forEach((_, idx) => {
+        const el = contentRefs.current[idx];
+        if (!el) return;
 
-      const shouldExpand = isExpanding && idx === index;
+        const shouldExpand = isExpanding && idx === index;
 
-      // Calculate details lists animations inside the expanded item
-      if (shouldExpand) {
-        gsap.to(el, {
-          height: "auto",
-          opacity: 1,
-          marginTop: 16,
-          duration: 0.45,
-          ease: "power3.inOut",
-          overwrite: "auto",
-        });
-
-        // Stagger list elements inside the expanding content
-        const listItems = el.querySelectorAll(".accordion-detail-item");
-        gsap.fromTo(
-          listItems,
-          { y: 15, opacity: 0 },
-          {
-            y: 0,
+        // Calculate details lists animations inside the expanded item
+        if (shouldExpand) {
+          gsap.to(el, {
+            height: "auto",
             opacity: 1,
-            stagger: 0.08,
-            duration: 0.4,
-            ease: "power2.out",
-            delay: 0.1,
+            marginTop: 16,
+            duration: 0.45,
+            ease: "power3.inOut",
             overwrite: "auto",
-          }
-        );
-      } else {
-        gsap.to(el, {
-          height: 0,
-          opacity: 0,
-          marginTop: 0,
-          duration: 0.35,
-          ease: "power3.inOut",
-          overwrite: "auto",
-        });
-      }
-    });
-  });
+          });
+
+          // Stagger list elements inside the expanding content
+          const listItems = el.querySelectorAll(".accordion-detail-item");
+          gsap.fromTo(
+            listItems,
+            { y: 15, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              stagger: 0.08,
+              duration: 0.4,
+              ease: "power2.out",
+              delay: 0.1,
+              overwrite: "auto",
+            }
+          );
+        } else {
+          gsap.to(el, {
+            height: 0,
+            opacity: 0,
+            marginTop: 0,
+            duration: 0.35,
+            ease: "power3.inOut",
+            overwrite: "auto",
+          });
+        }
+      });
+    })();
+  };
 
   return (
     <div

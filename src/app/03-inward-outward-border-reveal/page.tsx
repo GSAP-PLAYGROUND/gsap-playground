@@ -18,7 +18,10 @@ export default function AnimationThreePage() {
 
     // 1. Create the main horizontal translation tween
     const horizontalTween = gsap.to(textTrackRef.current, {
-      x: () => -(textTrackRef.current?.scrollWidth! - window.innerWidth),
+      x: () => {
+        const track = textTrackRef.current;
+        return track ? -(track.scrollWidth - window.innerWidth) : 0;
+      },
       ease: "none",
       scrollTrigger: {
         trigger: scrollSectionRef.current,

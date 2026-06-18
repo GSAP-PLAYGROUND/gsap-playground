@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -26,9 +26,6 @@ export default function FluidCursorPage() {
     const xToDot = gsap.quickTo(dotRef.current, "x", { duration: 0.08, ease: "power2.out" });
     const yToDot = gsap.quickTo(dotRef.current, "y", { duration: 0.08, ease: "power2.out" });
 
-    const xToRing = gsap.quickTo(ringRef.current, "x", { duration: 0.35, ease: "power3.out" });
-    const yToRing = gsap.quickTo(ringRef.current, "y", { duration: 0.35, ease: "power3.out" });
-
     const updateCursor = (e: MouseEvent) => {
       mouseCoords.current = { x: e.clientX, y: e.clientY };
 
@@ -36,8 +33,13 @@ export default function FluidCursorPage() {
       if (!isHovered.current) {
         xToDot(e.clientX);
         yToDot(e.clientY);
-        xToRing(e.clientX - 16); // center the 32px ring
-        yToRing(e.clientY - 16);
+        gsap.to(ringRef.current, {
+          x: e.clientX - 16,
+          y: e.clientY - 16,
+          duration: 0.35,
+          ease: "power3.out",
+          overwrite: "auto",
+        });
       } else if (activeTargetRef.current) {
         // If we are hovering a target, follow the mouse inside the target with a slight offset
         const rect = activeTargetRef.current.getBoundingClientRect();
@@ -68,7 +70,7 @@ export default function FluidCursorPage() {
   }, { scope: containerRef });
 
   // Handle snapping mouse enter
-  const handleTargetEnter = contextSafe((e: React.MouseEvent<HTMLElement>) => {
+  const handleTargetEnter = (e: React.MouseEvent<HTMLElement>) => {
     isHovered.current = true;
     const target = e.currentTarget;
     activeTargetRef.current = target;
@@ -76,83 +78,87 @@ export default function FluidCursorPage() {
     const rect = target.getBoundingClientRect();
     const cursorText = target.getAttribute("data-cursor-text") || "";
     
-    // Smoothly morph the outer ring to enclose the hovered element
-    gsap.to(ringRef.current, {
-      width: rect.width,
-      height: rect.height,
-      borderRadius: "12px", // match standard brutalist cards
-      borderWidth: "3px",
-      borderColor: "#2a2a2a",
-      backgroundColor: "rgba(241, 179, 51, 0.2)", // semi-transparent yellow
-      boxShadow: "4px 4px 0px #2a2a2a",
-      x: rect.left,
-      y: rect.top,
-      duration: 0.3,
-      ease: "power2.out",
-      overwrite: "auto",
-    });
+    contextSafe(() => {
+      // Smoothly morph the outer ring to enclose the hovered element
+      gsap.to(ringRef.current, {
+        width: rect.width,
+        height: rect.height,
+        borderRadius: "12px", // match standard brutalist cards
+        borderWidth: "3px",
+        borderColor: "#2a2a2a",
+        backgroundColor: "rgba(241, 179, 51, 0.2)", // semi-transparent yellow
+        boxShadow: "4px 4px 0px #2a2a2a",
+        x: rect.left,
+        y: rect.top,
+        duration: 0.3,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
 
-    // Animate inner dot to scale down
-    gsap.to(dotRef.current, {
-      scale: 0.5,
-      backgroundColor: "#e55b3c", // orange dot
-      duration: 0.2,
-      overwrite: "auto",
-    });
-
-    // Make target hover tag visible inside the ring
-    const labelEl = ringRef.current?.querySelector(".cursor-label");
-    if (labelEl) {
-      labelEl.innerHTML = cursorText;
-      gsap.to(labelEl, {
-        opacity: 1,
-        scale: 1,
-        y: -24,
+      // Animate inner dot to scale down
+      gsap.to(dotRef.current, {
+        scale: 0.5,
+        backgroundColor: "#e55b3c", // orange dot
         duration: 0.2,
         overwrite: "auto",
       });
-    }
-  });
+
+      // Make target hover tag visible inside the ring
+      const labelEl = ringRef.current?.querySelector(".cursor-label");
+      if (labelEl) {
+        labelEl.innerHTML = cursorText;
+        gsap.to(labelEl, {
+          opacity: 1,
+          scale: 1,
+          y: -24,
+          duration: 0.2,
+          overwrite: "auto",
+        });
+      }
+    })();
+  };
 
   // Handle mouse leave reset
-  const handleTargetLeave = contextSafe(() => {
+  const handleTargetLeave = () => {
     isHovered.current = false;
     activeTargetRef.current = null;
 
-    // Reset ring back to default round state
-    gsap.to(ringRef.current, {
-      width: 32,
-      height: 32,
-      borderRadius: "9999px",
-      borderWidth: "3px",
-      borderColor: "#2a2a2a",
-      backgroundColor: "transparent",
-      boxShadow: "0px 0px 0px transparent",
-      duration: 0.35,
-      ease: "back.out(1.5)",
-      overwrite: "auto",
-    });
+    contextSafe(() => {
+      // Reset ring back to default round state
+      gsap.to(ringRef.current, {
+        width: 32,
+        height: 32,
+        borderRadius: "9999px",
+        borderWidth: "3px",
+        borderColor: "#2a2a2a",
+        backgroundColor: "transparent",
+        boxShadow: "0px 0px 0px transparent",
+        duration: 0.35,
+        ease: "back.out(1.5)",
+        overwrite: "auto",
+      });
 
-    // Reset dot back to default
-    gsap.to(dotRef.current, {
-      scale: 1,
-      backgroundColor: "#2a2a2a",
-      duration: 0.2,
-      overwrite: "auto",
-    });
-
-    // Hide text label
-    const labelEl = ringRef.current?.querySelector(".cursor-label");
-    if (labelEl) {
-      gsap.to(labelEl, {
-        opacity: 0,
-        scale: 0.6,
-        y: 0,
+      // Reset dot back to default
+      gsap.to(dotRef.current, {
+        scale: 1,
+        backgroundColor: "#2a2a2a",
         duration: 0.2,
         overwrite: "auto",
       });
-    }
-  });
+
+      // Hide text label
+      const labelEl = ringRef.current?.querySelector(".cursor-label");
+      if (labelEl) {
+        gsap.to(labelEl, {
+          opacity: 0,
+          scale: 0.6,
+          y: 0,
+          duration: 0.2,
+          overwrite: "auto",
+        });
+      }
+    })();
+  };
 
   return (
     <div
@@ -242,7 +248,7 @@ export default function FluidCursorPage() {
             Project Gamma
           </h2>
           <p className="text-xs text-zinc-600 font-sans font-medium leading-normal">
-            A beautiful, lag-free user experience using GSAP's optimized quickTo.
+            A beautiful, lag-free user experience using GSAP&apos;s optimized quickTo.
           </p>
         </div>
       </main>

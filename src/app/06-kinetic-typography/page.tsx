@@ -281,15 +281,15 @@ export default function KineticTypographyPage() {
           <div className="flex flex-col gap-2.5">
             <label className="font-mono text-xs font-bold text-zinc-500 uppercase">2. Animation Mode</label>
             <div className="grid grid-cols-2 gap-2">
-              {[
+              {([
                 { id: "wave", label: "Wave Cascade" },
                 { id: "scramble", label: "Cyber Scramble" },
                 { id: "magnetic", label: "Magnetic Push" },
                 { id: "liquid", label: "Liquid Warp" }
-              ].map((m) => (
+              ] as const).map((m) => (
                 <button
                   key={m.id}
-                  onClick={() => setMode(m.id as any)}
+                  onClick={() => setMode(m.id)}
                   className={`font-mono text-[11px] font-bold py-2 px-2.5 border-2 border-[#2a2a2a] rounded-lg transition-all shadow-[2px_2px_0px_#2a2a2a] cursor-pointer ${
                     mode === m.id 
                       ? "bg-wtf-purple text-white shadow-none translate-x-[2px] translate-y-[2px]" 

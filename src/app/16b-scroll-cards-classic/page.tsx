@@ -68,8 +68,6 @@ export default function ScrollCardsPage() {
     if (cardEls.length === 0) return;
 
     cardEls.forEach((card, index) => {
-      const cardInner = card.querySelector(".scroll-card-inner");
-      
       // Calculate dynamic pin durations so all cards stack and then scroll away together
       const baseDuration = 450;
       const pinDuration = (cardEls.length - index) * baseDuration;

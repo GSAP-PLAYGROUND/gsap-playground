@@ -75,7 +75,7 @@ export default function MagneticDockPage() {
 
   const { contextSafe } = useGSAP({ scope: containerRef });
 
-  const handleMouseMove = contextSafe((e: React.MouseEvent<HTMLDivElement>, index: number) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
     const btn = dockItemsRef.current[index];
     if (!btn) return;
 
@@ -91,63 +91,69 @@ export default function MagneticDockPage() {
     const pullX = distanceX * 0.35;
     const pullY = distanceY * 0.35;
 
-    gsap.to(btn, {
-      x: pullX,
-      y: pullY,
-      scale: 1.15,
-      rotation: pullX * 0.1,
-      duration: 0.3,
-      ease: "power2.out",
-      overwrite: "auto",
-    });
-  });
+    contextSafe(() => {
+      gsap.to(btn, {
+        x: pullX,
+        y: pullY,
+        scale: 1.15,
+        rotation: pullX * 0.1,
+        duration: 0.3,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+    })();
+  };
 
-  const handleMouseLeave = contextSafe((index: number) => {
+  const handleMouseLeave = (index: number) => {
     const btn = dockItemsRef.current[index];
     if (!btn) return;
 
-    gsap.to(btn, {
-      x: 0,
-      y: 0,
-      scale: 1,
-      rotation: 0,
-      duration: 0.5,
-      ease: "elastic.out(1, 0.4)",
-      overwrite: "auto",
-    });
-  });
+    contextSafe(() => {
+      gsap.to(btn, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        rotation: 0,
+        duration: 0.5,
+        ease: "elastic.out(1, 0.4)",
+        overwrite: "auto",
+      });
+    })();
+  };
 
-  const handleClick = contextSafe((id: string, index: number) => {
+  const handleClick = (id: string, index: number) => {
     setActiveItem(id);
     const btn = dockItemsRef.current[index];
     if (!btn) return;
 
-    // Springy click feedback (squash and stretch)
-    const tl = gsap.timeline();
-    tl.to(btn, {
-      scaleX: 1.35,
-      scaleY: 0.65,
-      duration: 0.1,
-      ease: "power1.out",
-    })
-      .to(btn, {
-        scaleX: 0.8,
-        scaleY: 1.25,
-        duration: 0.15,
+    contextSafe(() => {
+      // Springy click feedback (squash and stretch)
+      const tl = gsap.timeline();
+      tl.to(btn, {
+        scaleX: 1.35,
+        scaleY: 0.65,
+        duration: 0.1,
         ease: "power1.out",
       })
-      .to(btn, {
-        scaleX: 1.1,
-        scaleY: 0.95,
-        duration: 0.15,
-      })
-      .to(btn, {
-        scaleX: 1,
-        scaleY: 1,
-        duration: 0.2,
-        ease: "elastic.out(1, 0.3)",
-      });
-  });
+        .to(btn, {
+          scaleX: 0.8,
+          scaleY: 1.25,
+          duration: 0.15,
+          ease: "power1.out",
+        })
+        .to(btn, {
+          scaleX: 1.1,
+          scaleY: 0.95,
+          duration: 0.15,
+        })
+        .to(btn, {
+          scaleX: 1,
+          scaleY: 1,
+          duration: 0.2,
+          ease: "elastic.out(1, 0.3)",
+        });
+    })();
+  };
 
   return (
     <div className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center justify-between p-8 selection:bg-wtf-yellow selection:text-black overflow-hidden" ref={containerRef}>

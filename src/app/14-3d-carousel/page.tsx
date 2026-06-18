@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -297,6 +297,36 @@ export default function ThreeDCarouselPage() {
     });
   };
 
+  const closeDetail = useCallback(() => {
+    if (detailIdx === null) return;
+
+    const previousIdx = detailIdx;
+    setDetailIdx(null);
+
+    // Stagger out elements inside detail panel
+    if (detailPanelRef.current) {
+      gsap.to(detailPanelRef.current, {
+        x: "100%",
+        opacity: 0,
+        duration: 0.5,
+        ease: "power3.inOut",
+        overwrite: "auto",
+      });
+    }
+
+    // Restore wrapper background
+    const activeItem = items[previousIdx];
+    if (wrapperRef.current) {
+      const targetBg = getHexWithOpacity(activeItem.bgColor, 0.12);
+      gsap.to(wrapperRef.current, {
+        backgroundColor: targetBg,
+        duration: 0.6,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+    }
+  }, [detailIdx]);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -321,7 +351,7 @@ export default function ThreeDCarouselPage() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [detailIdx]);
+  }, [detailIdx, closeDetail]);
 
   // Card Mouse Hover 3D Tilt Effect
   const handleCardMouseMove = (e: React.MouseEvent, index: number) => {
@@ -426,35 +456,7 @@ export default function ThreeDCarouselPage() {
     }
   };
 
-  const closeDetail = () => {
-    if (detailIdx === null) return;
 
-    const previousIdx = detailIdx;
-    setDetailIdx(null);
-
-    // Stagger out elements inside detail panel
-    if (detailPanelRef.current) {
-      gsap.to(detailPanelRef.current, {
-        x: "100%",
-        opacity: 0,
-        duration: 0.5,
-        ease: "power3.inOut",
-        overwrite: "auto",
-      });
-    }
-
-    // Restore wrapper background
-    const activeItem = items[previousIdx];
-    if (wrapperRef.current) {
-      const targetBg = getHexWithOpacity(activeItem.bgColor, 0.12);
-      gsap.to(wrapperRef.current, {
-        backgroundColor: targetBg,
-        duration: 0.6,
-        ease: "power3.out",
-        overwrite: "auto",
-      });
-    }
-  };
 
   return (
     <div
@@ -633,7 +635,7 @@ export default function ThreeDCarouselPage() {
             {/* Top Bar inside panel */}
             <div className="flex items-center justify-between stagger-in">
               <span className="font-mono text-xs font-bold text-zinc-400">
-                MODULE 0{items[detailIdx].id + 1} // DETAIL EXPANSION
+                MODULE 0{items[detailIdx].id + 1} {"//"} DETAIL EXPANSION
               </span>
               <button
                 onClick={closeDetail}
