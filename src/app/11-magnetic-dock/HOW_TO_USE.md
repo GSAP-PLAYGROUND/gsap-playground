@@ -212,11 +212,47 @@ export default function MagneticDock({ items = defaultDockData, onSelect }: Magn
 }
 ```
 
-## Setup & Dependencies
+## Setup & Integration Guide
 
-1. Make sure you install GSAP and its React hook helper:
-   ```bash
-   pnpm add gsap @gsap/react
-   ```
-2. Rendering parameters:
-   - Make sure your container handles overflow-visible so the dock buttons can pop out and scale beyond the bounds of the menu frame when hovered.
+Follow these beginner-friendly, step-by-step instructions to integrate the component into your project.
+
+### ⚡ Step 1: Install Dependencies
+Open your project terminal and install the required GreenSock libraries:
+```bash
+npm install gsap @gsap/react
+```
+
+### 📁 Step 2: Save the Component File
+1. Create a new component file inside your React/Next.js folder structure, for example:
+   `file:///your-project/src/components/MagneticDock.tsx`
+2. Copy the **Standalone Component Code** shown in the code tabs above.
+3. Paste it directly into the new file.
+
+### 🚀 Step 3: Import and Render
+Import the component and render it inside any page layout:
+```tsx
+import MagneticDock from "@/components/MagneticDock.tsx";
+
+export default function Page() {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-[#f0eadf] p-8">
+      <MagneticDock />
+    </main>
+  );
+}
+```
+
+---
+
+## 🛠️ Customization & Component Properties (Props)
+
+You can pass the following settings to configure the layout and animation details:
+
+- `items` (Array): A list of dock navigation buttons containing labels, colors, and SVG icons.
+- `onSelect` (Function): Callback function triggered when a button is clicked.
+
+### 🎨 Neo-Brutalist Theme Tokens
+To match TweenLabs' signature premium editorial styling:
+- **Canvas Backdrop**: `bg-[#f0eadf]` (warm sand color)
+- **High-contrast Borders**: `border-3 border-[#2a2a2a]` (solid charcoal outline)
+- **Drop Shadow Blocks**: `shadow-[6px_6px_0px_#2a2a2a]` (tactile offsets)

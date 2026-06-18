@@ -322,11 +322,54 @@ export default function StringLineNetwork({ nodes, pathD }: StringLineNetworkPro
 }
 ```
 
-## Setup & Dependencies
+## Setup & Integration Guide
 
-1. Install target dependencies:
-   ```bash
-   pnpm add gsap @gsap/react
-   ```
-2. Feed target coordinates to the viewport using percentage keys (0% to 100%) mapped to coordinate scales inside custom viewBox scales.
-3. Be sure to register `MotionPathPlugin` when initializing GSAP configuration.
+Follow these beginner-friendly, step-by-step instructions to integrate the component into your project.
+
+### ⚡ Step 1: Install Dependencies
+Open your project terminal and install the required GreenSock libraries:
+```bash
+npm install gsap @gsap/react
+```
+
+### 📁 Step 2: Save the Component File
+1. Create a new component file inside your React/Next.js folder structure, for example:
+   `file:///your-project/src/components/StringLineNetwork.tsx`
+2. Copy the **Standalone Component Code** shown in the code tabs above.
+3. Paste it directly into the new file.
+
+### 🚀 Step 3: Import and Render
+Import the component and render it inside any page layout:
+```tsx
+import StringLineNetwork from "@/components/StringLineNetwork.tsx";
+
+export default function Page() {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-[#f0eadf] p-8">
+      <StringLineNetwork />
+    </main>
+  );
+}
+```
+
+### ⚠️ Plugin Registration Notice
+Since this component uses GSAP plugins (ScrollTrigger, MotionPathPlugin), they must be imported and registered at the top of your component file:
+```tsx
+import { ScrollTrigger, MotionPathPlugin } from "gsap/all";
+gsap.registerPlugin(useGSAP, ScrollTrigger, MotionPathPlugin);
+```
+
+---
+
+## 🛠️ Customization & Component Properties (Props)
+
+You can pass the following settings to configure the layout and animation details:
+
+- `nodes` (Array): Floating node coordinate keys.
+- `pathD` (string): The raw SVG path geometry definition.
+
+### 🎨 Neo-Brutalist Theme Tokens
+To match TweenLabs' signature premium editorial styling:
+- **Canvas Backdrop**: `bg-[#f0eadf]` (warm sand color)
+- **High-contrast Borders**: `border-3 border-[#2a2a2a]` (solid charcoal outline)
+- **Drop Shadow Blocks**: `shadow-[6px_6px_0px_#2a2a2a]` (tactile offsets)

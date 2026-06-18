@@ -524,11 +524,46 @@ export default function ThreeDCarousel({ items }: ThreeDCarouselProps) {
 }
 ```
 
-## Setup & Dependencies
+## Setup & Integration Guide
 
-1. Install target dependencies:
-   ```bash
-   pnpm add gsap @gsap/react
-   ```
-2. Render the carousel structure by supplying a dataset conforming to the `CarouselCardItem` signature.
-3. Make sure to enable 3D depth rendering by assigning `perspective` and `transformStyle: "preserve-3d"` attributes to the wrapping elements.
+Follow these beginner-friendly, step-by-step instructions to integrate the component into your project.
+
+### ⚡ Step 1: Install Dependencies
+Open your project terminal and install the required GreenSock libraries:
+```bash
+npm install gsap @gsap/react
+```
+
+### 📁 Step 2: Save the Component File
+1. Create a new component file inside your React/Next.js folder structure, for example:
+   `file:///your-project/src/components/ThreeDCarousel.tsx`
+2. Copy the **Standalone Component Code** shown in the code tabs above.
+3. Paste it directly into the new file.
+
+### 🚀 Step 3: Import and Render
+Import the component and render it inside any page layout:
+```tsx
+import ThreeDCarousel from "@/components/ThreeDCarousel.tsx";
+
+export default function Page() {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-[#f0eadf] p-8">
+      <ThreeDCarousel />
+    </main>
+  );
+}
+```
+
+---
+
+## 🛠️ Customization & Component Properties (Props)
+
+You can pass the following settings to configure the layout and animation details:
+
+- `items` (Array): An array of card specs containing category tags, image paths, descriptions, and color accents.
+
+### 🎨 Neo-Brutalist Theme Tokens
+To match TweenLabs' signature premium editorial styling:
+- **Canvas Backdrop**: `bg-[#f0eadf]` (warm sand color)
+- **High-contrast Borders**: `border-3 border-[#2a2a2a]` (solid charcoal outline)
+- **Drop Shadow Blocks**: `shadow-[6px_6px_0px_#2a2a2a]` (tactile offsets)

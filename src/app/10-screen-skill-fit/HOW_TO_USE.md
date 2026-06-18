@@ -104,17 +104,53 @@ mainTl.to(".candidate-card-2", {
 );
 ```
 
-## Setup & Dependencies
+## Setup & Integration Guide
 
-1. Make sure you install GSAP and its React hook helper:
-   ```bash
-   pnpm add gsap @gsap/react
-   ```
-2. Layout specifications:
-   - Section wrapper must have height `h-[400vh]` to accommodate ScrollTrigger length.
-   - Pinned screen container should be `h-screen sticky top-0` containing the columns.
-   - Dark theme branding colors:
-     - Page background: `#0f0f11`
-     - Card background: `#1b1b1d`
-     - Logo green accent: `#0c9367`
-3. Custom Technology icons are rendered dynamically using SVG icons wrapped in a `.tech-badge-item` frame container.
+Follow these beginner-friendly, step-by-step instructions to integrate the component into your project.
+
+### ⚡ Step 1: Install Dependencies
+Open your project terminal and install the required GreenSock libraries:
+```bash
+npm install gsap @gsap/react
+```
+
+### 📁 Step 2: Save the Component File
+1. Create a new component file inside your React/Next.js folder structure, for example:
+   `file:///your-project/src/components/ScreenSkillFit.tsx`
+2. Copy the **Standalone Component Code** shown in the code tabs above.
+3. Paste it directly into the new file.
+
+### 🚀 Step 3: Import and Render
+Import the component and render it inside any page layout:
+```tsx
+import ScreenSkillFit from "@/components/ScreenSkillFit.tsx";
+
+export default function Page() {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-[#f0eadf] p-8">
+      <ScreenSkillFit />
+    </main>
+  );
+}
+```
+
+### ⚠️ Plugin Registration Notice
+Since this component uses GSAP plugins (ScrollTrigger), they must be imported and registered at the top of your component file:
+```tsx
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+```
+
+---
+
+## 🛠️ Customization & Component Properties (Props)
+
+You can pass the following settings to configure the layout and animation details:
+
+- `steps` (Array): List of candidate checkpoints containing profile stats, score gauges, and descriptions.
+
+### 🎨 Neo-Brutalist Theme Tokens
+To match TweenLabs' signature premium editorial styling:
+- **Canvas Backdrop**: `bg-[#f0eadf]` (warm sand color)
+- **High-contrast Borders**: `border-3 border-[#2a2a2a]` (solid charcoal outline)
+- **Drop Shadow Blocks**: `shadow-[6px_6px_0px_#2a2a2a]` (tactile offsets)

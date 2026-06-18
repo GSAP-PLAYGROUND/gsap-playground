@@ -2,18 +2,18 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-[#f0eadf]/95 backdrop-blur-md border-b-3 border-[#2a2a2a]">
+    <header className="fixed top-0 left-0 w-full z-50 bg-[#fafaf9] border-b-3 border-[#2a2a2a]">
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <Image
             src="/logo.svg"
             alt="TweenLabs Logo"
-            width={28}
-            height={28}
+            width={32}
+            height={32}
             priority
             className="object-contain"
           />
-          <span className="font-serif font-black text-lg md:text-xl tracking-tight text-[#2a2a2a]">
+          <span className="font-serif font-black text-xl md:text-2xl tracking-tight text-[#2a2a2a]">
             TweenLabs
           </span>
         </div>
@@ -30,3 +30,4 @@ export default function Header() {
     </header>
   );
 }
+

@@ -185,24 +185,48 @@ export default function BentoTiltCard({
 }
 ```
 
-## Setup & Dependencies
+## Setup & Integration Guide
 
-1. Install target dependencies:
-   ```bash
-   pnpm add gsap @gsap/react
-   ```
-2. Render bento items by styling them inside a CSS grid layout, wrapping card interiors inside the interactive component. Keep any images you wish to parallax inside containers utilizing the `.inner-img` selector:
-   ```tsx
-   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-     <BentoTiltCard accentHex="241, 179, 51" className="col-span-1 h-[280px]">
-       <div>
-         <h3 className="text-xl font-bold uppercase">Spotlight Block</h3>
-         <p className="text-xs text-zinc-500">Movable spotlight gradient overlay tracks mouse pointer.</p>
-       </div>
-       <div className="relative w-full h-24 overflow-hidden rounded-xl">
-         <img src="/demo.png" alt="Demo" className="inner-img object-cover w-full h-full" />
-       </div>
-     </BentoTiltCard>
-   </div>
-   ```
-3. Set `transform-style: preserve-3d` on the parent node (configured automatically in the component) so nested elements correctly respond when tilting.
+Follow these beginner-friendly, step-by-step instructions to integrate the component into your project.
+
+### ⚡ Step 1: Install Dependencies
+Open your project terminal and install the required GreenSock libraries:
+```bash
+npm install gsap @gsap/react
+```
+
+### 📁 Step 2: Save the Component File
+1. Create a new component file inside your React/Next.js folder structure, for example:
+   `file:///your-project/src/components/BentoTiltCard.tsx`
+2. Copy the **Standalone Component Code** shown in the code tabs above.
+3. Paste it directly into the new file.
+
+### 🚀 Step 3: Import and Render
+Import the component and render it inside any page layout:
+```tsx
+import BentoTiltCard from "@/components/BentoTiltCard.tsx";
+
+export default function Page() {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-[#f0eadf] p-8">
+      <BentoTiltCard />
+    </main>
+  );
+}
+```
+
+---
+
+## 🛠️ Customization & Component Properties (Props)
+
+You can pass the following settings to configure the layout and animation details:
+
+- `children` (ReactNode): The card contents.
+- `accentHex` (string): RGB values (e.g. `'229, 91, 60'`) for the glowing pointer spotlight.
+- `className` (string): Tailwind styling overrides.
+
+### 🎨 Neo-Brutalist Theme Tokens
+To match TweenLabs' signature premium editorial styling:
+- **Canvas Backdrop**: `bg-[#f0eadf]` (warm sand color)
+- **High-contrast Borders**: `border-3 border-[#2a2a2a]` (solid charcoal outline)
+- **Drop Shadow Blocks**: `shadow-[6px_6px_0px_#2a2a2a]` (tactile offsets)

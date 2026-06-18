@@ -259,17 +259,47 @@ export default function FluidCursor({ children }: FluidCursorProps) {
 }
 ```
 
-## Setup & Dependencies
+## Setup & Integration Guide
 
-1. Install the required dependencies:
-   ```bash
-   pnpm add gsap @gsap/react
-   ```
-2. Wrap your layout or specific page components inside the `<FluidCursor>` wrapper.
-3. For any card, button, or link that you want the cursor ring to morph and snap onto, add a `data-cursor-text="YOUR LABEL"` attribute:
-   ```tsx
-   <div data-cursor-text="EXPLORE NOW" className="brutalist-card">
-     <h3>Cool Project</h3>
-   </div>
-   ```
-4. Note that adding `cursor-none` (Tailwind) or `cursor: none` (CSS) globally or on target elements is critical so that the default browser cursor is hidden.
+Follow these beginner-friendly, step-by-step instructions to integrate the component into your project.
+
+### ⚡ Step 1: Install Dependencies
+Open your project terminal and install the required GreenSock libraries:
+```bash
+npm install gsap @gsap/react
+```
+
+### 📁 Step 2: Save the Component File
+1. Create a new component file inside your React/Next.js folder structure, for example:
+   `file:///your-project/src/components/FluidCursor.tsx`
+2. Copy the **Standalone Component Code** shown in the code tabs above.
+3. Paste it directly into the new file.
+
+### 🚀 Step 3: Import and Render
+Import the component and render it inside any page layout:
+```tsx
+import FluidCursor from "@/components/FluidCursor.tsx";
+
+export default function Page() {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-[#f0eadf] p-8">
+      <FluidCursor />
+    </main>
+  );
+}
+```
+
+---
+
+## 🛠️ Customization & Component Properties (Props)
+
+You can pass the following settings to configure the layout and animation details:
+
+- `children` (ReactNode): The layout children inside which the custom cursor tracks.
+- Note: Simply add `data-cursor-text="YOUR LABEL"` on any interactive child to make the cursor morph and snap onto it!
+
+### 🎨 Neo-Brutalist Theme Tokens
+To match TweenLabs' signature premium editorial styling:
+- **Canvas Backdrop**: `bg-[#f0eadf]` (warm sand color)
+- **High-contrast Borders**: `border-3 border-[#2a2a2a]` (solid charcoal outline)
+- **Drop Shadow Blocks**: `shadow-[6px_6px_0px_#2a2a2a]` (tactile offsets)

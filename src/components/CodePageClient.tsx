@@ -445,14 +445,12 @@ export default function CodePageClient({
           {/* Code Body */}
           <div className="relative flex-1 max-h-[600px] min-h-[300px] overflow-y-auto overscroll-contain font-mono text-[13px] bg-[#121212] py-5 px-4 flex">
             {/* Line Numbers */}
-            <div className="select-none text-right pr-4 border-r border-zinc-800 text-zinc-650 min-w-[3.5rem] space-y-1">
-              {activeTab.code.split("\n").map((_, i) => (
-                <div key={i}>{i + 1}</div>
-              ))}
-            </div>
+            <pre className="select-none text-right pr-4 border-r border-zinc-800 text-zinc-650 min-w-[3.5rem] whitespace-pre scrollbar-none">
+              {activeTab.code.split("\n").map((_, i) => i + 1).join("\n")}
+            </pre>
 
             {/* Highlighted Code */}
-            <pre className="pl-5 flex-1 overflow-x-auto text-[#abb2bf] scrollbar-none whitespace-pre select-text space-y-1 selection:bg-wtf-orange selection:text-white">
+            <pre className="pl-5 flex-1 overflow-x-auto overflow-y-hidden text-[#abb2bf] scrollbar-none whitespace-pre select-text selection:bg-wtf-orange selection:text-white">
               <code dangerouslySetInnerHTML={{ __html: highlighted }} />
             </pre>
           </div>

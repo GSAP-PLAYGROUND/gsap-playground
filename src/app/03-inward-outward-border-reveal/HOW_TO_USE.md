@@ -179,3 +179,54 @@ export default function BorderRevealText({ phrase = "HELLO WORLD THIS IS GSAP" }
   );
 }
 ```
+
+## Setup & Integration Guide
+
+Follow these beginner-friendly, step-by-step instructions to integrate the component into your project.
+
+### ⚡ Step 1: Install Dependencies
+Open your project terminal and install the required GreenSock libraries:
+```bash
+npm install gsap @gsap/react
+```
+
+### 📁 Step 2: Save the Component File
+1. Create a new component file inside your React/Next.js folder structure, for example:
+   `file:///your-project/src/components/BorderRevealText.tsx`
+2. Copy the **Standalone Component Code** shown in the code tabs above.
+3. Paste it directly into the new file.
+
+### 🚀 Step 3: Import and Render
+Import the component and render it inside any page layout:
+```tsx
+import BorderRevealText from "@/components/BorderRevealText.tsx";
+
+export default function Page() {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-[#f0eadf] p-8">
+      <BorderRevealText />
+    </main>
+  );
+}
+```
+
+### ⚠️ Plugin Registration Notice
+Since this component uses GSAP plugins (ScrollTrigger), they must be imported and registered at the top of your component file:
+```tsx
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+```
+
+---
+
+## 🛠️ Customization & Component Properties (Props)
+
+You can pass the following settings to configure the layout and animation details:
+
+- `phrase` (string): The message string that scrolls horizontally and drops characters. Defaults to `'HELLO WORLD THIS IS GSAP'`.
+
+### 🎨 Neo-Brutalist Theme Tokens
+To match TweenLabs' signature premium editorial styling:
+- **Canvas Backdrop**: `bg-[#f0eadf]` (warm sand color)
+- **High-contrast Borders**: `border-3 border-[#2a2a2a]` (solid charcoal outline)
+- **Drop Shadow Blocks**: `shadow-[6px_6px_0px_#2a2a2a]` (tactile offsets)

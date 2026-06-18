@@ -181,13 +181,46 @@ export function ScrambleText({ text, speed = 25, delay = 0 }: { text: string; sp
 }
 ```
 
-## Setup & Layout Integration
+## Setup & Integration Guide
 
-1. Make sure you install GSAP and its React hook helper:
-   ```bash
-   pnpm add gsap @gsap/react
-   ```
-2. Center bottom hero layout class structure:
-   - Positioning: `absolute bottom-[4vh] md:bottom-[6vh] left-1/2 -translate-x-1/2`
-   - Maximum width: `max-w-2xl`
-   - Zero card overlaps: Symmetrically align your cards around the sides of the viewport using Route 08 (`talentData`) positions to keep the bottom center area completely clear for the text block.
+Follow these beginner-friendly, step-by-step instructions to integrate the component into your project.
+
+### ⚡ Step 1: Install Dependencies
+Open your project terminal and install the required GreenSock libraries:
+```bash
+npm install gsap @gsap/react
+```
+
+### 📁 Step 2: Save the Component File
+1. Create a new component file inside your React/Next.js folder structure, for example:
+   `file:///your-project/src/components/CircularScatterGallery.tsx`
+2. Copy the **Standalone Component Code** shown in the code tabs above.
+3. Paste it directly into the new file.
+
+### 🚀 Step 3: Import and Render
+Import the component and render it inside any page layout:
+```tsx
+import CircularScatterGallery from "@/components/CircularScatterGallery.tsx";
+
+export default function Page() {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-[#f0eadf] p-8">
+      <CircularScatterGallery />
+    </main>
+  );
+}
+```
+
+---
+
+## 🛠️ Customization & Component Properties (Props)
+
+You can pass the following settings to configure the layout and animation details:
+
+- `cards` (Array): A list of circular scatter card datasets.
+
+### 🎨 Neo-Brutalist Theme Tokens
+To match TweenLabs' signature premium editorial styling:
+- **Canvas Backdrop**: `bg-[#f0eadf]` (warm sand color)
+- **High-contrast Borders**: `border-3 border-[#2a2a2a]` (solid charcoal outline)
+- **Drop Shadow Blocks**: `shadow-[6px_6px_0px_#2a2a2a]` (tactile offsets)
