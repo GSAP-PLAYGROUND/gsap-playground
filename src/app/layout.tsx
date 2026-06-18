@@ -78,6 +78,9 @@ export const metadata: Metadata = {
       "Discover TweenLabs: the best GSAP components library for web animations. Copy-paste free, production-ready GSAP UI components, ScrollTrigger widgets, 3D physics widgets, and layout transitions.",
     images: ["https://tweenlabs.xyz/Untitled%20design.png"],
   },
+  verification: {
+    google: "GcVbSl__f6IIF7TagtI2w_1xL_iMucTM86gTAqN",
+  },
 };
 
 export default function RootLayout({
