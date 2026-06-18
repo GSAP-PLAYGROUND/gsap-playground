@@ -331,11 +331,18 @@ export default function ShowUpCardsPage() {
                       />
                     </div>
 
-                    <div className="flex-1 flex flex-col justify-center items-center text-center py-4">
-                      <p className="font-mono text-[9px] font-bold bg-zinc-100 border border-black px-2.5 py-1 rounded">
-                        {stage.phase}
-                      </p>
-                      <p className="text-[11px] font-sans font-semibold mt-3 text-zinc-650 leading-relaxed">
+                    <div className="inner-img-frame w-full h-[140px] md:h-[180px] border-2 border-[#2a2a2a] relative overflow-hidden rounded-lg bg-zinc-50 my-2 shadow-[2px_2px_0px_#2a2a2a]">
+                      <Image
+                        src={stage.imgUrl}
+                        alt={stage.title}
+                        fill
+                        sizes="200px"
+                        className="object-cover"
+                      />
+                    </div>
+
+                    <div className="flex-1 flex items-center justify-center py-2">
+                      <p className="text-[10px] md:text-[11px] font-sans font-bold text-zinc-650 leading-snug text-center">
                         {stage.desc}
                       </p>
                     </div>
