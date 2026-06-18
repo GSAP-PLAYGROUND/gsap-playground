@@ -52,7 +52,7 @@ export default function AnimationCard({ anim }: AnimationCardProps) {
           </button>
         </Link>
         <a
-          href={`https://github.com/tweenlabs/gsap-playground/blob/master/src/app${anim.route}/page.tsx`}
+          href={`https://github.com/GSAP-PLAYGROUND/TweenLabs/blob/master/src/app${anim.route}/page.tsx`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1"

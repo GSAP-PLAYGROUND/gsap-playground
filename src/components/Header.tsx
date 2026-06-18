@@ -8,6 +8,15 @@ export default function Header() {
             TweenLabs
           </span>
         </div>
+
+        <a
+          href="https://github.com/GSAP-PLAYGROUND/TweenLabs"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="brutalist-btn bg-white hover:bg-wtf-orange hover:text-white text-[#2a2a2a] font-mono font-bold text-xs py-1.5 px-3.5 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150"
+        >
+          GitHub ↗
+        </a>
       </div>
     </header>
   );

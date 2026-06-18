@@ -1,136 +1,171 @@
-# 🌌 TweenLabs | GSAP Animation Playground
+<!-- SEO Meta Block — paste this in your Next.js layout.tsx or head -->
+<!--
+title: TweenLabs — Premium Open Source GSAP Component Library for Next.js
+description: A free, open-source GSAP animation component library and UI template sandbox built with Next.js 16, React 19, and Lenis. Learn and build modern web animations with reusable, copy-paste ready components.
+keywords: TweenLabs, GSAP component library, GSAP Next.js, GSAP animations React, open source animation library, web animation components, Lenis smooth scroll, GSAP ScrollTrigger components, Next.js animation library
+-->
 
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
-[![Next.js Version](https://img.shields.io/badge/Next.js-16.2.7-black?logo=nextdotjs)](https://nextjs.org/)
-[![React Version](https://img.shields.io/badge/React-19.0.0-blue?logo=react)](https://react.dev/)
+# TweenLabs
 
-**TweenLabs** is a high-fidelity, interactive Neo-Brutalist animation playground built on **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**. This repository houses premium, production-ready GSAP scroll triggers, magnetic mechanics, 3D physics widgets, and layout transitions.
+<p align="center">
+  <img src="public/logo.svg" alt="TweenLabs Logo" width="80" height="80" />
+</p>
 
----
+> The open-source **GSAP animation component library** for Next.js developers — learn, copy, and contribute modern web animation patterns built with **GSAP 3.15**, **Next.js 16**, and **Lenis**.
 
-## 🚀 Key Feature: Single-File Portability
+**[Live Demo](https://tweenlabs.xyz)** • **[Contributing Guide](#contributing)** • **[Roadmap](#roadmap)**  
 
-Every route animation is **entirely self-contained** within its own single `page.tsx` file (located under `/src/app/`). 
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square)
+![GSAP](https://img.shields.io/badge/GSAP-3.15-88CE02?style=flat-square)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
-*   **No Dependency Hunting**: You do not need to track down external sub-components or local CSS utilities. 
-*   **Plug-and-Play**: To use any effect on your own site, simply copy-paste that single page file, install `gsap` and `@gsap/react`, and you're good to go!
-
----
-
-## 🎨 Available Sandboxes
-
-### 1. Classic Parallax Stack (`/16b-scroll-cards-classic`)
-A scroll-pinned classic overlapping card deck utilizing coordinate-based y-parallax translations.
-*   **Key Techniques**: ScrollTrigger pinning, scroll offset interpolation, custom 3D card tilt on hover, radial spotlight gradient overlays.
-*   **Modularity**: Cards adjust spacing dynamically to keep badges visible at all times and unpin simultaneously.
-
-### 2. Modern Stacking Cards (`/16-scroll-cards-01`)
-Minimalist stacked card layout that overlaps sections in clean cards, with scroll progress markers on the side.
-*   **Key Techniques**: Viewport clamping (`height: 65vh`), ScrollTrigger bounds (`top 8%`).
-
-### 3. SVG String Network (`/18-string-line`)
-A scroll-triggered interactive web connection network that scales and highlights nodes based on path proximity.
-*   **Key Techniques**: GSAP `MotionPathPlugin` alignment, `ScrollTrigger` scrub, custom 3D card tilts, active pulsing halos.
-
-### 4. Bento Grid Tilt (`/13-bento-grid-flip`)
-A responsive bento-box dashboard layout showing tech stacks, containing 3D mouse rotation triggers.
-*   **Key Techniques**: $\pm 6^\circ$ Y/X coordinate mouse-tilt, hover border transitions, backdrop filters.
-
-### 5. 3D Coverflow Carousel (`/14-3d-carousel`)
-An interactive 3D mathematical wheel rotation carousel built with drag physics.
-*   **Key Techniques**: Pointer drag inertia calculations, keyboard arrow navigations, and GSAP details panel expansion.
+<!-- [Contributors](https://img.shields.io/github/contributors/GSAP-PLAYGROUND/TweenLabs?style=flat-square) -->
 
 ---
 
-## 💻 Tech Stack
-*   **Core**: Next.js 16 (App Router), React 19, TypeScript
-*   **Animation**: GSAP 3 (`@gsap/react` hooks, `ScrollTrigger`, `MotionPathPlugin`)
-*   **Styles**: Tailwind CSS v4 (using `@import "tailwindcss"`)
-*   **Scroll**: Lenis smooth scrolling
+## What is TweenLabs?
+
+**TweenLabs** is a community-driven, open-source collection of reusable GSAP animation components for Next.js and React. Every component is production-ready, well-documented, and built to help developers understand *how* advanced web animations work — not just copy code blindly.
+
+No paid plugins. No locked content. Just clean, modern animation patterns anyone can learn from and build on.
+
+> 🔍 **Looking for a GSAP component library for Next.js?** You found it.
 
 ---
 
-## 🛠️ Getting Started
+## ✨ Animation Components
 
-First, clone the repository and navigate to the project directory:
+| Component | Description | GSAP Features Used |
+|-----------|-------------|-------------------|
+| **Gravity Drop** | Physics-based falling animations with realistic bounce | `gsap.to`, `ease`, stagger |
+| **Scroll-Triggered Assemblies** | Content reveals synced with scroll position | ScrollTrigger |
+| **Border Reveal Effects** | Inward/outward border animations | Timeline, `clipPath` |
+| **Horizontal Card Showcase** | Smooth carousel and card transitions | ScrollTrigger, `x` transforms |
+| **Page Transitions** | Seamless route change animations | Timeline, Next.js router |
+| **Smooth Scrolling** | Native-feel smooth scroll | Lenis + GSAP ticker |
+
+> More components added with every contribution. [See full list →](https://tweenlabs.xyz)
+
+---
+
+## 🛠 Tech Stack
+
+- **[Next.js 16](https://nextjs.org/)** – React framework with SSR and App Router
+- **[GSAP 3.15](https://gsap.com/)** – Industry-standard JavaScript animation library
+- **[React 19](https://react.dev/)** – Modern component-based UI
+- **[Lenis 1.3](https://github.com/darkroom-digital/lenis)** – Buttery smooth scroll
+- **[Tailwind CSS 4](https://tailwindcss.com/)** – Utility-first styling
+- **[TypeScript](https://www.typescriptlang.org/)** – Full type safety
+
+---
+
+## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/your-username/gsap-playground.git
-cd gsap-playground
-```
+# Install pnpm if you don't have it
+npm install -g pnpm
 
-Install the dependencies using your package manager of choice:
-
-```bash
+# Clone and run
+git clone https://github.com/GSAP-PLAYGROUND/TweenLabs.git
+cd TweenLabs
 pnpm install
-# or
-npm install
-# or
-yarn install
+pnpm dev
 ```
 
-Start the development server:
+Open [http://localhost:3000](http://localhost:3000) — pick any animation card and start exploring.
+
+---
+
+## 🤝 Contributing
+
+TweenLabs grows with the community. We welcome new components, bug fixes, docs, performance improvements, and accessibility enhancements.
+
+### Steps
 
 ```bash
-pnpm dev
-# or
-npm run dev
+# 1. Fork the repo, then clone your fork
+git clone https://github.com/YOUR_USERNAME/TweenLabs.git
+
+# 2. Create a branch
+git checkout -b feat/your-animation-name
+
+# 3. Install & run
+pnpm install && pnpm dev
+
+# 4. Make changes, then commit
+git commit -m "feat: add [animation name]"
+
+# 5. Push and open a PR
+git push origin feat/your-animation-name
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the interactive playground directory.
+### Adding a New Component
+
+- Follow the folder pattern: `src/app/XX-component-name/`
+- Include a `page.tsx` with your animation
+- Add inline comments explaining the GSAP logic
+- Reference `gsapskills.md` for best practices
+
+### Good First Contributions
+
+- ✅ Add explanatory comments to existing animations
+- ✅ Test on mobile/tablet and report issues
+- ✅ Create animation variants with different easing curves
+- ✅ Improve accessibility (`prefers-reduced-motion`, ARIA)
+- ✅ Write or improve docs
+
+### Code Guidelines
+
+- Use CSS transforms (`x`, `y`, `scale`) — never layout properties
+- Always respect `prefers-reduced-motion`
+- TypeScript only — no `any` types
+- Write descriptive commit messages
 
 ---
 
-## 📦 Copy-Pasting Code
-To integrate an animation into your own React/Next.js codebase:
-1. Locate the route folder under `/src/app/` (e.g. `/src/app/18-string-line/page.tsx`).
-2. Copy the file contents.
-3. Install GSAP and `@gsap/react` in your project:
-   ```bash
-   npm install gsap @gsap/react
-   ```
-4. Paste the file as a component or page route. Replace any static image paths (`/Untitled design.png` etc.) with your own asset URLs.
+## 🗺 Roadmap
+
+- [ ] Export as npm package (`@tweenlabs/components`)
+- [ ] Storybook integration for isolated component previews
+- [ ] Unit tests for animation logic
+- [ ] FLIP, Draggable, MorphSVG animation patterns
+- [ ] Community showcase gallery
+- [ ] Animation starter templates for common use cases
 
 ---
 
-## 🤝 How to Contribute
+## 📚 Learn More
 
-Contributions make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+New to GSAP? These resources pair perfectly with this repo:
 
-### 🍴 The Contribution Workflow
-
-1.  **Fork the Project**: Click the **Fork** button at the top right of this repository page to create a copy of the project in your own GitHub account.
-2.  **Clone your Fork**:
-    ```bash
-    git clone https://github.com/your-username/gsap-playground.git
-    cd gsap-playground
-    ```
-3.  **Create your Feature Branch**:
-    ```bash
-    git checkout -b feature/amazing-animation
-    ```
-4.  **Implement & Refine**: Build your animation inside a new `/src/app/xx-your-animation/page.tsx` folder. Make sure your page is self-contained!
-5.  **Validate Compile Safety**: Make sure the build compiles cleanly with zero TypeScript warnings before committing:
-    ```bash
-    pnpm build
-    ```
-6.  **Commit your Changes**:
-    ```bash
-    git commit -m 'feat: add amazing new GSAP scroll transition'
-    ```
-7.  **Push to the Branch**:
-    ```bash
-    git push origin feature/amazing-animation
-    ```
-8.  **Open a Pull Request**: Head over to the original repository and submit a pull request from your feature branch. We'll review and merge it!
-
-### 📝 Submission Guidelines
-*   Keep the animations self-contained in a single page file.
-*   Document the GSAP techniques used in comments at the top of the file.
-*   Make sure designs align with the Neo-Brutalist or modern glassmorphic look!
+- [GSAP Official Docs](https://gsap.com/docs/) — start here
+- [GSAP + React Guide](https://gsap.com/resources/React/) — useGSAP hook
+- [ScrollTrigger Docs](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) — scroll animations
+- [Next.js Docs](https://nextjs.org/docs) — framework reference
+- [Lenis Docs](https://lenis.studiofreight.com/) — smooth scroll setup
 
 ---
 
-## 📄 License
-This project is licensed under the **MIT License** — feel free to use, modify, and distribute these animations in personal and commercial projects!
+## 📜 License
+
+[MIT](LICENSE) — free to use in personal and commercial projects.
+
+---
+
+## 🌟 Contributors
+
+Thanks to everyone building this together. ❤️
+
+<!-- Add contributor grid here once you have 5+ contributors -->
+
+---
+
+**Built in public. Animated with love. Open to all. 🚀**
+
+<!-- 
+SEARCH TAGS (do not remove — improves GitHub discoverability):
+tweenlabs, gsap animation library, gsap component library, gsap nextjs, gsap react components,
+open source animation, web animation components, lenis smooth scroll, scrolltrigger examples,
+next.js animation, gsap copy paste components, gsap learning, gsap playground
+-->

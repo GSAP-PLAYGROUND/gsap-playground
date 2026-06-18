@@ -29,7 +29,7 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5 text-sm font-sans font-medium">
               <li>
                 <a 
-                  href="https://github.com/tweenlabs/gsap-playground" 
+                  href="https://github.com/GSAP-PLAYGROUND/TweenLabs" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-zinc-600 hover:text-wtf-orange transition-colors duration-150 flex items-center gap-1.5"
@@ -48,7 +48,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Link href="/sitemap.xml" className="text-zinc-650 hover:text-wtf-orange transition-colors duration-150">
+                <Link href="/sitemap.xml" className="text-zinc-600 hover:text-wtf-orange transition-colors duration-150">
                   Sitemap XML
                 </Link>
               </li>
