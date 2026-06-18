@@ -21,6 +21,25 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
   const isDemoPage = animations.some((anim) => anim.route === normalizedPath);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    if (!isDemoPage) {
+      // Restore root window scrolling
+      document.documentElement.style.overflow = "";
+      document.documentElement.style.height = "";
+      document.body.style.overflow = "";
+      document.body.style.height = "";
+      return;
+    }
+
+    // ——— BELOW RUNS ONLY ON DEMO PAGES ———
+
+    // Lock root window scrolling
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.height = "100%";
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100%";
+
     if (!scrollerRef.current) return;
 
     gsap.registerPlugin(ScrollTrigger);
@@ -37,9 +56,10 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
     });
 
     // Synchronize Lenis scroll position with GSAP ScrollTrigger
-    lenis.on("scroll", () => {
+    const handleScroll = () => {
       ScrollTrigger.update();
-    });
+    };
+    lenis.on("scroll", handleScroll);
 
     // Run Lenis tick within GSAP's central requestAnimationFrame ticker
     const gsapTick = (time: number) => {
@@ -49,21 +69,30 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      // Restore root window scrolling
+      document.documentElement.style.overflow = "";
+      document.documentElement.style.height = "";
+      document.body.style.overflow = "";
+      document.body.style.height = "";
+
+      // Destroy Lenis
       lenis.destroy();
       gsap.ticker.remove(gsapTick);
     };
-  }, []);
+  }, [isDemoPage]);
 
   return (
     <>
       <Header />
       <main
         ref={scrollerRef}
-        id="main-scroller"
-        className={`flex-grow w-full relative overflow-y-auto overflow-x-hidden mt-16 ${
-          isDemoPage ? "demo-page-container" : ""
-        }`}
-        style={{ height: "calc(100vh - 64px)" }}
+        id={isDemoPage ? "main-scroller" : undefined}
+        className={
+          isDemoPage
+            ? "flex-grow w-full relative overflow-y-auto overflow-x-hidden mt-16 demo-page-container"
+            : "flex-1 flex flex-col w-full relative pt-24"
+        }
+        style={isDemoPage ? { height: "calc(100vh - 64px)" } : undefined}
       >
         {children}
         {!isDemoPage && <Footer />}

@@ -39,8 +39,7 @@ html,
 body {
   background-color: var(--background);
   color: var(--foreground);
-  overflow: hidden;
-  height: 100%;
+  overflow-x: hidden;
 }
 
 /* Custom Scrollbar */
