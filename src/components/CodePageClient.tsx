@@ -551,19 +551,6 @@ export default function CodePageClient({
   const isAuthenticated = !!session;
   const isPlaceholder = pageCode.includes("Please sign in to view the code.");
 
-  useEffect(() => {
-    if (!isPending) {
-      if (!session) {
-        openModal(`/code/${slug}`, false); // isClosable = false
-      } else {
-        closeModal();
-        if (isPlaceholder) {
-          router.refresh();
-        }
-      }
-    }
-  }, [session, isPending, slug, openModal, closeModal, isPlaceholder, router]);
-
   const blurClass = !isAuthenticated ? "blur-md pointer-events-none select-none" : "";
   // Determine available tabs
   const tabs = [];
@@ -586,9 +573,24 @@ export default function CodePageClient({
   const [copied, setCopied] = useState(false);
   const [pkgManager, setPkgManager] = useState<"npm" | "pnpm" | "yarn" | "bun">("npm");
   const [isExpanded, setIsExpanded] = useState(false);
+  const [hasRefreshed, setHasRefreshed] = useState(false);
 
   const activeTab = tabs.find((t) => t.id === activeTabId) || tabs[0];
   const highlighted = highlightCode(activeTab.code, activeTab.file);
+
+  useEffect(() => {
+    if (!isPending) {
+      if (!session) {
+        openModal(`/code/${slug}`, false); // isClosable = false
+      } else {
+        closeModal();
+        if (isPlaceholder && !hasRefreshed) {
+          setHasRefreshed(true);
+          router.refresh();
+        }
+      }
+    }
+  }, [session, isPending, slug, openModal, closeModal, isPlaceholder, router, hasRefreshed]);
 
   const handleCopy = async () => {
     try {
