@@ -59,9 +59,12 @@ export default function AnimationOnePage() {
       className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center justify-center p-4 selection:bg-[#f1b333] selection:text-black"
       ref={containerRef}
     >
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
 
       <div className="z-10 w-full max-w-2xl border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] p-8 bg-white flex flex-col gap-8 text-center relative overflow-hidden">
@@ -102,26 +105,12 @@ export default function AnimationOnePage() {
             placeholder="TYPE TEXT HERE"
             className="w-full md:w-64 border-3 border-[#2a2a2a] px-4 py-2.5 font-mono font-bold rounded-lg focus:outline-none focus:bg-yellow-50 placeholder-zinc-400 shadow-[3px_3px_0px_#2a2a2a]"
           />
-          <div className="flex gap-3 w-full md:w-auto">
-            <button
-              onClick={handleReplay}
-              className="flex-1 md:flex-none border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#e55b3c] text-white font-mono font-bold text-sm py-3 px-6 rounded-lg uppercase tracking-wider cursor-pointer"
-            >
-              ☄️ Trigger Drop
-            </button>
-            <div className="flex-1 md:flex-none">
-              <button
-                onClick={() =>
-                  window.history.length > 1
-                    ? window.history.back()
-                    : (window.location.href = "/")
-                }
-                className="w-full border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-[#2a2a2a] font-mono font-bold text-sm py-3 px-6 rounded-lg uppercase tracking-wider cursor-pointer"
-              >
-                ← Back
-              </button>
-            </div>
-          </div>
+          <button
+            onClick={handleReplay}
+            className="w-full md:w-auto border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#e55b3c] text-white font-mono font-bold text-sm py-3 px-6 rounded-lg uppercase tracking-wider cursor-pointer"
+          >
+            ☄️ Trigger Drop
+          </button>
         </div>
       </div>
     </div>
@@ -389,7 +378,8 @@ export default function AnimationTwoPage() {
     () => {
       const tags = gsap.utils.toArray<HTMLElement>(".assembler-tag");
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       // Pin the scroll section and animate the tags entering the DOM
       const tl = gsap.timeline({
@@ -439,24 +429,13 @@ export default function AnimationTwoPage() {
       className="relative bg-[#f0eadf] text-[#2a2a2a] selection:bg-[#f1b333] selection:text-black"
       ref={containerRef}
     >
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
-
-      {/* Floating Back Button */}
-      <div className="fixed left-6 top-6 z-50 pointer-events-auto">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Intro section */}
       <section className="h-[70vh] flex flex-col items-center justify-center text-center px-4 gap-4 z-10 relative">
@@ -476,9 +455,12 @@ export default function AnimationTwoPage() {
         ref={scrollSectionRef}
         className="h-[calc(100vh-64px)] w-full flex items-center justify-center relative overflow-hidden bg-white border-y-3 border-[#2a2a2a]"
       >
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-5"
-          style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+          style={{
+            backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
         />
 
         <div className="z-10 w-full max-w-4xl px-4 flex flex-col gap-8 items-center">
@@ -502,7 +484,6 @@ export default function AnimationTwoPage() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }
@@ -738,7 +719,8 @@ export default function AnimationThreePage() {
 
   useGSAP(
     () => {
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
       const chars = gsap.utils.toArray<HTMLElement>(".reveal-char");
 
       // 1. Create the main horizontal translation tween
@@ -881,23 +863,9 @@ export default function AnimationThreePage() {
         style={{
           opacity: 0.05,
           backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
-          backgroundSize: "24px 24px"
+          backgroundSize: "24px 24px",
         }}
       />
-
-      {/* Dashboard Back Link */}
-      <div className="fixed left-6 top-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-black px-4 py-2 text-xs font-mono font-bold uppercase rounded-md cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Scroll Indicator */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 font-mono text-xs uppercase tracking-widest text-white/50 animate-bounce pointer-events-none flex flex-col items-center gap-1">
@@ -1240,7 +1208,8 @@ export default function AnimationFourPage() {
 
   useGSAP(
     () => {
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       // Master timeline linked to vertical scroll pinning
       // Pinned section height is 4500px to ensure smooth scroll scrubbing
@@ -1370,23 +1339,9 @@ export default function AnimationFourPage() {
         style={{
           opacity: 0.05,
           backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
-          backgroundSize: "24px 24px"
+          backgroundSize: "24px 24px",
         }}
       />
-
-      {/* Dashboard Back Link */}
-      <div className="fixed left-6 top-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-black px-4 py-2 text-xs font-mono font-bold uppercase rounded-md cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       <div
         ref={scrollSectionRef}
@@ -1791,7 +1746,8 @@ export default function AnimationFivePage() {
         { y: "15vh" },
       );
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       // Master timeline linked to vertical scroll pinning
       const tl = gsap.timeline({
@@ -2005,24 +1961,13 @@ export default function AnimationFivePage() {
       ref={containerRef}
     >
       {/* Tactile Noise Overlay */}
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none z-[49] opacity-[0.035]"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }}
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
       />
-
-      {/* Dashboard Back Link */}
-      <div className="fixed left-6 top-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-black shadow-[3px_3px_0px_#000] transition-all duration-100 ease-in-out hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[4px_4px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_#000] bg-[#f8f5ee] text-[#2a2a2a] px-4 py-2 text-xs font-mono font-bold uppercase rounded-md cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Floating Navigator */}
       <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4">
@@ -2042,7 +1987,11 @@ export default function AnimationFivePage() {
       <div
         ref={scrollSectionRef}
         className="scroll-viewport h-[calc(100vh-64px)] w-full relative overflow-hidden"
-        style={{ perspective: "1400px", perspectiveOrigin: "50% 40%", transformStyle: "preserve-3d" }}
+        style={{
+          perspective: "1400px",
+          perspectiveOrigin: "50% 40%",
+          transformStyle: "preserve-3d",
+        }}
       >
         {/* PANEL 0: GREEN SECTION (Pulsars) */}
         <section className="panel-item panel-0 absolute inset-0 bg-[#0c9367] text-white flex flex-col justify-between p-8 md:p-16 z-10 select-none">
@@ -2179,8 +2128,8 @@ export default function AnimationFivePage() {
                   },
                 ].map((item, i) => (
                   <div
-                     key={i}
-                     className="bg-[#fbfaf7] text-[#2a2a2a] border-3 border-black p-4 rounded-xl flex flex-col justify-between gap-3 shadow-[4px_4px_0px_rgba(0,0,0,0.95)] w-56 h-32 shrink-0"
+                    key={i}
+                    className="bg-[#fbfaf7] text-[#2a2a2a] border-3 border-black p-4 rounded-xl flex flex-col justify-between gap-3 shadow-[4px_4px_0px_rgba(0,0,0,0.95)] w-56 h-32 shrink-0"
                   >
                     <span className="font-mono text-[9px] font-bold text-zinc-400">
                       [{item.tag}]
@@ -2889,9 +2838,12 @@ export default function KineticTypographyPage() {
         </defs>
       </svg>
 
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
 
       <div className="z-10 w-full max-w-4xl border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] p-6 md:p-8 bg-white flex flex-col gap-8 text-center relative overflow-hidden">
@@ -3016,27 +2968,12 @@ export default function KineticTypographyPage() {
               />
             </div>
 
-            <div className="flex gap-2">
-              <button
-                onClick={triggerReplay}
-                className="flex-1 border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#6758a5] text-white font-mono font-bold text-xs py-2 px-4 rounded-lg uppercase cursor-pointer"
-              >
-                ⚡ Re-Trigger
-              </button>
-
-              <div className="flex-1">
-                <button
-                  onClick={() =>
-                    window.history.length > 1
-                      ? window.history.back()
-                      : (window.location.href = "/")
-                  }
-                  className="w-full border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-[#2a2a2a] font-mono font-bold text-xs py-2 px-4 rounded-lg uppercase cursor-pointer"
-                >
-                  ← Back
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={triggerReplay}
+              className="w-full border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#6758a5] text-white font-mono font-bold text-xs py-2.5 px-4 rounded-lg uppercase cursor-pointer"
+            >
+              ⚡ Re-Trigger
+            </button>
           </div>
         </div>
       </div>
@@ -3563,7 +3500,6 @@ Source Code URL: https://tweenlabs.xyz/code/07-scroll-orbit-gallery
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -3609,7 +3545,8 @@ export default function ScrollOrbitGallery() {
       // Hide card images initially
       gsap.set(".card-image", { opacity: 0, scale: 0.9 });
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       // 2. Master timeline linked to vertical scroll pinning
       const tl = gsap.timeline({
@@ -3830,24 +3767,13 @@ export default function ScrollOrbitGallery() {
       ref={containerRef}
     >
       {/* Dot Grid Background Overlay */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
-
-      {/* Dashboard Back Link */}
-      <div className="fixed left-6 top-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-black px-4 py-2 text-xs font-mono font-bold uppercase rounded-md cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Scroll Indicator HUD */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 font-mono text-xs uppercase tracking-widest text-[#2a2a2a]/60 animate-bounce pointer-events-none flex flex-col items-center gap-1">
@@ -3909,12 +3835,10 @@ export default function ScrollOrbitGallery() {
                     </span>
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
-                    <Image
+                    <img
                       src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
                       alt="Golden Spiral Preview"
-                      fill
-                      unoptimized
-                      className="object-cover pointer-events-none"
+                      className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     />
                   </div>
                 </div>
@@ -3963,12 +3887,10 @@ export default function ScrollOrbitGallery() {
                     </span>
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
-                    <Image
+                    <img
                       src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80"
                       alt="Waves Preview"
-                      fill
-                      unoptimized
-                      className="object-cover pointer-events-none"
+                      className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     />
                   </div>
                 </div>
@@ -4017,12 +3939,10 @@ export default function ScrollOrbitGallery() {
                     </span>
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
-                    <Image
+                    <img
                       src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&w=600&q=80"
                       alt="Quantum Ring Preview"
-                      fill
-                      unoptimized
-                      className="object-cover pointer-events-none"
+                      className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     />
                   </div>
                 </div>
@@ -4071,12 +3991,10 @@ export default function ScrollOrbitGallery() {
                     </span>
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
-                    <Image
+                    <img
                       src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=600&q=80"
                       alt="Iso Matrix Preview"
-                      fill
-                      unoptimized
-                      className="object-cover pointer-events-none"
+                      className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     />
                   </div>
                 </div>
@@ -4464,7 +4382,6 @@ Source Code URL: https://tweenlabs.xyz/code/08-blueprint-scatter
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP);
@@ -4759,7 +4676,7 @@ export default function BlueprintScatterPage() {
         className="absolute inset-0 pointer-events-none z-0 opacity-25"
         style={{
           backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
-          backgroundSize: "24px 24px"
+          backgroundSize: "24px 24px",
         }}
       />
 
@@ -4784,18 +4701,6 @@ export default function BlueprintScatterPage() {
             Engineers who own outcomes — CTO-screened with a ≤ 5% pass rate.
             Ready to scale your product immediately.
           </p>
-          <div className="hero-cta-btn inline-block pointer-events-auto">
-            <button
-              onClick={() =>
-                window.history.length > 1
-                  ? window.history.back()
-                  : (window.location.href = "/")
-              }
-              className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#f1b333] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#f1b333] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#f1b333] bg-[#2a2a2a] text-white hover:bg-black px-8 py-3.5 rounded-full font-mono text-[11px] font-bold uppercase cursor-pointer"
-            >
-              ← Back
-            </button>
-          </div>
         </div>
 
         {/* Floating cards container */}
@@ -4817,13 +4722,10 @@ export default function BlueprintScatterPage() {
             >
               {/* Card Image Area */}
               <div className="w-full h-[70%] bg-[#fcfbfa] border border-[#2a2a2a]/10 rounded-2xl overflow-hidden relative">
-                <Image
+                <img
                   src={card.img}
                   alt={card.name}
-                  fill
-                  priority
-                  unoptimized
-                  className="object-cover"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               </div>
 
@@ -5083,7 +4985,6 @@ Source Code URL: https://tweenlabs.xyz/code/09-circular-scatter
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP);
@@ -5423,7 +5324,7 @@ export default function CircularScatterPage() {
         className="absolute inset-0 pointer-events-none z-0 opacity-25"
         style={{
           backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
-          backgroundSize: "24px 24px"
+          backgroundSize: "24px 24px",
         }}
       />
 
@@ -5448,18 +5349,6 @@ export default function CircularScatterPage() {
             Engineers who own outcomes — CTO-screened with a ≤ 5% pass rate.
             Ready to scale your product immediately.
           </p>
-          <div className="hero-cta-btn inline-block pointer-events-auto">
-            <button
-              onClick={() =>
-                window.history.length > 1
-                  ? window.history.back()
-                  : (window.location.href = "/")
-              }
-              className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#f1b333] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#f1b333] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#f1b333] bg-[#2a2a2a] text-white hover:bg-black px-8 py-3.5 rounded-full font-mono text-[11px] font-bold uppercase cursor-pointer"
-            >
-              ← Back
-            </button>
-          </div>
         </div>
 
         {/* Floating cards container */}
@@ -5480,13 +5369,10 @@ export default function CircularScatterPage() {
             >
               {/* Card Image Area */}
               <div className="w-full h-[70%] bg-[#fcfbfa] border border-[#2a2a2a]/10 rounded-2xl overflow-hidden relative">
-                <Image
+                <img
                   src={card.img}
                   alt={card.name}
-                  fill
-                  priority
-                  unoptimized
-                  className="object-cover"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               </div>
 
@@ -5766,7 +5652,6 @@ Source Code URL: https://tweenlabs.xyz/code/10-screen-skill-fit
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -5908,7 +5793,8 @@ export default function ScreenSkillFitPage() {
         gsap.set(`.sc-right-${i}`, { x: 100, opacity: 0 });
       });
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       // ── Master Timeline — scrubbed by scroll ─────────────────────────────
       // Triggers when pinRef reaches top of viewport (after scrolling past intro)
@@ -6003,20 +5889,6 @@ export default function ScreenSkillFitPage() {
     <div ref={containerRef} className="bg-[#f5f0e8] text-[#1c1714]">
       {/* ══ SECTION 1: Intro ══════════════════════════════════════════════ */}
       <div className="h-screen w-full flex flex-col items-center justify-center relative gap-6">
-        {/* Back button — same style as all other pages */}
-        <div className="fixed left-6 top-6 z-50">
-          <button
-            onClick={() =>
-              window.history.length > 1
-                ? window.history.back()
-                : (window.location.href = "/")
-            }
-            className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-black px-4 py-2 text-xs font-mono font-bold uppercase rounded-md cursor-pointer"
-          >
-            ← Back
-          </button>
-        </div>
-
         {/* Eyebrow */}
         <span className="font-mono text-[9px] font-bold uppercase tracking-[0.4em] text-[#0c9367] select-none">
           Studio Shodwe · Editorial · Creator
@@ -6145,13 +6017,10 @@ export default function ScreenSkillFitPage() {
               >
                 {/* Photo */}
                 <div className="absolute inset-0">
-                  <Image
+                  <img
                     src={c.img}
                     alt={c.name}
-                    fill
-                    priority={i === 0}
-                    unoptimized
-                    className="object-cover object-top"
+                    className="absolute inset-0 w-full h-full object-cover object-top"
                   />
                   {/* Bottom gradient */}
                   <div
@@ -6687,9 +6556,12 @@ export default function MagneticDockPage() {
       className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center justify-between p-8 selection:bg-[#f1b333] selection:text-black overflow-hidden"
       ref={containerRef}
     >
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
 
       {/* Header Info */}
@@ -6754,18 +6626,6 @@ export default function MagneticDockPage() {
             </div>
           ))}
         </div>
-
-        {/* Back Link */}
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-[#2a2a2a] font-mono font-bold text-xs py-3 px-6 rounded-lg uppercase tracking-wider cursor-pointer"
-        >
-          ← Back
-        </button>
       </footer>
     </div>
   );
@@ -7228,9 +7088,12 @@ export default function FluidCursorPage() {
       className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center justify-between p-8 selection:bg-[#f1b333] selection:text-black overflow-hidden cursor-none"
       ref={containerRef}
     >
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
 
       {/* Custom Cursor elements (pointer-events-none is CRITICAL) */}
@@ -7339,22 +7202,6 @@ export default function FluidCursorPage() {
         >
           ⚡ Action Portal
         </button>
-
-        <div className="cursor-none">
-          <button
-            onClick={() =>
-              window.history.length > 1
-                ? window.history.back()
-                : (window.location.href = "/")
-            }
-            data-cursor-text="BACK HOME"
-            onMouseEnter={handleTargetEnter}
-            onMouseLeave={handleTargetLeave}
-            className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-white text-[#2a2a2a] font-mono font-bold text-sm py-4 px-8 rounded-xl cursor-none"
-          >
-            ← Back
-          </button>
-        </div>
       </div>
     </div>
   );
@@ -7692,7 +7539,6 @@ Source Code URL: https://tweenlabs.xyz/code/13-bento-grid-flip
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Image from "next/image";
 import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP);
@@ -7875,28 +7721,20 @@ export default function BentoGridPage() {
       ref={containerRef}
     >
       {/* Background Dot Grid */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none z-10 opacity-[0.035]"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }}
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
       />
-
-      {/* Floating Dashboard Back Button */}
-      <div className="fixed top-6 left-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase tracking-wider cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Header Info */}
       <header className="z-10 w-full max-w-3xl text-center flex flex-col gap-3 mt-12 md:mt-6 select-none">
@@ -8007,12 +7845,10 @@ export default function BentoGridPage() {
                       className="inner-img-container hidden sm:block w-[160px] md:w-[200px] h-full border-3 border-[#2a2a2a] relative overflow-hidden rounded-xl bg-zinc-50 shadow-[3px_3px_0px_#2a2a2a]"
                       style={{ transform: "translateZ(15px)" }}
                     >
-                      <Image
+                      <img
                         src={item.imgUrl}
                         alt={item.title}
-                        fill
-                        sizes="200px"
-                        className="object-cover transition-transform duration-300"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
                       />
                     </div>
                   </div>
@@ -8040,12 +7876,10 @@ export default function BentoGridPage() {
                       className="inner-img-container w-full h-[220px] md:h-[260px] border-3 border-[#2a2a2a] relative overflow-hidden rounded-xl bg-zinc-50 my-4 shadow-[3px_3px_0px_#2a2a2a]"
                       style={{ transform: "translateZ(15px)" }}
                     >
-                      <Image
+                      <img
                         src={item.imgUrl}
                         alt={item.title}
-                        fill
-                        sizes="350px"
-                        className="object-cover transition-transform duration-300"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
                       />
                     </div>
 
@@ -8113,20 +7947,6 @@ export default function BentoGridPage() {
           })}
         </div>
       </main>
-
-      {/* Footer link */}
-      <footer className="z-10 mt-4">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-[#2a2a2a] font-mono font-bold text-xs py-3.5 px-6 rounded-xl uppercase tracking-wider cursor-pointer"
-        >
-          ← Back
-        </button>
-      </footer>
     </div>
   );
 }
@@ -8390,7 +8210,6 @@ Source Code URL: https://tweenlabs.xyz/code/14-3d-carousel
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP);
@@ -8881,24 +8700,13 @@ export default function ThreeDCarouselPage() {
       className="relative w-full h-screen overflow-hidden bg-[#f0eadf] text-[#2a2a2a] selection:bg-[#f1b333] selection:text-black font-sans transition-colors duration-500"
     >
       {/* Dynamic tactile noise overlay */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-10 opacity-[0.035]"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }}
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
       />
-
-      {/* Floating Dashboard Back Button */}
-      <div className="fixed top-6 left-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase tracking-wider cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Header Info */}
       <div className="absolute top-6 right-6 z-30 flex flex-col items-end gap-1 select-none text-right">
@@ -9008,7 +8816,9 @@ export default function ThreeDCarouselPage() {
                 onMouseMove={(e) => handleCardMouseMove(e, idx)}
                 onMouseLeave={() => handleCardMouseLeave(idx)}
                 className={`w-full h-full p-4 bg-white flex flex-col justify-between cursor-pointer rounded-xl select-none relative overflow-hidden group border-3 ${
-                  isActive ? "border-[#f1b333] shadow-[12px_12px_0px_#2a2a2a]" : "border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a]"
+                  isActive
+                    ? "border-[#f1b333] shadow-[12px_12px_0px_#2a2a2a]"
+                    : "border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a]"
                 }`}
                 style={{
                   transformStyle: "preserve-3d",
@@ -9041,13 +8851,10 @@ export default function ThreeDCarouselPage() {
                   className="w-full h-[180px] md:h-[230px] border-3 border-[#2a2a2a] relative overflow-hidden rounded-lg bg-zinc-100"
                   style={{ transform: "translateZ(10px)" }}
                 >
-                  <Image
+                  <img
                     src={item.imgUrl}
                     alt={item.title}
-                    fill
-                    sizes="(max-w-7xl) 35vw"
-                    priority={idx < 3}
-                    className="object-cover select-none group-hover:scale-105 transition-transform duration-500 ease-out"
+                    className="absolute inset-0 w-full h-full object-cover select-none group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-80" />
                 </div>
@@ -9919,9 +9726,12 @@ export default function MorphingAccordionPage() {
       className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center justify-between p-8 selection:bg-[#f1b333] selection:text-black overflow-hidden transition-colors duration-500"
       ref={containerRef}
     >
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
 
       {/* Header Info */}
@@ -10004,20 +9814,6 @@ export default function MorphingAccordionPage() {
           })}
         </div>
       </main>
-
-      {/* Footer link */}
-      <footer className="z-10 mb-8">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-[#2a2a2a] font-mono font-bold text-xs py-3 px-6 rounded-lg uppercase tracking-wider cursor-pointer"
-        >
-          ← Back
-        </button>
-      </footer>
     </div>
   );
 }
@@ -10333,7 +10129,6 @@ Source Code URL: https://tweenlabs.xyz/code/16-scroll-cards-01
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -10397,7 +10192,8 @@ export default function ScrollCardsPage() {
       const cardEls = gsap.utils.toArray<HTMLElement>(".scroll-card-item");
       if (cardEls.length === 0) return;
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       cardEls.forEach((card, index) => {
         // Calculate dynamic pin durations so all cards remain pinned until the last card finishes
@@ -10498,28 +10294,20 @@ export default function ScrollCardsPage() {
       ref={containerRef}
     >
       {/* Tactile Grids */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none z-10 opacity-[0.035]"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }}
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
       />
-
-      {/* Floating Dashboard Back Button */}
-      <div className="fixed top-6 left-6 z-50 pointer-events-auto">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Page Heading readout (absolute right) */}
       <div className="absolute top-6 right-6 z-30 flex flex-col items-end gap-1 select-none text-right">
@@ -10624,12 +10412,10 @@ export default function ScrollCardsPage() {
                 className="inner-img-frame w-full md:w-80 h-48 md:h-56 relative rounded-xl border-3 border-[#2a2a2a] overflow-hidden shadow-[4px_4px_0px_#2a2a2a] flex-shrink-0 z-10"
                 style={{ transform: "translateZ(15px)" }}
               >
-                <Image
+                <img
                   src={card.imgUrl}
                   alt={card.title}
-                  fill
-                  sizes="320px"
-                  className="object-cover transition-transform duration-300"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
                 />
               </div>
             </div>
@@ -10956,7 +10742,6 @@ Source Code URL: https://tweenlabs.xyz/code/17-showup-cards
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -11010,7 +10795,8 @@ export default function ShowUpCardsPage() {
 
   useGSAP(
     () => {
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
       const smoothStep = (p: number) => p * p * (3 - 2 * p);
 
       // Pin the showup card section during viewport scroll
@@ -11041,7 +10827,7 @@ export default function ShowUpCardsPage() {
               (progress - delay * 0.1) / (0.9 - delay * 0.1),
             );
             const innerCard = document.querySelector(
-              `${cardId} .flip-card-inner`
+              `${cardId} .flip-card-inner`,
             );
 
             let y;
@@ -11178,28 +10964,20 @@ export default function ShowUpCardsPage() {
       ref={containerRef}
     >
       {/* Tactile Grid Backgrounds */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none z-10 opacity-[0.035]"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }}
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
       />
-
-      {/* Floating Back Button */}
-      <div className="fixed top-6 left-6 z-50 pointer-events-auto">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Page Heading readout (absolute right) */}
       <div className="absolute top-6 right-6 z-30 flex flex-col items-end gap-1 select-none text-right">
@@ -11213,9 +10991,12 @@ export default function ShowUpCardsPage() {
 
       {/* Interactive Cards Overlay (Pins on scroll) */}
       <section className="showup-cards-sec relative w-full h-[calc(100vh-64px)] flex flex-col justify-center items-center bg-[#f8f5ee] border-b-3 border-[#2a2a2a] overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 opacity-15"
-          style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+          style={{
+            backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
         />
 
         {/* Simple Header Inside Container */}
@@ -11248,14 +11029,17 @@ export default function ShowUpCardsPage() {
                 className="card-wrapper w-full h-full animate-[floating_2.5s_infinite_ease-in-out] transform-gpu"
                 style={{ animationDelay: `${(stage.id - 1) * 0.25}s` }}
               >
-                <div 
+                <div
                   className="flip-card-inner w-full h-full relative"
                   style={{ transformStyle: "preserve-3d" }}
                 >
                   {/* Front Side Face */}
-                  <div 
+                  <div
                     className="flip-card-front absolute inset-0 border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] p-4 bg-white text-[#2a2a2a] flex flex-col justify-between cursor-pointer select-none"
-                    style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
+                    style={{
+                      backfaceVisibility: "hidden",
+                      WebkitBackfaceVisibility: "hidden",
+                    }}
                   >
                     <div className="flex justify-between items-center">
                       <span className="font-mono text-[9px] font-bold text-zinc-400">
@@ -11269,12 +11053,10 @@ export default function ShowUpCardsPage() {
                     </div>
 
                     <div className="inner-img-frame w-full h-[140px] md:h-[180px] border-2 border-[#2a2a2a] relative overflow-hidden rounded-lg bg-zinc-50 my-2 shadow-[2px_2px_0px_#2a2a2a]">
-                      <Image
+                      <img
                         src={stage.imgUrl}
                         alt={stage.title}
-                        fill
-                        sizes="200px"
-                        className="object-cover"
+                        className="absolute inset-0 w-full h-full object-cover"
                       />
                     </div>
 
@@ -11289,12 +11071,12 @@ export default function ShowUpCardsPage() {
                   </div>
 
                   {/* Back Side Face (Scroll-revealed) */}
-                  <div 
+                  <div
                     className="flip-card-back absolute inset-0 border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] p-4 bg-white border-3 text-[#2a2a2a] flex flex-col justify-between cursor-pointer select-none"
                     style={{
                       transform: "rotateY(180deg)",
                       backfaceVisibility: "hidden",
-                      WebkitBackfaceVisibility: "hidden"
+                      WebkitBackfaceVisibility: "hidden",
                     }}
                   >
                     <div className="w-full flex justify-between font-mono font-bold text-[9px] uppercase border-b-2 border-black pb-2 items-center">
@@ -11307,12 +11089,10 @@ export default function ShowUpCardsPage() {
                     </div>
 
                     <div className="inner-img-frame w-full h-[140px] md:h-[180px] border-2 border-[#2a2a2a] relative overflow-hidden rounded-lg bg-zinc-50 my-2 shadow-[2px_2px_0px_#2a2a2a]">
-                      <Image
+                      <img
                         src={stage.imgUrl}
                         alt={stage.title}
-                        fill
-                        sizes="200px"
-                        className="object-cover"
+                        className="absolute inset-0 w-full h-full object-cover"
                       />
                     </div>
 
@@ -11687,7 +11467,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, MotionPathPlugin);
@@ -11855,7 +11634,8 @@ export default function StringLinePage() {
 
       gsap.set(cards, { scale: 0.85 });
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -11973,20 +11753,6 @@ export default function StringLinePage() {
 
   return (
     <div className="relative bg-[#f0eadf] text-[#2a2a2a] selection:bg-[#f1b333] selection:text-black">
-      {/* Floating Back Button */}
-      <div className="fixed top-6 left-6 z-50 pointer-events-auto">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
-
       <section
         ref={containerRef}
         className="relative h-[calc(100vh-64px)] w-full overflow-hidden bg-white border-y-3 border-[#2a2a2a] select-none font-sans"
@@ -12076,12 +11842,10 @@ export default function StringLinePage() {
                 className="w-10 h-10 rounded-full border-2 border-[#2a2a2a] relative overflow-hidden flex-shrink-0 z-10"
                 style={{ transform: "translateZ(10px)" }}
               >
-                <Image
-                  className="object-cover"
+                <img
+                  className="absolute inset-0 w-full h-full object-cover"
                   src={item.imgUrl}
                   alt=""
-                  fill
-                  sizes="40px"
                 />
               </div>
 

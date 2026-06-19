@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import type React from "react";
+import { useEffect, useState } from "react";
 import { useAuthModal } from "@/provider/AuthModalProvider";
 import { useSession } from "@/provider/SessionProvider";
 
@@ -53,7 +54,7 @@ const componentNamesMap: Record<string, string> = {
   "17-showup-cards": "FlipCards",
   "showup-cards": "FlipCards",
   "18-string-line": "StringLine",
-  "string-line": "StringLine"
+  "string-line": "StringLine",
 };
 
 // Helper to convert slug to clean PascalCase component name
@@ -73,11 +74,41 @@ const getClassName = (slug: string) => {
 const getFileIcon = (fileName: string) => {
   if (fileName.endsWith(".tsx")) {
     return (
-      <svg className="w-3.5 h-3.5 text-[#00bcd4]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        className="w-3.5 h-3.5 text-[#00bcd4]"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <circle cx="12" cy="12" r="2" stroke="currentColor" strokeWidth="2.5" />
-        <ellipse cx="12" cy="12" rx="9" ry="3.5" stroke="currentColor" strokeWidth="2" transform="rotate(30 12 12)" />
-        <ellipse cx="12" cy="12" rx="9" ry="3.5" stroke="currentColor" strokeWidth="2" transform="rotate(90 12 12)" />
-        <ellipse cx="12" cy="12" rx="9" ry="3.5" stroke="currentColor" strokeWidth="2" transform="rotate(150 12 12)" />
+        <ellipse
+          cx="12"
+          cy="12"
+          rx="9"
+          ry="3.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          transform="rotate(30 12 12)"
+        />
+        <ellipse
+          cx="12"
+          cy="12"
+          rx="9"
+          ry="3.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          transform="rotate(90 12 12)"
+        />
+        <ellipse
+          cx="12"
+          cy="12"
+          rx="9"
+          ry="3.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          transform="rotate(150 12 12)"
+        />
       </svg>
     );
   }
@@ -90,8 +121,19 @@ const getFileIcon = (fileName: string) => {
   }
   if (fileName.endsWith(".css")) {
     return (
-      <svg className="w-3.5 h-3.5 text-[#e55b3c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      <svg
+        className="w-3.5 h-3.5 text-[#e55b3c]"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2.5"
+          d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+        />
       </svg>
     );
   }
@@ -250,7 +292,11 @@ const getRequiredCssForCode = (code: string) => {
 }`);
   }
 
-  if (code.includes("preserve-3d") || code.includes("backface-hidden") || code.includes("rotate-y-180")) {
+  if (
+    code.includes("preserve-3d") ||
+    code.includes("backface-hidden") ||
+    code.includes("rotate-y-180")
+  ) {
     cssBlocks.push(`/* 3D Card Flip & Perspective Utilities */
 .preserve-3d {
   transform-style: preserve-3d;
@@ -320,11 +366,13 @@ const highlightCode = (code: string, fileName: string) => {
     return `___TAG_PLACEHOLDER_${insertedTags.length - 1}___`;
   };
 
-  const tokenPlaceholders: { type: "comment" | "string"; content: string }[] = [];
+  const tokenPlaceholders: { type: "comment" | "string"; content: string }[] =
+    [];
 
   // Match comments and strings in a single pass to avoid collisions
-  const tokenRegex = /(\/\/.*|\/\*[\s\S]*?\*\/|&quot;[\s\S]*?&quot;|&#39;[\s\S]*?&#39;|`[\s\S]*?`)/g;
-  
+  const tokenRegex =
+    /(\/\/.*|\/\*[\s\S]*?\*\/|&quot;[\s\S]*?&quot;|&#39;[\s\S]*?&#39;|`[\s\S]*?`)/g;
+
   html = html.replace(tokenRegex, (match) => {
     const isComment = match.startsWith("//") || match.startsWith("/*");
     tokenPlaceholders.push({
@@ -339,36 +387,101 @@ const highlightCode = (code: string, fileName: string) => {
 
   // Keywords (high-contrast magenta)
   const keywords = [
-    "import", "export", "default", "const", "let", "var", "function", "return",
-    "interface", "type", "extends", "implements", "from", "as", "true", "false",
-    "null", "undefined", "async", "await", "new", "typeof", "if", "else", "for",
-    "while", "switch", "case", "break", "continue", "class"
+    "import",
+    "export",
+    "default",
+    "const",
+    "let",
+    "var",
+    "function",
+    "return",
+    "interface",
+    "type",
+    "extends",
+    "implements",
+    "from",
+    "as",
+    "true",
+    "false",
+    "null",
+    "undefined",
+    "async",
+    "await",
+    "new",
+    "typeof",
+    "if",
+    "else",
+    "for",
+    "while",
+    "switch",
+    "case",
+    "break",
+    "continue",
+    "class",
   ];
   const keywordPattern = new RegExp(`\\b(${keywords.join("|")})\\b`, "g");
-  html = html.replace(keywordPattern, (_, match) => wrap(match, "text-[#c678dd]"));
+  html = html.replace(keywordPattern, (_, match) =>
+    wrap(match, "text-[#c678dd]"),
+  );
 
   // React component and core hook names (cyan)
-  const hooks = ["useGSAP", "useRef", "useState", "useEffect", "contextSafe", "ScrollTrigger", "gsap"];
+  const hooks = [
+    "useGSAP",
+    "useRef",
+    "useState",
+    "useEffect",
+    "contextSafe",
+    "ScrollTrigger",
+    "gsap",
+  ];
   const hooksPattern = new RegExp(`\\b(${hooks.join("|")})\\b`, "g");
-  html = html.replace(hooksPattern, (_, match) => wrap(match, "text-[#56b6c2] font-semibold"));
+  html = html.replace(hooksPattern, (_, match) =>
+    wrap(match, "text-[#56b6c2] font-semibold"),
+  );
 
   // Built-in functions and methods (blue)
-  const builtins = ["registerPlugin", "timeline", "fromTo", "kill", "revert", "split", "map", "forEach", "find", "push", "addEventListener", "removeEventListener", "getBoundingClientRect", "querySelector", "querySelectorAll"];
+  const builtins = [
+    "registerPlugin",
+    "timeline",
+    "fromTo",
+    "kill",
+    "revert",
+    "split",
+    "map",
+    "forEach",
+    "find",
+    "push",
+    "addEventListener",
+    "removeEventListener",
+    "getBoundingClientRect",
+    "querySelector",
+    "querySelectorAll",
+  ];
   const builtinsPattern = new RegExp(`\\b(${builtins.join("|")})\\b`, "g");
-  html = html.replace(builtinsPattern, (_, match) => wrap(match, "text-[#61afef]"));
+  html = html.replace(builtinsPattern, (_, match) =>
+    wrap(match, "text-[#61afef]"),
+  );
 
   // JSX tag names (red/pink)
-  html = html.replace(/(&lt;\/?[a-zA-Z0-9-]+)/gi, (match) => wrap(match, "text-[#e06c75]"));
-  
+  html = html.replace(/(&lt;\/?[a-zA-Z0-9-]+)/gi, (match) =>
+    wrap(match, "text-[#e06c75]"),
+  );
+
   // HTML/JSX Attributes (gold)
-  html = html.replace(/\b(className|ref|onClick|onChange|style|key|id|type|placeholder|value|maxLength|initialText|bgColor|textColor|tiltClass|route|name|description)\b=/g, (match, p1) => {
-    return `${wrap(p1, "text-[#d19a66]")}=`;
-  });
+  html = html.replace(
+    /\b(className|ref|onClick|onChange|style|key|id|type|placeholder|value|maxLength|initialText|bgColor|textColor|tiltClass|route|name|description)\b=/g,
+    (match, p1) => {
+      return `${wrap(p1, "text-[#d19a66]")}=`;
+    },
+  );
 
   // Highlight brackets and punctuation (light gray)
-  html = html.replace(/([{}[\]().,:])|(?<!&(lt|gt|amp|quot|#39));/g, (match) => {
-    return wrap(match, "text-[#abb2bf]");
-  });
+  html = html.replace(
+    /([{}[\]().,:])|(?<!&(lt|gt|amp|quot|#39));/g,
+    (match) => {
+      return wrap(match, "text-[#abb2bf]");
+    },
+  );
 
   // Re-insert tag placeholders
   const tagPlaceholderRegex = /___TAG_PLACEHOLDER_(\d+)___/g;
@@ -409,7 +522,11 @@ function renderMarkdown(md: string) {
     }
     if (skipCodeBlock) continue;
 
-    if (line.startsWith("# ") || line.toLowerCase().includes("setup &amp; dependencies") || line.toLowerCase().includes("setup & dependencies")) {
+    if (
+      line.startsWith("# ") ||
+      line.toLowerCase().includes("setup &amp; dependencies") ||
+      line.toLowerCase().includes("setup & dependencies")
+    ) {
       continue;
     }
 
@@ -424,15 +541,21 @@ function renderMarkdown(md: string) {
     if (currentList.length > 0) {
       if (listType === "ordered") {
         elements.push(
-          <ol key={`ol-${key}`} className="list-decimal pl-6 my-3 space-y-2 font-sans font-medium text-zinc-700">
+          <ol
+            key={`ol-${key}`}
+            className="list-decimal pl-6 my-3 space-y-2 font-sans font-medium text-zinc-700"
+          >
             {currentList}
-          </ol>
+          </ol>,
         );
       } else {
         elements.push(
-          <ul key={`ul-${key}`} className="list-disc pl-6 my-3 space-y-2 font-sans font-medium text-zinc-700">
+          <ul
+            key={`ul-${key}`}
+            className="list-disc pl-6 my-3 space-y-2 font-sans font-medium text-zinc-700"
+          >
             {currentList}
-          </ul>
+          </ul>,
         );
       }
       currentList = [];
@@ -445,9 +568,15 @@ function renderMarkdown(md: string) {
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
-    
-    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong class="font-black text-[#2a2a2a]">$1</strong>');
-    html = html.replace(/`([^`]+)`/g, '<code class="bg-zinc-100 border border-zinc-350 px-1.5 py-0.5 rounded font-mono text-xs font-bold text-wtf-orange">$1</code>');
+
+    html = html.replace(
+      /\*\*([^*]+)\*\*/g,
+      '<strong class="font-black text-[#2a2a2a]">$1</strong>',
+    );
+    html = html.replace(
+      /`([^`]+)`/g,
+      '<code class="bg-zinc-100 border border-zinc-350 px-1.5 py-0.5 rounded font-mono text-xs font-bold text-wtf-orange">$1</code>',
+    );
 
     return <span dangerouslySetInnerHTML={{ __html: html }} />;
   };
@@ -459,17 +588,23 @@ function renderMarkdown(md: string) {
       flushList(String(i));
       const val = line.slice(3).trim();
       elements.push(
-        <h3 key={`h2-${i}`} className="text-xl font-serif font-black uppercase tracking-tight text-[#2a2a2a] mt-8 mb-4 border-b border-zinc-200 pb-2">
+        <h3
+          key={`h2-${i}`}
+          className="text-xl font-serif font-black uppercase tracking-tight text-[#2a2a2a] mt-8 mb-4 border-b border-zinc-200 pb-2"
+        >
           {parseInlineMarkdown(val)}
-        </h3>
+        </h3>,
       );
     } else if (line.startsWith("### ")) {
       flushList(String(i));
       const val = line.slice(4).trim();
       elements.push(
-        <h4 key={`h3-${i}`} className="text-lg font-serif font-black uppercase tracking-tight text-[#2a2a2a] mt-6 mb-3">
+        <h4
+          key={`h3-${i}`}
+          className="text-lg font-serif font-black uppercase tracking-tight text-[#2a2a2a] mt-6 mb-3"
+        >
           {parseInlineMarkdown(val)}
-        </h4>
+        </h4>,
       );
     } else if (line.trim().match(/^\d+\.\s+(.+)$/)) {
       if (listType !== "ordered") {
@@ -480,7 +615,7 @@ function renderMarkdown(md: string) {
       currentList.push(
         <li key={`li-${i}`} className="pl-1 leading-relaxed">
           {parseInlineMarkdown(val)}
-        </li>
+        </li>,
       );
     } else if (line.trim().startsWith("- ") || line.trim().startsWith("* ")) {
       if (listType !== "unordered") {
@@ -491,16 +626,19 @@ function renderMarkdown(md: string) {
       currentList.push(
         <li key={`li-${i}`} className="pl-1 leading-relaxed">
           {parseInlineMarkdown(val)}
-        </li>
+        </li>,
       );
     } else if (line.trim() === "") {
       flushList(String(i));
     } else {
       flushList(String(i));
       elements.push(
-        <p key={`p-${i}`} className="my-2.5 font-sans font-medium text-zinc-700 leading-relaxed text-sm">
+        <p
+          key={`p-${i}`}
+          className="my-2.5 font-sans font-medium text-zinc-700 leading-relaxed text-sm"
+        >
           {parseInlineMarkdown(line)}
-        </p>
+        </p>,
       );
     }
   }
@@ -551,27 +689,51 @@ export default function CodePageClient({
   const isAuthenticated = !!session;
   const isPlaceholder = pageCode.includes("Please sign in to view the code.");
 
-  const blurClass = !isAuthenticated ? "blur-md pointer-events-none select-none" : "";
+  const blurClass = !isAuthenticated
+    ? "blur-md pointer-events-none select-none"
+    : "";
   // Determine available tabs
   const tabs = [];
-  tabs.push({ id: "page", label: "Full Sandbox Page", code: pageCode, file: "page.tsx" });
+  tabs.push({
+    id: "page",
+    label: "Full Sandbox Page",
+    code: pageCode,
+    file: "page.tsx",
+  });
   if (standaloneCode) {
-    tabs.push({ id: "standalone", label: "Standalone React Component", code: standaloneCode, file: `${getClassName(slug)}.tsx` });
+    tabs.push({
+      id: "standalone",
+      label: "Standalone React Component",
+      code: standaloneCode,
+      file: `${getClassName(slug)}.tsx`,
+    });
   }
   if (coreGsapCode) {
-    tabs.push({ id: "core", label: "Core GSAP Timeline", code: coreGsapCode, file: "animation.js" });
+    tabs.push({
+      id: "core",
+      label: "Core GSAP Timeline",
+      code: coreGsapCode,
+      file: "animation.js",
+    });
   }
 
   // Compile required CSS styles dynamically based on classes used in code
   const codeToAnalyze = standaloneCode || pageCode;
   const cssCode = getRequiredCssForCode(codeToAnalyze);
   if (cssCode) {
-    tabs.push({ id: "css", label: "Required CSS", code: cssCode, file: "styles.css" });
+    tabs.push({
+      id: "css",
+      label: "Required CSS",
+      code: cssCode,
+      file: "styles.css",
+    });
   }
 
   const [activeTabId, setActiveTabId] = useState(tabs[0].id);
   const [copied, setCopied] = useState(false);
-  const [pkgManager, setPkgManager] = useState<"npm" | "pnpm" | "yarn" | "bun">("npm");
+  const [pkgManager, setPkgManager] = useState<"npm" | "pnpm" | "yarn" | "bun">(
+    "npm",
+  );
   const [isExpanded, setIsExpanded] = useState(false);
   const [hasRefreshed, setHasRefreshed] = useState(false);
 
@@ -590,7 +752,16 @@ export default function CodePageClient({
         }
       }
     }
-  }, [session, isPending, slug, openModal, closeModal, isPlaceholder, router, hasRefreshed]);
+  }, [
+    session,
+    isPending,
+    slug,
+    openModal,
+    closeModal,
+    isPlaceholder,
+    router,
+    hasRefreshed,
+  ]);
 
   const handleCopy = async () => {
     try {
@@ -619,7 +790,7 @@ export default function CodePageClient({
     if (activeTab.id === "page") {
       fileName = `${getClassName(slug)}.tsx`;
     }
-    
+
     downloadFile(activeTab.code, fileName);
   };
 
@@ -639,7 +810,10 @@ export default function CodePageClient({
               TweenLabs
             </Link>
             <span>/</span>
-            <Link href={`/${slug}`} className="hover:text-wtf-orange transition-colors">
+            <Link
+              href={`/${slug}`}
+              className="hover:text-wtf-orange transition-colors"
+            >
               Components
             </Link>
             <span>/</span>
@@ -678,7 +852,10 @@ export default function CodePageClient({
           <div className="flex flex-col gap-1.5 border-t-2 md:border-t-0 md:border-l-2 border-zinc-200 pt-4 md:pt-0 md:pl-6 font-mono text-[10px] font-bold text-zinc-500 uppercase tracking-wider min-w-[210px]">
             <div>📦 GSAP: ^3.15.0</div>
             <div>📦 @gsap/react: ^2.1.2</div>
-            <div>⚙️ ScrollTrigger: {usesScrollTrigger ? "✅ Required" : "❌ Not Used"}</div>
+            <div>
+              ⚙️ ScrollTrigger:{" "}
+              {usesScrollTrigger ? "✅ Required" : "❌ Not Used"}
+            </div>
           </div>
         </div>
       </section>
@@ -703,7 +880,9 @@ export default function CodePageClient({
             </div>
 
             {/* Right: Copy & Download actions */}
-            <div className={`flex items-center gap-3 ${!isAuthenticated ? "opacity-50 pointer-events-none" : ""}`}>
+            <div
+              className={`flex items-center gap-3 ${!isAuthenticated ? "opacity-50 pointer-events-none" : ""}`}
+            >
               <button
                 onClick={handleCopy}
                 className="brutalist-btn bg-white hover:bg-zinc-50 text-[#2a2a2a] font-mono text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer shadow-[2.5px_2.5px_0px_#000] transition-all duration-75 active:translate-y-[1px] active:shadow-[1.5px_1.5px_0px_#000]"
@@ -744,10 +923,15 @@ export default function CodePageClient({
           </div>
 
           {/* Code Body */}
-          <div className={`relative font-mono text-[13px] bg-[#121212] py-5 px-4 flex items-start transition-all duration-300 ${isExpanded ? "" : "max-h-[380px] overflow-hidden"} ${blurClass}`}>
+          <div
+            className={`relative font-mono text-[13px] bg-[#121212] py-5 px-4 flex items-start transition-all duration-300 ${isExpanded ? "" : "max-h-[380px] overflow-hidden"} ${blurClass}`}
+          >
             {/* Line Numbers */}
             <pre className="select-none text-right pr-4 border-r border-zinc-800 text-zinc-650 min-w-[3.5rem] whitespace-pre scrollbar-none">
-              {activeTab.code.split("\n").map((_, i) => i + 1).join("\n")}
+              {activeTab.code
+                .split("\n")
+                .map((_, i) => i + 1)
+                .join("\n")}
             </pre>
 
             {/* Highlighted Code */}
@@ -785,7 +969,11 @@ export default function CodePageClient({
             {/* Left side */}
             <div className="flex items-center gap-4">
               <span className="flex items-center gap-1 hover:bg-[#008be6] px-1.5 py-0.5 rounded cursor-pointer">
-                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 16 16">
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
                   <path d="M5.026 15c.538 0 .8-.324.8-.8v-3.06c0-.528-.27-.8-.8-.8H3.01c-.537 0-.8.272-.8.8v3.06c0 .476.263.8.8.8h2.016zM12.01 15c.537 0 .8-.324.8-.8v-3.06c0-.528-.263-.8-.8-.8H9.994c-.538 0-.8.272-.8.8v3.06c0 .476.262.8.8.8H12.01zM8.508 1.3c0-.173-.06-.324-.18-.45a.618.618 0 0 0-.448-.19.624.624 0 0 0-.449.19c-.12.126-.18.277-.18.45V4.31H1.8c-.18 0-.332.062-.455.187A.627.627 0 0 0 1.154 5c0 .182.061.334.184.457.123.123.276.185.457.185H7.25v8.543c0 .173.06.324.18.45.12.126.27.19.449.19a.618.618 0 0 0 .448-.19c.12-.126.18-.277.18-.45V5.642h5.578c.18 0 .332-.062.455-.187.123-.125.184-.277.184-.457s-.061-.334-.184-.457a.627.627 0 0 0-.457-.185H8.508V1.3z" />
                 </svg>
                 master*
@@ -802,7 +990,13 @@ export default function CodePageClient({
               <span>Spaces: 2</span>
               <span>UTF-8</span>
               <span className="hover:bg-[#008be6] px-1.5 py-0.5 rounded cursor-pointer">
-                {activeTab.file.endsWith(".tsx") ? "TypeScript JSX" : activeTab.file.endsWith(".js") ? "JavaScript" : activeTab.file.endsWith(".css") ? "CSS" : "Markdown"}
+                {activeTab.file.endsWith(".tsx")
+                  ? "TypeScript JSX"
+                  : activeTab.file.endsWith(".js")
+                    ? "JavaScript"
+                    : activeTab.file.endsWith(".css")
+                      ? "CSS"
+                      : "Markdown"}
               </span>
               <span>Prettier</span>
             </div>
@@ -810,13 +1004,16 @@ export default function CodePageClient({
         </div>
 
         {/* Setup Guide Container */}
-        <div className={`brutalist-card p-8 bg-white flex flex-col gap-8 border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] ${blurClass}`}>
+        <div
+          className={`brutalist-card p-8 bg-white flex flex-col gap-8 border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] ${blurClass}`}
+        >
           <div className="border-b-3 border-[#2a2a2a] pb-4">
             <h2 className="text-2xl md:text-3xl font-serif font-black uppercase tracking-tight text-[#2a2a2a]">
               ⚙️ Setup & Integration Guide
             </h2>
             <p className="text-xs font-mono font-bold text-wtf-orange uppercase tracking-wider mt-1.5">
-              How to install, import, and configure this animation in your project
+              How to install, import, and configure this animation in your
+              project
             </p>
           </div>
 
@@ -831,7 +1028,9 @@ export default function CodePageClient({
                   Option A: Install via CLI (Recommended)
                 </h3>
                 <p>
-                  You can install this component directly into your project via the TweenLabs CLI. It automatically creates the file and configures dependencies:
+                  You can install this component directly into your project via
+                  the TweenLabs CLI. It automatically creates the file and
+                  configures dependencies:
                 </p>
                 <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[3px_3px_0px_#2a2a2a] max-w-md mt-1">
                   <div className="bg-[#181818] border-b-2 border-[#2a2a2a] px-4 py-2 flex items-center justify-between text-xs font-mono text-zinc-400">
@@ -865,7 +1064,8 @@ export default function CodePageClient({
                 Option B: Manual Installation
               </h3>
               <p className="text-xs text-zinc-500 font-medium">
-                Follow these steps to integrate the component into your project manually:
+                Follow these steps to integrate the component into your project
+                manually:
               </p>
             </div>
 
@@ -879,7 +1079,12 @@ export default function CodePageClient({
                   Install Packages
                 </h3>
                 <p>
-                  First, install GSAP and its official React hook helper library (<code className="bg-zinc-100 px-1 py-0.5 border border-zinc-200 rounded font-mono text-xs font-bold text-wtf-orange">@gsap/react</code>).
+                  First, install GSAP and its official React hook helper library
+                  (
+                  <code className="bg-zinc-100 px-1 py-0.5 border border-zinc-200 rounded font-mono text-xs font-bold text-wtf-orange">
+                    @gsap/react
+                  </code>
+                  ).
                 </p>
                 <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[3px_3px_0px_#2a2a2a] max-w-md mt-1">
                   <div className="bg-[#181818] border-b-2 border-[#2a2a2a] px-4 py-2 flex items-center justify-between text-xs font-mono text-zinc-400">
@@ -918,7 +1123,20 @@ export default function CodePageClient({
                     Add Required CSS Styles
                   </h3>
                   <p>
-                    Copy the styles from the <span className="font-bold text-black underline decoration-wtf-purple decoration-2">Required CSS</span> tab above, or open the <code className="bg-zinc-100 px-1 py-0.5 border border-zinc-200 rounded font-mono text-xs font-bold text-wtf-purple">styles.css</code> file that was automatically downloaded with your component. Paste these classes into your global stylesheet (e.g. <code className="bg-zinc-100 px-1 py-0.5 border border-zinc-200 rounded font-mono text-xs font-bold text-wtf-purple">src/app/globals.css</code> or similar).
+                    Copy the styles from the{" "}
+                    <span className="font-bold text-black underline decoration-wtf-purple decoration-2">
+                      Required CSS
+                    </span>{" "}
+                    tab above, or open the{" "}
+                    <code className="bg-zinc-100 px-1 py-0.5 border border-zinc-200 rounded font-mono text-xs font-bold text-wtf-purple">
+                      styles.css
+                    </code>{" "}
+                    file that was automatically downloaded with your component.
+                    Paste these classes into your global stylesheet (e.g.{" "}
+                    <code className="bg-zinc-100 px-1 py-0.5 border border-zinc-200 rounded font-mono text-xs font-bold text-wtf-purple">
+                      src/app/globals.css
+                    </code>{" "}
+                    or similar).
                   </p>
                 </div>
               </div>
@@ -939,7 +1157,11 @@ export default function CodePageClient({
                     src/components/{componentName}.tsx
                   </code>
                   ) and paste the code from the{" "}
-                  <span className="font-bold text-black underline decoration-wtf-green decoration-2">Standalone React Component</span> tab above. If no standalone tab is available, copy the full page file code and adjust the routing logic for your needs.
+                  <span className="font-bold text-black underline decoration-wtf-green decoration-2">
+                    Standalone React Component
+                  </span>{" "}
+                  tab above. If no standalone tab is available, copy the full
+                  page file code and adjust the routing logic for your needs.
                 </p>
               </div>
             </div>
@@ -952,12 +1174,15 @@ export default function CodePageClient({
                     ⚠️ ScrollTrigger Plugin Notice
                   </h4>
                   <p className="text-xs text-zinc-650 leading-relaxed">
-                    This component uses scroll-triggered timing events. Make sure to register the plugin as shown inside the code:
+                    This component uses scroll-triggered timing events. Make
+                    sure to register the plugin as shown inside the code:
                   </p>
                   <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[2.5px_2.5px_0px_#2a2a2a] max-w-xl mt-1">
                     <div className="bg-[#181818] border-b-2 border-[#2a2a2a] px-4 py-2 flex items-center justify-between text-xs font-mono text-zinc-400">
                       <span>GSAP Registration</span>
-                      <CopyButton text={`import { ScrollTrigger } from "gsap/ScrollTrigger";\ngsap.registerPlugin(useGSAP, ScrollTrigger);`} />
+                      <CopyButton
+                        text={`import { ScrollTrigger } from "gsap/ScrollTrigger";\ngsap.registerPlugin(useGSAP, ScrollTrigger);`}
+                      />
                     </div>
                     <pre className="p-4 font-mono text-xs text-emerald-400 overflow-x-auto scrollbar-none">
                       {`import { ScrollTrigger } from "gsap/ScrollTrigger";

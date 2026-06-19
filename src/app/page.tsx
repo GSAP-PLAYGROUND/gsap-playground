@@ -1,10 +1,8 @@
-
 import AnimationCard from "@/components/AnimationCard";
 import FAQ from "@/components/FAQ";
 import Hero from "@/components/Hero";
 
 import { animations } from "@/data/animations";
-
 
 export default function Home() {
   return (

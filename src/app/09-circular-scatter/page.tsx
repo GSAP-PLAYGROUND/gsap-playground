@@ -2,7 +2,6 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP);
@@ -342,7 +341,7 @@ export default function CircularScatterPage() {
         className="absolute inset-0 pointer-events-none z-0 opacity-25"
         style={{
           backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
-          backgroundSize: "24px 24px"
+          backgroundSize: "24px 24px",
         }}
       />
 
@@ -367,18 +366,6 @@ export default function CircularScatterPage() {
             Engineers who own outcomes — CTO-screened with a ≤ 5% pass rate.
             Ready to scale your product immediately.
           </p>
-          <div className="hero-cta-btn inline-block pointer-events-auto">
-            <button
-              onClick={() =>
-                window.history.length > 1
-                  ? window.history.back()
-                  : (window.location.href = "/")
-              }
-              className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#f1b333] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#f1b333] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#f1b333] bg-[#2a2a2a] text-white hover:bg-black px-8 py-3.5 rounded-full font-mono text-[11px] font-bold uppercase cursor-pointer"
-            >
-              ← Back
-            </button>
-          </div>
         </div>
 
         {/* Floating cards container */}
@@ -399,13 +386,10 @@ export default function CircularScatterPage() {
             >
               {/* Card Image Area */}
               <div className="w-full h-[70%] bg-[#fcfbfa] border border-[#2a2a2a]/10 rounded-2xl overflow-hidden relative">
-                <Image
+                <img
                   src={card.img}
                   alt={card.name}
-                  fill
-                  priority
-                  unoptimized
-                  className="object-cover"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               </div>
 

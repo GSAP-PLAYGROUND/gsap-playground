@@ -1,11 +1,12 @@
 import fs from "fs";
-import path from "path";
-import Link from "next/link";
 import type { Metadata } from "next";
+import Link from "next/link";
+import path from "path";
 
 export const metadata: Metadata = {
   title: "AI Specifications & Prompt Context | TweenLabs",
-  description: "A structured, prompt-friendly context specification file outlining the TweenLabs technology stack and GSAP implementation patterns.",
+  description:
+    "A structured, prompt-friendly context specification file outlining the TweenLabs technology stack and GSAP implementation patterns.",
 };
 
 export default function LlmPage() {
@@ -14,7 +15,8 @@ export default function LlmPage() {
   try {
     content = fs.readFileSync(filePath, "utf8");
   } catch {
-    content = "# File not found\nCould not load `public/llms.txt`. Ensure it is generated.";
+    content =
+      "# File not found\nCould not load `public/llms.txt`. Ensure it is generated.";
   }
 
   // Simple custom markdown parser for preview layout
@@ -25,39 +27,68 @@ export default function LlmPage() {
       .replace(/>/g, "&gt;");
 
     // Replace Bold text
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-extrabold text-[#2a2a2a]">$1</strong>');
+    html = html.replace(
+      /\*\*(.*?)\*\*/g,
+      '<strong class="font-extrabold text-[#2a2a2a]">$1</strong>',
+    );
 
     // Replace Inline code blocks
-    html = html.replace(/`(.*?)`/g, '<code class="font-mono text-xs bg-zinc-150 border border-zinc-300 rounded px-1 py-0.5 text-wtf-orange font-bold">$1</code>');
+    html = html.replace(
+      /`(.*?)`/g,
+      '<code class="font-mono text-xs bg-zinc-150 border border-zinc-300 rounded px-1 py-0.5 text-wtf-orange font-bold">$1</code>',
+    );
 
     // Replace Headings
-    html = html.replace(/^# (.*)$/gm, '<h1 class="text-3xl md:text-4xl font-serif font-black uppercase text-[#2a2a2a] border-b-3 border-[#2a2a2a] pb-4 mb-6 mt-2">$1</h1>');
-    html = html.replace(/^## (.*)$/gm, '<h2 class="text-xl md:text-2xl font-serif font-black uppercase text-[#2a2a2a] mt-8 mb-4 border-b-2 border-zinc-200 pb-2">$1</h2>');
-    html = html.replace(/^### (.*)$/gm, '<h3 class="text-base md:text-lg font-mono font-bold uppercase text-[#2a2a2a] mt-6 mb-3">$1</h3>');
+    html = html.replace(
+      /^# (.*)$/gm,
+      '<h1 class="text-3xl md:text-4xl font-serif font-black uppercase text-[#2a2a2a] border-b-3 border-[#2a2a2a] pb-4 mb-6 mt-2">$1</h1>',
+    );
+    html = html.replace(
+      /^## (.*)$/gm,
+      '<h2 class="text-xl md:text-2xl font-serif font-black uppercase text-[#2a2a2a] mt-8 mb-4 border-b-2 border-zinc-200 pb-2">$1</h2>',
+    );
+    html = html.replace(
+      /^### (.*)$/gm,
+      '<h3 class="text-base md:text-lg font-mono font-bold uppercase text-[#2a2a2a] mt-6 mb-3">$1</h3>',
+    );
 
     // Replace Markdown Links
-    html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-wtf-orange hover:underline font-bold" target="_blank" rel="noopener noreferrer">$1</a>');
+    html = html.replace(
+      /\[(.*?)\]\((.*?)\)/g,
+      '<a href="$2" class="text-wtf-orange hover:underline font-bold" target="_blank" rel="noopener noreferrer">$1</a>',
+    );
 
     // Blockquote
-    html = html.replace(/^&gt;[ \t]+(.*)$/gm, '<blockquote class="border-l-4 border-wtf-yellow pl-4 italic text-zinc-650 my-4 bg-zinc-50 py-2 pr-2 rounded">$1</blockquote>');
+    html = html.replace(
+      /^&gt;[ \t]+(.*)$/gm,
+      '<blockquote class="border-l-4 border-wtf-yellow pl-4 italic text-zinc-650 my-4 bg-zinc-50 py-2 pr-2 rounded">$1</blockquote>',
+    );
 
     // Nested bullet points
-    html = html.replace(/^  -[ \t]+(.*)$/gm, '<li class="ml-8 list-circle pl-2 text-zinc-700 my-1">$1</li>');
+    html = html.replace(
+      /^ {2}-[ \t]+(.*)$/gm,
+      '<li class="ml-8 list-circle pl-2 text-zinc-700 my-1">$1</li>',
+    );
 
     // Top-level bullet points
-    html = html.replace(/^-[ \t]+(.*)$/gm, '<li class="ml-4 list-disc pl-2 text-zinc-700 my-1.5">$1</li>');
+    html = html.replace(
+      /^-[ \t]+(.*)$/gm,
+      '<li class="ml-4 list-disc pl-2 text-zinc-700 my-1.5">$1</li>',
+    );
 
     // Paragraph split
     const paragraphs = html.split(/\n\n+/);
-    return paragraphs.map((p) => {
-      const trimmed = p.trim();
-      if (!trimmed) return "";
-      // If the block is already formatted as HTML blocks, return directly
-      if (trimmed.match(/^<(h1|h2|h3|blockquote|li|ul|ol|pre|div)/)) {
-        return trimmed;
-      }
-      return `<p class="text-sm md:text-base text-zinc-650 leading-relaxed font-medium mb-4">${trimmed.replace(/\n/g, "<br />")}</p>`;
-    }).join("\n");
+    return paragraphs
+      .map((p) => {
+        const trimmed = p.trim();
+        if (!trimmed) return "";
+        // If the block is already formatted as HTML blocks, return directly
+        if (trimmed.match(/^<(h1|h2|h3|blockquote|li|ul|ol|pre|div)/)) {
+          return trimmed;
+        }
+        return `<p class="text-sm md:text-base text-zinc-650 leading-relaxed font-medium mb-4">${trimmed.replace(/\n/g, "<br />")}</p>`;
+      })
+      .join("\n");
   };
 
   const htmlContent = parseMarkdown(content);
@@ -78,6 +109,7 @@ export default function LlmPage() {
               href="/llms.txt"
               target="_blank"
               className="brutalist-btn bg-white hover:bg-wtf-orange hover:text-white text-xs font-mono font-bold px-3 py-1.5 rounded-md uppercase tracking-wider transition-colors duration-150 cursor-pointer"
+              rel="noopener"
             >
               Raw File ↗
             </a>
@@ -91,7 +123,7 @@ export default function LlmPage() {
         </div>
 
         {/* Spec Content Card */}
-        <div 
+        <div
           className="brutalist-card bg-white p-8 md:p-12 shadow-[6px_6px_0px_#2a2a2a] w-full"
           dangerouslySetInnerHTML={{ __html: htmlContent }}
         />

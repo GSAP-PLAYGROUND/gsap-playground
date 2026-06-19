@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Fraunces, Geist, Space_Mono } from "next/font/google";
 import "./globals.css";
 import PageWrapper from "@/components/PageWrapper";
+import { fetchAuthQuery, getToken } from "@/lib/auth-server";
 import { ConvexClientProvider } from "@/provider/ConvexClientProvider";
-import { getToken, fetchAuthQuery } from "@/lib/auth-server";
 import { api } from "../../convex/_generated/api";
 
 const geist = Geist({
@@ -86,7 +86,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/logo.svg", type: "image/svg+xml" }
+      { url: "/logo.svg", type: "image/svg+xml" },
     ],
     apple: "/logo.svg",
   },
@@ -99,7 +99,9 @@ export default async function RootLayout({
 }>) {
   // Fetch session server-side to prevent loading flicker in the client
   const token = await getToken().catch(() => undefined);
-  const user = token ? await fetchAuthQuery(api.auth.getCurrentUser).catch(() => null) : null;
+  const user = token
+    ? await fetchAuthQuery(api.auth.getCurrentUser).catch(() => null)
+    : null;
 
   const initialSession = user
     ? {
@@ -128,7 +130,8 @@ export default async function RootLayout({
         url: "https://tweenlabs.xyz",
         logo: "https://tweenlabs.xyz/logo.svg",
         sameAs: ["https://github.com/TweenLabs/TweenLabs"],
-        description: "TweenLabs is an open-source engineering repository providing high-performance, copy-paste GreenSock (GSAP) UI components, ScrollTrigger timelines, and custom animation hooks tailored specifically for React 19 and Next.js 16 (App Router) environments."
+        description:
+          "TweenLabs is an open-source engineering repository providing high-performance, copy-paste GreenSock (GSAP) UI components, ScrollTrigger timelines, and custom animation hooks tailored specifically for React 19 and Next.js 16 (App Router) environments.",
       },
       {
         "@type": "WebSite",
@@ -162,8 +165,8 @@ export default async function RootLayout({
         mainEntity: [
           {
             "@type": "Question",
-            "name": "What is TweenLabs?",
-            "acceptedAnswer": {
+            name: "What is TweenLabs?",
+            acceptedAnswer: {
               "@type": "Answer",
               text: "TweenLabs is a dedicated front-end animation resource library featuring production-ready GreenSock (GSAP) components and interactive React templates. It provides web developers and UI designers with reusable, copy-paste code snippets to build high-fidelity scroll animations, creative layouts, and interactive experiences.",
             },
@@ -226,7 +229,10 @@ export default async function RootLayout({
         />
         {/* Fine Grain noise overlay across the entire site */}
         <div className="noise-overlay fixed inset-0 pointer-events-none z-[99] opacity-70" />
-        <ConvexClientProvider initialToken={user ? token : null} initialSession={initialSession}>
+        <ConvexClientProvider
+          initialToken={user ? token : null}
+          initialSession={initialSession}
+        >
           <PageWrapper>{children}</PageWrapper>
         </ConvexClientProvider>
       </body>

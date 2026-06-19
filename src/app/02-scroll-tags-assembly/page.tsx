@@ -74,7 +74,8 @@ export default function AnimationTwoPage() {
     () => {
       const tags = gsap.utils.toArray<HTMLElement>(".assembler-tag");
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       // Pin the scroll section and animate the tags entering the DOM
       const tl = gsap.timeline({
@@ -124,24 +125,13 @@ export default function AnimationTwoPage() {
       className="relative bg-[#f0eadf] text-[#2a2a2a] selection:bg-[#f1b333] selection:text-black"
       ref={containerRef}
     >
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
-
-      {/* Floating Back Button */}
-      <div className="fixed left-6 top-6 z-50 pointer-events-auto">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Intro section */}
       <section className="h-[70vh] flex flex-col items-center justify-center text-center px-4 gap-4 z-10 relative">
@@ -161,9 +151,12 @@ export default function AnimationTwoPage() {
         ref={scrollSectionRef}
         className="h-[calc(100vh-64px)] w-full flex items-center justify-center relative overflow-hidden bg-white border-y-3 border-[#2a2a2a]"
       >
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-5"
-          style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+          style={{
+            backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
         />
 
         <div className="z-10 w-full max-w-4xl px-4 flex flex-col gap-8 items-center">
@@ -187,7 +180,6 @@ export default function AnimationTwoPage() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }

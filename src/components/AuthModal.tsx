@@ -30,7 +30,7 @@ export default function AuthModal() {
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
       {/* Blurred Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/40 backdrop-blur-md transition-all duration-300 animate-in fade-in"
         onClick={() => {
           if (isClosable) closeModal();
@@ -39,7 +39,6 @@ export default function AuthModal() {
 
       {/* Auth Card Modal Container */}
       <div className="w-full max-w-md brutalist-card bg-white relative z-10 p-8 flex flex-col gap-6 select-none animate-in fade-in zoom-in-95 duration-200">
-        
         {/* Close Button (if closable) */}
         {isClosable && (
           <button
@@ -59,7 +58,8 @@ export default function AuthModal() {
             Join the Lab
           </h2>
           <p className="text-xs font-sans font-medium text-zinc-500 mt-1 leading-relaxed">
-            Please sign in to your developer account using Google or GitHub to view source codes and integration instructions.
+            Please sign in to your developer account using Google or GitHub to
+            view source codes and integration instructions.
           </p>
         </div>
 

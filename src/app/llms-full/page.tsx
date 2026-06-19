@@ -1,11 +1,12 @@
 import fs from "fs";
-import path from "path";
 import type { Metadata } from "next";
+import path from "path";
 import LlmFullClient from "./LlmFullClient";
 
 export const metadata: Metadata = {
   title: "Consolidated Code Registry Context | TweenLabs",
-  description: "A complete, prompt-ready reference registry containing the full source code and integration markdown docs for all 18 GSAP UI components.",
+  description:
+    "A complete, prompt-ready reference registry containing the full source code and integration markdown docs for all 18 GSAP UI components.",
 };
 
 export default function LlmFullPage() {
@@ -14,7 +15,8 @@ export default function LlmFullPage() {
   try {
     content = fs.readFileSync(filePath, "utf8");
   } catch {
-    content = "# Component: Not Found\nCould not load `public/llms-full.txt`. Ensure it is generated.";
+    content =
+      "# Component: Not Found\nCould not load `public/llms-full.txt`. Ensure it is generated.";
   }
 
   // Parse components from raw text
@@ -38,7 +40,9 @@ export default function LlmFullPage() {
     let howToMd = "";
 
     if (pageCodeSplit[1]) {
-      const pageCodeEnd = pageCodeSplit[1].split(/```\n\n## Documentation & Integration Instructions\n/);
+      const pageCodeEnd = pageCodeSplit[1].split(
+        /```\n\n## Documentation & Integration Instructions\n/,
+      );
       pageCode = pageCodeEnd[0] || "";
       if (pageCodeEnd[1]) {
         howToMd = pageCodeEnd[1].split(/\n\n---\n/)[0] || "";

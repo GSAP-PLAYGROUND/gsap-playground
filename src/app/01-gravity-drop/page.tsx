@@ -48,9 +48,12 @@ export default function AnimationOnePage() {
       className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center justify-center p-4 selection:bg-[#f1b333] selection:text-black"
       ref={containerRef}
     >
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
 
       <div className="z-10 w-full max-w-2xl border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] p-8 bg-white flex flex-col gap-8 text-center relative overflow-hidden">
@@ -91,26 +94,12 @@ export default function AnimationOnePage() {
             placeholder="TYPE TEXT HERE"
             className="w-full md:w-64 border-3 border-[#2a2a2a] px-4 py-2.5 font-mono font-bold rounded-lg focus:outline-none focus:bg-yellow-50 placeholder-zinc-400 shadow-[3px_3px_0px_#2a2a2a]"
           />
-          <div className="flex gap-3 w-full md:w-auto">
-            <button
-              onClick={handleReplay}
-              className="flex-1 md:flex-none border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#e55b3c] text-white font-mono font-bold text-sm py-3 px-6 rounded-lg uppercase tracking-wider cursor-pointer"
-            >
-              ☄️ Trigger Drop
-            </button>
-            <div className="flex-1 md:flex-none">
-              <button
-                onClick={() =>
-                  window.history.length > 1
-                    ? window.history.back()
-                    : (window.location.href = "/")
-                }
-                className="w-full border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-[#2a2a2a] font-mono font-bold text-sm py-3 px-6 rounded-lg uppercase tracking-wider cursor-pointer"
-              >
-                ← Back
-              </button>
-            </div>
-          </div>
+          <button
+            onClick={handleReplay}
+            className="w-full md:w-auto border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#e55b3c] text-white font-mono font-bold text-sm py-3 px-6 rounded-lg uppercase tracking-wider cursor-pointer"
+          >
+            ☄️ Trigger Drop
+          </button>
         </div>
       </div>
     </div>

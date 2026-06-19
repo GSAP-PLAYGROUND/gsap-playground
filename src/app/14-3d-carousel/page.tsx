@@ -2,7 +2,6 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP);
@@ -493,24 +492,13 @@ export default function ThreeDCarouselPage() {
       className="relative w-full h-screen overflow-hidden bg-[#f0eadf] text-[#2a2a2a] selection:bg-[#f1b333] selection:text-black font-sans transition-colors duration-500"
     >
       {/* Dynamic tactile noise overlay */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-10 opacity-[0.035]"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }}
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
       />
-
-      {/* Floating Dashboard Back Button */}
-      <div className="fixed top-6 left-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase tracking-wider cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Header Info */}
       <div className="absolute top-6 right-6 z-30 flex flex-col items-end gap-1 select-none text-right">
@@ -620,7 +608,9 @@ export default function ThreeDCarouselPage() {
                 onMouseMove={(e) => handleCardMouseMove(e, idx)}
                 onMouseLeave={() => handleCardMouseLeave(idx)}
                 className={`w-full h-full p-4 bg-white flex flex-col justify-between cursor-pointer rounded-xl select-none relative overflow-hidden group border-3 ${
-                  isActive ? "border-[#f1b333] shadow-[12px_12px_0px_#2a2a2a]" : "border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a]"
+                  isActive
+                    ? "border-[#f1b333] shadow-[12px_12px_0px_#2a2a2a]"
+                    : "border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a]"
                 }`}
                 style={{
                   transformStyle: "preserve-3d",
@@ -653,13 +643,10 @@ export default function ThreeDCarouselPage() {
                   className="w-full h-[180px] md:h-[230px] border-3 border-[#2a2a2a] relative overflow-hidden rounded-lg bg-zinc-100"
                   style={{ transform: "translateZ(10px)" }}
                 >
-                  <Image
+                  <img
                     src={item.imgUrl}
                     alt={item.title}
-                    fill
-                    sizes="(max-w-7xl) 35vw"
-                    priority={idx < 3}
-                    className="object-cover select-none group-hover:scale-105 transition-transform duration-500 ease-out"
+                    className="absolute inset-0 w-full h-full object-cover select-none group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-80" />
                 </div>

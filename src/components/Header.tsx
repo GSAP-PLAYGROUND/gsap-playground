@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { animations } from "@/data/animations";
 import { authClient } from "@/lib/auth-client";
 import { useAuthModal } from "@/provider/AuthModalProvider";
@@ -36,7 +36,9 @@ export default function Header() {
   // Check if current page is a code page (e.g. /code/17-showup-cards)
   const isCodePage = normalizedPath.startsWith("/code/");
   const codeSlug = isCodePage ? normalizedPath.split("/").pop() || null : null;
-  const codeAnim = codeSlug ? animations.find((anim) => anim.route.slice(1) === codeSlug) : null;
+  const codeAnim = codeSlug
+    ? animations.find((anim) => anim.route.slice(1) === codeSlug)
+    : null;
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[#fafaf9] border-b-3 border-[#2a2a2a]">
@@ -58,8 +60,8 @@ export default function Header() {
               ← Back
             </button>
           )}
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="flex items-center gap-3 cursor-pointer group"
             aria-label="TweenLabs Home"
           >
@@ -97,7 +99,6 @@ export default function Header() {
               View Demo
             </Link>
           )}
-
 
           <a
             href="https://github.com/TweenLabs/TweenLabs"
@@ -152,5 +153,3 @@ export default function Header() {
     </header>
   );
 }
-
-

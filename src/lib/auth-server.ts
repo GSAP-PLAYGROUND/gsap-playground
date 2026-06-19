@@ -9,6 +9,9 @@ export const {
   fetchAuthMutation,
   fetchAuthAction,
 } = convexBetterAuthNextJs({
-  convexUrl: process.env.NEXT_PUBLIC_CONVEX_URL || "https://placeholder.convex.cloud",
-  convexSiteUrl: process.env.NEXT_PUBLIC_CONVEX_SITE_URL || "https://placeholder.convex.site",
+  convexUrl:
+    process.env.NEXT_PUBLIC_CONVEX_URL || "https://placeholder.convex.cloud",
+  convexSiteUrl:
+    process.env.NEXT_PUBLIC_CONVEX_SITE_URL ||
+    "https://placeholder.convex.site",
 });

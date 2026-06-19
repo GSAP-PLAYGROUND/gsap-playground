@@ -36,9 +36,9 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm font-medium text-zinc-600 leading-relaxed max-w-sm">
-              An open laboratory of copy-paste GreenSock (GSAP) UI components, 
-              ScrollTrigger timelines, and Next.js templates engineered for high-performance, 
-              interactive web experiences.
+              An open laboratory of copy-paste GreenSock (GSAP) UI components,
+              ScrollTrigger timelines, and Next.js templates engineered for
+              high-performance, interactive web experiences.
             </p>
             {/* Lab Status Badge */}
             <div className="inline-flex items-center gap-2 border-2 border-[#2a2a2a] bg-white px-3 py-1 rounded-full text-[9px] font-mono font-bold text-wtf-green uppercase tracking-widest shadow-[2px_2px_0px_#2a2a2a] w-fit mt-2">
@@ -141,9 +141,13 @@ export default function Footer() {
               Lab Newsletter
             </h4>
             <p className="text-sm font-medium text-zinc-600 leading-relaxed">
-              Get notified when we publish new physics-based interactive layout modules and hooks.
+              Get notified when we publish new physics-based interactive layout
+              modules and hooks.
             </p>
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 mt-1">
+            <form
+              onSubmit={handleSubscribe}
+              className="flex flex-col sm:flex-row gap-2 mt-1"
+            >
               <input
                 type="email"
                 placeholder="YOUR EMAIL"
@@ -170,7 +174,8 @@ export default function Footer() {
         {/* Sub-footer Section */}
         <div className="border-t-2 border-[#2a2a2a]/20 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xs font-mono text-zinc-500">
-            © {new Date().getFullYear()} TweenLabs. All rights reserved. Open source library licensed under MIT.
+            © {new Date().getFullYear()} TweenLabs. All rights reserved. Open
+            source library licensed under MIT.
           </span>
           <div className="flex items-center gap-4">
             <Link

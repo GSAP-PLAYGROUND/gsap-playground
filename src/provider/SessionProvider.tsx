@@ -36,7 +36,11 @@ export function SessionProvider({
   children: React.ReactNode;
   initialSession: SessionData | null;
 }) {
-  const { data: clientSession, isPending: clientPending, error } = authClient.useSession();
+  const {
+    data: clientSession,
+    isPending: clientPending,
+    error,
+  } = authClient.useSession();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -44,11 +48,18 @@ export function SessionProvider({
   }, []);
 
   // During hydration/first render on client, match server exactly
-  const session = (!mounted || clientPending) ? initialSession : (clientSession as SessionData | null);
-  const isPending = !mounted ? false : (clientPending && initialSession === undefined);
+  const session =
+    !mounted || clientPending
+      ? initialSession
+      : (clientSession as SessionData | null);
+  const isPending = !mounted
+    ? false
+    : clientPending && initialSession === undefined;
 
   return (
-    <SessionContext.Provider value={{ session, isPending, error: error as Error | null }}>
+    <SessionContext.Provider
+      value={{ session, isPending, error: error as Error | null }}
+    >
       {children}
     </SessionContext.Provider>
   );

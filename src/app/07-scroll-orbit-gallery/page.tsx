@@ -3,7 +3,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -49,7 +48,8 @@ export default function ScrollOrbitGallery() {
       // Hide card images initially
       gsap.set(".card-image", { opacity: 0, scale: 0.9 });
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       // 2. Master timeline linked to vertical scroll pinning
       const tl = gsap.timeline({
@@ -270,24 +270,13 @@ export default function ScrollOrbitGallery() {
       ref={containerRef}
     >
       {/* Dot Grid Background Overlay */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
-
-      {/* Dashboard Back Link */}
-      <div className="fixed left-6 top-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-black px-4 py-2 text-xs font-mono font-bold uppercase rounded-md cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Scroll Indicator HUD */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 font-mono text-xs uppercase tracking-widest text-[#2a2a2a]/60 animate-bounce pointer-events-none flex flex-col items-center gap-1">
@@ -349,12 +338,10 @@ export default function ScrollOrbitGallery() {
                     </span>
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
-                    <Image
+                    <img
                       src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
                       alt="Golden Spiral Preview"
-                      fill
-                      unoptimized
-                      className="object-cover pointer-events-none"
+                      className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     />
                   </div>
                 </div>
@@ -403,12 +390,10 @@ export default function ScrollOrbitGallery() {
                     </span>
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
-                    <Image
+                    <img
                       src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80"
                       alt="Waves Preview"
-                      fill
-                      unoptimized
-                      className="object-cover pointer-events-none"
+                      className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     />
                   </div>
                 </div>
@@ -457,12 +442,10 @@ export default function ScrollOrbitGallery() {
                     </span>
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
-                    <Image
+                    <img
                       src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&w=600&q=80"
                       alt="Quantum Ring Preview"
-                      fill
-                      unoptimized
-                      className="object-cover pointer-events-none"
+                      className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     />
                   </div>
                 </div>
@@ -511,12 +494,10 @@ export default function ScrollOrbitGallery() {
                     </span>
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
-                    <Image
+                    <img
                       src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=600&q=80"
                       alt="Iso Matrix Preview"
-                      fill
-                      unoptimized
-                      className="object-cover pointer-events-none"
+                      className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     />
                   </div>
                 </div>

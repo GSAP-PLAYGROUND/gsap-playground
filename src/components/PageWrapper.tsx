@@ -1,16 +1,20 @@
 "use client";
 
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import { animations } from "@/data/animations";
-import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
-import type React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { usePathname } from "next/navigation";
+import type React from "react";
+import { useEffect, useRef } from "react";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { animations } from "@/data/animations";
 
-export default function PageWrapper({ children }: { children: React.ReactNode }) {
+export default function PageWrapper({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const scrollerRef = useRef<HTMLElement>(null);
 
@@ -51,7 +55,7 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
     }
 
     // ——— BELOW RUNS ONLY ON DEMO PAGES ———
-    
+
     // Reset window scroll position to top before locking to prevent cut-off header
     window.scrollTo(0, 0);
 
@@ -70,7 +74,7 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
       wrapper: scrollerRef.current,
       content: scrollerRef.current,
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,

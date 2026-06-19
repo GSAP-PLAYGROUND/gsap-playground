@@ -3,7 +3,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -67,7 +66,8 @@ export default function ScrollCardsPage() {
       const cardEls = gsap.utils.toArray<HTMLElement>(".scroll-card-item");
       if (cardEls.length === 0) return;
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       cardEls.forEach((card, index) => {
         // Calculate dynamic pin durations so all cards remain pinned until the last card finishes
@@ -168,28 +168,20 @@ export default function ScrollCardsPage() {
       ref={containerRef}
     >
       {/* Tactile Grids */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none z-10 opacity-[0.035]"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }}
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
       />
-
-      {/* Floating Dashboard Back Button */}
-      <div className="fixed top-6 left-6 z-50 pointer-events-auto">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Page Heading readout (absolute right) */}
       <div className="absolute top-6 right-6 z-30 flex flex-col items-end gap-1 select-none text-right">
@@ -294,12 +286,10 @@ export default function ScrollCardsPage() {
                 className="inner-img-frame w-full md:w-80 h-48 md:h-56 relative rounded-xl border-3 border-[#2a2a2a] overflow-hidden shadow-[4px_4px_0px_#2a2a2a] flex-shrink-0 z-10"
                 style={{ transform: "translateZ(15px)" }}
               >
-                <Image
+                <img
                   src={card.imgUrl}
                   alt={card.title}
-                  fill
-                  sizes="320px"
-                  className="object-cover transition-transform duration-300"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
                 />
               </div>
             </div>

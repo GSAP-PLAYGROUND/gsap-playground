@@ -216,9 +216,12 @@ export default function KineticTypographyPage() {
         </defs>
       </svg>
 
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
 
       <div className="z-10 w-full max-w-4xl border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] p-6 md:p-8 bg-white flex flex-col gap-8 text-center relative overflow-hidden">
@@ -343,27 +346,12 @@ export default function KineticTypographyPage() {
               />
             </div>
 
-            <div className="flex gap-2">
-              <button
-                onClick={triggerReplay}
-                className="flex-1 border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#6758a5] text-white font-mono font-bold text-xs py-2 px-4 rounded-lg uppercase cursor-pointer"
-              >
-                ⚡ Re-Trigger
-              </button>
-
-              <div className="flex-1">
-                <button
-                  onClick={() =>
-                    window.history.length > 1
-                      ? window.history.back()
-                      : (window.location.href = "/")
-                  }
-                  className="w-full border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-[#2a2a2a] font-mono font-bold text-xs py-2 px-4 rounded-lg uppercase cursor-pointer"
-                >
-                  ← Back
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={triggerReplay}
+              className="w-full border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#6758a5] text-white font-mono font-bold text-xs py-2.5 px-4 rounded-lg uppercase cursor-pointer"
+            >
+              ⚡ Re-Trigger
+            </button>
           </div>
         </div>
       </div>

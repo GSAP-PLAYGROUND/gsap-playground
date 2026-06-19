@@ -4,7 +4,8 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "TweenLabs",
     short_name: "TweenLabs",
-    description: "The best premium open-source GSAP component library for Next.js and React.",
+    description:
+      "The best premium open-source GSAP component library for Next.js and React.",
     start_url: "/",
     display: "standalone",
     background_color: "#f0eadf",

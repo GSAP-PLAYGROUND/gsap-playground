@@ -3,7 +3,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -145,7 +144,8 @@ export default function ScreenSkillFitPage() {
         gsap.set(`.sc-right-${i}`, { x: 100, opacity: 0 });
       });
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       // ── Master Timeline — scrubbed by scroll ─────────────────────────────
       // Triggers when pinRef reaches top of viewport (after scrolling past intro)
@@ -240,20 +240,6 @@ export default function ScreenSkillFitPage() {
     <div ref={containerRef} className="bg-[#f5f0e8] text-[#1c1714]">
       {/* ══ SECTION 1: Intro ══════════════════════════════════════════════ */}
       <div className="h-screen w-full flex flex-col items-center justify-center relative gap-6">
-        {/* Back button — same style as all other pages */}
-        <div className="fixed left-6 top-6 z-50">
-          <button
-            onClick={() =>
-              window.history.length > 1
-                ? window.history.back()
-                : (window.location.href = "/")
-            }
-            className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-black px-4 py-2 text-xs font-mono font-bold uppercase rounded-md cursor-pointer"
-          >
-            ← Back
-          </button>
-        </div>
-
         {/* Eyebrow */}
         <span className="font-mono text-[9px] font-bold uppercase tracking-[0.4em] text-[#0c9367] select-none">
           Studio Shodwe · Editorial · Creator
@@ -382,13 +368,10 @@ export default function ScreenSkillFitPage() {
               >
                 {/* Photo */}
                 <div className="absolute inset-0">
-                  <Image
+                  <img
                     src={c.img}
                     alt={c.name}
-                    fill
-                    priority={i === 0}
-                    unoptimized
-                    className="object-cover object-top"
+                    className="absolute inset-0 w-full h-full object-cover object-top"
                   />
                   {/* Bottom gradient */}
                   <div

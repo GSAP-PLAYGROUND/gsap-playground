@@ -37,7 +37,8 @@ export default function AnimationFivePage() {
         { y: "15vh" },
       );
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       // Master timeline linked to vertical scroll pinning
       const tl = gsap.timeline({
@@ -251,24 +252,13 @@ export default function AnimationFivePage() {
       ref={containerRef}
     >
       {/* Tactile Noise Overlay */}
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none z-[49] opacity-[0.035]"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }}
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
       />
-
-      {/* Dashboard Back Link */}
-      <div className="fixed left-6 top-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-black shadow-[3px_3px_0px_#000] transition-all duration-100 ease-in-out hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[4px_4px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0px_#000] bg-[#f8f5ee] text-[#2a2a2a] px-4 py-2 text-xs font-mono font-bold uppercase rounded-md cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Floating Navigator */}
       <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4">
@@ -288,7 +278,11 @@ export default function AnimationFivePage() {
       <div
         ref={scrollSectionRef}
         className="scroll-viewport h-[calc(100vh-64px)] w-full relative overflow-hidden"
-        style={{ perspective: "1400px", perspectiveOrigin: "50% 40%", transformStyle: "preserve-3d" }}
+        style={{
+          perspective: "1400px",
+          perspectiveOrigin: "50% 40%",
+          transformStyle: "preserve-3d",
+        }}
       >
         {/* PANEL 0: GREEN SECTION (Pulsars) */}
         <section className="panel-item panel-0 absolute inset-0 bg-[#0c9367] text-white flex flex-col justify-between p-8 md:p-16 z-10 select-none">
@@ -425,8 +419,8 @@ export default function AnimationFivePage() {
                   },
                 ].map((item, i) => (
                   <div
-                     key={i}
-                     className="bg-[#fbfaf7] text-[#2a2a2a] border-3 border-black p-4 rounded-xl flex flex-col justify-between gap-3 shadow-[4px_4px_0px_rgba(0,0,0,0.95)] w-56 h-32 shrink-0"
+                    key={i}
+                    className="bg-[#fbfaf7] text-[#2a2a2a] border-3 border-black p-4 rounded-xl flex flex-col justify-between gap-3 shadow-[4px_4px_0px_rgba(0,0,0,0.95)] w-56 h-32 shrink-0"
                   >
                     <span className="font-mono text-[9px] font-bold text-zinc-400">
                       [{item.tag}]

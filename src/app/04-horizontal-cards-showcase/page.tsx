@@ -56,7 +56,8 @@ export default function AnimationFourPage() {
 
   useGSAP(
     () => {
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       // Master timeline linked to vertical scroll pinning
       // Pinned section height is 4500px to ensure smooth scroll scrubbing
@@ -186,23 +187,9 @@ export default function AnimationFourPage() {
         style={{
           opacity: 0.05,
           backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
-          backgroundSize: "24px 24px"
+          backgroundSize: "24px 24px",
         }}
       />
-
-      {/* Dashboard Back Link */}
-      <div className="fixed left-6 top-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-black px-4 py-2 text-xs font-mono font-bold uppercase rounded-md cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       <div
         ref={scrollSectionRef}

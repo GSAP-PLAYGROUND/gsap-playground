@@ -14,7 +14,8 @@ export default function AnimationThreePage() {
 
   useGSAP(
     () => {
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
       const chars = gsap.utils.toArray<HTMLElement>(".reveal-char");
 
       // 1. Create the main horizontal translation tween
@@ -157,23 +158,9 @@ export default function AnimationThreePage() {
         style={{
           opacity: 0.05,
           backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
-          backgroundSize: "24px 24px"
+          backgroundSize: "24px 24px",
         }}
       />
-
-      {/* Dashboard Back Link */}
-      <div className="fixed left-6 top-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-black px-4 py-2 text-xs font-mono font-bold uppercase rounded-md cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Scroll Indicator */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 font-mono text-xs uppercase tracking-widest text-white/50 animate-bounce pointer-events-none flex flex-col items-center gap-1">

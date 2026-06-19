@@ -4,7 +4,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, MotionPathPlugin);
@@ -172,7 +171,8 @@ export default function StringLinePage() {
 
       gsap.set(cards, { scale: 0.85 });
 
-      const scroller = containerRef.current?.closest("#main-scroller") || undefined;
+      const scroller =
+        containerRef.current?.closest("#main-scroller") || undefined;
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -290,20 +290,6 @@ export default function StringLinePage() {
 
   return (
     <div className="relative bg-[#f0eadf] text-[#2a2a2a] selection:bg-[#f1b333] selection:text-black">
-      {/* Floating Back Button */}
-      <div className="fixed top-6 left-6 z-50 pointer-events-auto">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
-
       <section
         ref={containerRef}
         className="relative h-[calc(100vh-64px)] w-full overflow-hidden bg-white border-y-3 border-[#2a2a2a] select-none font-sans"
@@ -393,12 +379,10 @@ export default function StringLinePage() {
                 className="w-10 h-10 rounded-full border-2 border-[#2a2a2a] relative overflow-hidden flex-shrink-0 z-10"
                 style={{ transform: "translateZ(10px)" }}
               >
-                <Image
-                  className="object-cover"
+                <img
+                  className="absolute inset-0 w-full h-full object-cover"
                   src={item.imgUrl}
                   alt=""
-                  fill
-                  sizes="40px"
                 />
               </div>
 

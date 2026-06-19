@@ -80,7 +80,6 @@ export default function AnimationCard({ anim }: AnimationCardProps) {
         >
           Get Code
         </button>
-
       </div>
     </div>
   );

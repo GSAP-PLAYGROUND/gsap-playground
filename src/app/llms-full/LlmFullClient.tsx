@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ComponentData {
   id: string;
@@ -31,7 +31,8 @@ export default function LlmFullClient({
     }
   }, [components]);
 
-  const activeComp = components.find((c) => c.slug === activeSlug) || components[0];
+  const activeComp =
+    components.find((c) => c.slug === activeSlug) || components[0];
 
   // Helper function to update active slug and hash
   const handleSelect = (slug: string) => {
@@ -50,33 +51,57 @@ export default function LlmFullClient({
       .replace(/>/g, "&gt;");
 
     // Replace Bold
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-extrabold text-[#2a2a2a]">$1</strong>');
-    
+    html = html.replace(
+      /\*\*(.*?)\*\*/g,
+      '<strong class="font-extrabold text-[#2a2a2a]">$1</strong>',
+    );
+
     // Replace Code tags
-    html = html.replace(/`(.*?)`/g, '<code class="font-mono text-xs bg-zinc-100 border border-zinc-200 rounded px-1 text-wtf-orange font-bold">$1</code>');
+    html = html.replace(
+      /`(.*?)`/g,
+      '<code class="font-mono text-xs bg-zinc-100 border border-zinc-200 rounded px-1 text-wtf-orange font-bold">$1</code>',
+    );
 
     // Replace headings
-    html = html.replace(/^### (.*)$/gm, '<h4 class="text-sm font-mono font-bold uppercase text-[#2a2a2a] mt-4 mb-2">$1</h4>');
-    html = html.replace(/^## (.*)$/gm, '<h3 class="text-base font-serif font-black uppercase text-[#2a2a2a] mt-6 border-b border-zinc-200 pb-1 mb-3">$1</h3>');
+    html = html.replace(
+      /^### (.*)$/gm,
+      '<h4 class="text-sm font-mono font-bold uppercase text-[#2a2a2a] mt-4 mb-2">$1</h4>',
+    );
+    html = html.replace(
+      /^## (.*)$/gm,
+      '<h3 class="text-base font-serif font-black uppercase text-[#2a2a2a] mt-6 border-b border-zinc-200 pb-1 mb-3">$1</h3>',
+    );
 
     // Replace bullet points
-    html = html.replace(/^  -[ \t]+(.*)$/gm, '<li class="ml-6 list-circle text-xs text-zinc-650 my-0.5">$1</li>');
-    html = html.replace(/^-[ \t]+(.*)$/gm, '<li class="ml-3 list-disc text-xs text-zinc-650 my-1">$1</li>');
+    html = html.replace(
+      /^ {2}-[ \t]+(.*)$/gm,
+      '<li class="ml-6 list-circle text-xs text-zinc-650 my-0.5">$1</li>',
+    );
+    html = html.replace(
+      /^-[ \t]+(.*)$/gm,
+      '<li class="ml-3 list-disc text-xs text-zinc-650 my-1">$1</li>',
+    );
 
     // Paragraph split
     const paragraphs = html.split(/\n\n+/);
-    return paragraphs.map((p) => {
-      const trimmed = p.trim();
-      if (!trimmed) return "";
-      if (trimmed.match(/^<(h3|h4|li|ul|ol|pre)/)) {
-        return trimmed;
-      }
-      return `<p class="text-xs md:text-sm text-zinc-650 leading-relaxed font-medium mb-3">${trimmed.replace(/\n/g, "<br />")}</p>`;
-    }).join("\n");
+    return paragraphs
+      .map((p) => {
+        const trimmed = p.trim();
+        if (!trimmed) return "";
+        if (trimmed.match(/^<(h3|h4|li|ul|ol|pre)/)) {
+          return trimmed;
+        }
+        return `<p class="text-xs md:text-sm text-zinc-650 leading-relaxed font-medium mb-3">${trimmed.replace(/\n/g, "<br />")}</p>`;
+      })
+      .join("\n");
   };
 
   if (!activeComp) {
-    return <div className="p-8 text-center font-mono">Loading laboratory index...</div>;
+    return (
+      <div className="p-8 text-center font-mono">
+        Loading laboratory index...
+      </div>
+    );
   }
 
   return (
@@ -95,8 +120,9 @@ export default function LlmFullClient({
               TweenLabs Consolidated Codebase
             </h1>
             <p className="text-xs md:text-sm text-zinc-600 max-w-2xl font-medium">
-              This registry provides the full, ready-to-copy sandbox code and documentation for all 
-              18 components. Styled like a documentation hub.
+              This registry provides the full, ready-to-copy sandbox code and
+              documentation for all 18 components. Styled like a documentation
+              hub.
             </p>
           </div>
           <div className="flex gap-3 self-stretch md:self-auto justify-end">
@@ -104,6 +130,7 @@ export default function LlmFullClient({
               href="/llms-full.txt"
               target="_blank"
               className="brutalist-btn bg-white hover:bg-wtf-purple hover:text-white text-xs font-mono font-bold px-4 py-2 rounded-md uppercase tracking-wider transition-colors cursor-pointer text-center flex items-center"
+              rel="noopener"
             >
               Raw File ↗
             </a>
@@ -175,10 +202,16 @@ export default function LlmFullClient({
                   {activeComp.name}
                 </h2>
                 <div className="flex flex-wrap gap-4 mt-2 font-mono text-[10px] font-bold">
-                  <Link href={`/${activeComp.slug}`} className="text-wtf-orange hover:underline uppercase">
+                  <Link
+                    href={`/${activeComp.slug}`}
+                    className="text-wtf-orange hover:underline uppercase"
+                  >
                     → Live Sandbox Demo
                   </Link>
-                  <Link href={`/code/${activeComp.slug}`} className="text-wtf-purple hover:underline uppercase">
+                  <Link
+                    href={`/code/${activeComp.slug}`}
+                    className="text-wtf-purple hover:underline uppercase"
+                  >
                     → Interactive Code Page
                   </Link>
                 </div>
@@ -186,13 +219,22 @@ export default function LlmFullClient({
 
               {/* Collapsible Sandbox Code */}
               {activeComp.pageCode && (
-                <details className="group border-2 border-[#2a2a2a] rounded-xl bg-zinc-50 overflow-hidden shadow-[2px_2px_0px_#2a2a2a] transition-all" open>
+                <details
+                  className="group border-2 border-[#2a2a2a] rounded-xl bg-zinc-50 overflow-hidden shadow-[2px_2px_0px_#2a2a2a] transition-all"
+                  open
+                >
                   <summary className="font-mono font-bold text-xs uppercase px-4 py-3 bg-zinc-100 hover:bg-zinc-200 cursor-pointer select-none flex justify-between items-center border-b-2 border-transparent group-open:border-[#2a2a2a]">
-                    <span>Toggle Sandbox Code ({activeComp.slug}/page.tsx)</span>
-                    <span className="font-bold text-wtf-orange transform group-open:rotate-180 transition-transform">▼</span>
+                    <span>
+                      Toggle Sandbox Code ({activeComp.slug}/page.tsx)
+                    </span>
+                    <span className="font-bold text-wtf-orange transform group-open:rotate-180 transition-transform">
+                      ▼
+                    </span>
                   </summary>
                   <div className="p-4 overflow-x-auto max-h-[500px] text-xs font-mono text-zinc-700 bg-zinc-900 border-t border-zinc-200">
-                    <pre className="text-zinc-200 whitespace-pre leading-relaxed">{activeComp.pageCode}</pre>
+                    <pre className="text-zinc-200 whitespace-pre leading-relaxed">
+                      {activeComp.pageCode}
+                    </pre>
                   </div>
                 </details>
               )}
@@ -205,7 +247,9 @@ export default function LlmFullClient({
                   </h3>
                   <div
                     className="markdown-block text-xs md:text-sm"
-                    dangerouslySetInnerHTML={{ __html: parseMarkdown(activeComp.howToMd) }}
+                    dangerouslySetInnerHTML={{
+                      __html: parseMarkdown(activeComp.howToMd),
+                    }}
                   />
                 </div>
               )}

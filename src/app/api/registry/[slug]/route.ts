@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import fs from "fs";
+import { NextResponse } from "next/server";
 import path from "path";
 import { animations } from "@/data/animations";
 
@@ -39,7 +39,7 @@ const componentNamesMap: Record<string, string> = {
   "17-showup-cards": "FlipCards",
   "showup-cards": "FlipCards",
   "18-string-line": "StringLine",
-  "string-line": "StringLine"
+  "string-line": "StringLine",
 };
 
 // Helper to convert slug to clean PascalCase component name
@@ -57,7 +57,7 @@ const getClassName = (slug: string) => {
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ slug: string }> }
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
 
@@ -124,7 +124,7 @@ export async function GET(
     console.error(err);
     return NextResponse.json(
       { error: "Component page code not found" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 

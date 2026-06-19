@@ -16,7 +16,11 @@ export default function AboutPage() {
             About TweenLabs
           </h1>
           <p className="text-sm md:text-base font-sans font-medium text-[#4a4a4a] leading-relaxed max-w-3xl">
-            TweenLabs is a curated laboratory of premium, portable GreenSock (GSAP) components and animations built for the modern web. We solve the friction between declarative frameworks (React 19, Next.js 16) and imperative animation engines, providing copy-paste-ready UI snippets that work reliably in production.
+            TweenLabs is a curated laboratory of premium, portable GreenSock
+            (GSAP) components and animations built for the modern web. We solve
+            the friction between declarative frameworks (React 19, Next.js 16)
+            and imperative animation engines, providing copy-paste-ready UI
+            snippets that work reliably in production.
           </p>
         </div>
 
@@ -31,7 +35,11 @@ export default function AboutPage() {
               🛠️ Experience
             </h2>
             <p className="text-sm font-sans text-zinc-700 leading-relaxed">
-              Every animation component in TweenLabs is engineered, tested, and vetted in real browser environments. We verify gesture handlers, viewport intersection performance, scroll velocity tracking, touch screen reactivity, and device scaling to guarantee fluid 60+ FPS user interfaces.
+              Every animation component in TweenLabs is engineered, tested, and
+              vetted in real browser environments. We verify gesture handlers,
+              viewport intersection performance, scroll velocity tracking, touch
+              screen reactivity, and device scaling to guarantee fluid 60+ FPS
+              user interfaces.
             </p>
             <div className="flex flex-wrap gap-2 mt-auto pt-4">
               <span className="font-mono text-[10px] font-bold bg-[#fafaf9] border border-[#2a2a2a]/30 px-2 py-0.5 rounded">
@@ -55,7 +63,11 @@ export default function AboutPage() {
               💡 Expertise
             </h2>
             <p className="text-sm font-sans text-zinc-700 leading-relaxed">
-              Our codebases employ strict GSAP-in-React best practices. We utilize the official `@gsap/react` `useGSAP` hook for scoped selector bindings, automatic timeline cleanup, and dependency tracking. This ensures memory leaks, state desynchronization, and Next.js hydration issues are completely avoided.
+              Our codebases employ strict GSAP-in-React best practices. We
+              utilize the official `@gsap/react` `useGSAP` hook for scoped
+              selector bindings, automatic timeline cleanup, and dependency
+              tracking. This ensures memory leaks, state desynchronization, and
+              Next.js hydration issues are completely avoided.
             </p>
             <div className="flex flex-wrap gap-2 mt-auto pt-4">
               <span className="font-mono text-[10px] font-bold bg-[#fafaf9] border border-[#2a2a2a]/30 px-2 py-0.5 rounded">
@@ -79,7 +91,11 @@ export default function AboutPage() {
               🎓 Authoritativeness
             </h2>
             <p className="text-sm font-sans text-zinc-700 leading-relaxed">
-              TweenLabs relies directly on industry-standard animation conventions. We link directly to official documentation, support open standards, and base our designs on well-documented mechanics. You can cross-reference our solutions with the official guidelines.
+              TweenLabs relies directly on industry-standard animation
+              conventions. We link directly to official documentation, support
+              open standards, and base our designs on well-documented mechanics.
+              You can cross-reference our solutions with the official
+              guidelines.
             </p>
             <div className="flex flex-col gap-2 mt-auto pt-4 border-t border-[#2a2a2a]/10">
               <a
@@ -112,7 +128,11 @@ export default function AboutPage() {
               🤝 Trustworthiness
             </h2>
             <p className="text-sm font-sans text-zinc-700 leading-relaxed">
-              TweenLabs is 100% open-source under the MIT License. There are zero tracking scripts, zero cookies, and zero paywalls. Everything is hosted publicly on GitHub for community auditing, contributions, and bug reporting. The code you copy is the code that runs—nothing hidden.
+              TweenLabs is 100% open-source under the MIT License. There are
+              zero tracking scripts, zero cookies, and zero paywalls. Everything
+              is hosted publicly on GitHub for community auditing,
+              contributions, and bug reporting. The code you copy is the code
+              that runs—nothing hidden.
             </p>
             <div className="flex flex-col gap-2 mt-auto pt-4 border-t border-[#2a2a2a]/10">
               <a
@@ -152,7 +172,7 @@ export default function AboutPage() {
             rel="noopener noreferrer"
             className="w-full sm:w-auto text-center brutalist-btn bg-white hover:bg-wtf-orange hover:text-white text-[#2a2a2a] font-mono font-bold text-sm py-3 px-8 rounded-lg uppercase tracking-wider cursor-pointer transition-colors"
           >
-              View on GitHub ↗
+            View on GitHub ↗
           </a>
         </div>
       </main>

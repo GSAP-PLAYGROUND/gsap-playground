@@ -11,7 +11,8 @@ const animationsFile = path.join(projectRoot, "src", "data", "animations.ts");
 const animsText = fs.readFileSync(animationsFile, "utf8");
 
 const components = [];
-const objectRegex = /\{\s*id:\s*['"]([^'"]+)['"]\s*,\s*name:\s*['"]([^'"]+)['"]\s*,\s*route:\s*['"]([^'"]+)['"]/g;
+const objectRegex =
+  /\{\s*id:\s*['"]([^'"]+)['"]\s*,\s*name:\s*['"]([^'"]+)['"]\s*,\s*route:\s*['"]([^'"]+)['"]/g;
 let match;
 while ((match = objectRegex.exec(animsText)) !== null) {
   const id = match[1];

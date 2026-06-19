@@ -2,7 +2,6 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Image from "next/image";
 import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP);
@@ -185,28 +184,20 @@ export default function BentoGridPage() {
       ref={containerRef}
     >
       {/* Background Dot Grid */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 opacity-15"
-        style={{ backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
       />
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none z-10 opacity-[0.035]"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }}
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
       />
-
-      {/* Floating Dashboard Back Button */}
-      <div className="fixed top-6 left-6 z-50">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-xs font-mono font-bold py-2.5 px-4 rounded-md uppercase tracking-wider cursor-pointer"
-        >
-          ← Back
-        </button>
-      </div>
 
       {/* Header Info */}
       <header className="z-10 w-full max-w-3xl text-center flex flex-col gap-3 mt-12 md:mt-6 select-none">
@@ -317,12 +308,10 @@ export default function BentoGridPage() {
                       className="inner-img-container hidden sm:block w-[160px] md:w-[200px] h-full border-3 border-[#2a2a2a] relative overflow-hidden rounded-xl bg-zinc-50 shadow-[3px_3px_0px_#2a2a2a]"
                       style={{ transform: "translateZ(15px)" }}
                     >
-                      <Image
+                      <img
                         src={item.imgUrl}
                         alt={item.title}
-                        fill
-                        sizes="200px"
-                        className="object-cover transition-transform duration-300"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
                       />
                     </div>
                   </div>
@@ -350,12 +339,10 @@ export default function BentoGridPage() {
                       className="inner-img-container w-full h-[220px] md:h-[260px] border-3 border-[#2a2a2a] relative overflow-hidden rounded-xl bg-zinc-50 my-4 shadow-[3px_3px_0px_#2a2a2a]"
                       style={{ transform: "translateZ(15px)" }}
                     >
-                      <Image
+                      <img
                         src={item.imgUrl}
                         alt={item.title}
-                        fill
-                        sizes="350px"
-                        className="object-cover transition-transform duration-300"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
                       />
                     </div>
 
@@ -423,20 +410,6 @@ export default function BentoGridPage() {
           })}
         </div>
       </main>
-
-      {/* Footer link */}
-      <footer className="z-10 mt-4">
-        <button
-          onClick={() =>
-            window.history.length > 1
-              ? window.history.back()
-              : (window.location.href = "/")
-          }
-          className="border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] transition-all duration-100 ease-in-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#2a2a2a] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_#2a2a2a] bg-[#f1b333] text-[#2a2a2a] font-mono font-bold text-xs py-3.5 px-6 rounded-xl uppercase tracking-wider cursor-pointer"
-        >
-          ← Back
-        </button>
-      </footer>
     </div>
   );
 }

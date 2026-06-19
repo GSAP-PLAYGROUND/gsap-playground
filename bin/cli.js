@@ -97,9 +97,13 @@ function getLevenshteinDistance(a, b) {
   }
   for (i = 1; i <= alen; i++) {
     for (j = 1; j <= blen; j++) {
-      tmp[i][j] = a.charAt(i - 1) === b.charAt(j - 1)
-        ? tmp[i - 1][j - 1]
-        : Math.min(tmp[i - 1][j - 1] + 1, Math.min(tmp[i][j - 1] + 1, tmp[i - 1][j] + 1));
+      tmp[i][j] =
+        a.charAt(i - 1) === b.charAt(j - 1)
+          ? tmp[i - 1][j - 1]
+          : Math.min(
+              tmp[i - 1][j - 1] + 1,
+              Math.min(tmp[i][j - 1] + 1, tmp[i - 1][j] + 1),
+            );
     }
   }
   return tmp[alen][blen];
@@ -175,17 +179,19 @@ async function main() {
     const configPath = path.join(process.cwd(), "tweenlabs.config.json");
     if (fs.existsSync(configPath) && !isOverwrite && !isYes) {
       console.log(
-        `${colors.yellow}! tweenlabs.config.json already exists.${colors.reset}`
+        `${colors.yellow}! tweenlabs.config.json already exists.${colors.reset}`,
       );
       const overwriteConfirm = await askQuestion(
-        `Overwrite configuration file? (y/n) ${colors.gray}[y]${colors.reset}: `
+        `Overwrite configuration file? (y/n) ${colors.gray}[y]${colors.reset}: `,
       );
       if (
         overwriteConfirm &&
         overwriteConfirm.toLowerCase() !== "y" &&
         overwriteConfirm.toLowerCase() !== "yes"
       ) {
-        console.log(`${colors.yellow}! Configuration initialization cancelled.${colors.reset}`);
+        console.log(
+          `${colors.yellow}! Configuration initialization cancelled.${colors.reset}`,
+        );
         process.exit(0);
       }
     }
@@ -200,7 +206,7 @@ async function main() {
     let targetPath = defaultDir;
     if (!isYes) {
       const inputPath = await askQuestion(
-        `Configure component installation path (${defaultDir}): `
+        `Configure component installation path (${defaultDir}): `,
       );
       if (inputPath) {
         targetPath = inputPath;
@@ -211,14 +217,18 @@ async function main() {
       const configData = {
         path: targetPath,
       };
-      fs.writeFileSync(configPath, JSON.stringify(configData, null, 2), "utf-8");
+      fs.writeFileSync(
+        configPath,
+        JSON.stringify(configData, null, 2),
+        "utf-8",
+      );
       console.log(
-        `\n${colors.green}✔ Created tweenlabs.config.json with path: ${colors.bold}${targetPath}${colors.reset}\n`
+        `\n${colors.green}✔ Created tweenlabs.config.json with path: ${colors.bold}${targetPath}${colors.reset}\n`,
       );
       process.exit(0);
     } catch (err) {
       console.error(
-        `${colors.red}Error: Failed to create tweenlabs.config.json.${colors.reset}`
+        `${colors.red}Error: Failed to create tweenlabs.config.json.${colors.reset}`,
       );
       console.error(`${colors.gray}Details: ${err.message}${colors.reset}`);
       process.exit(1);
@@ -316,7 +326,9 @@ async function main() {
     );
     const choice = parseInt(choiceStr, 10);
     if (Number.isNaN(choice) || choice < 1 || choice > components.length + 1) {
-      console.log(`${colors.red}Error: Invalid choice. Exiting.${colors.reset}`);
+      console.log(
+        `${colors.red}Error: Invalid choice. Exiting.${colors.reset}`,
+      );
       process.exit(1);
     }
 
@@ -334,10 +346,15 @@ async function main() {
     targetDir = path.resolve(process.cwd(), customPath);
   } else {
     // 1. Try to read tweenlabs.config.json (our config)
-    const tweenlabsConfigPath = path.join(process.cwd(), "tweenlabs.config.json");
+    const tweenlabsConfigPath = path.join(
+      process.cwd(),
+      "tweenlabs.config.json",
+    );
     if (fs.existsSync(tweenlabsConfigPath)) {
       try {
-        const config = JSON.parse(fs.readFileSync(tweenlabsConfigPath, "utf-8"));
+        const config = JSON.parse(
+          fs.readFileSync(tweenlabsConfigPath, "utf-8"),
+        );
         if (config.path) {
           targetDir = path.resolve(process.cwd(), config.path);
         }
@@ -351,7 +368,9 @@ async function main() {
       const componentsJsonPath = path.join(process.cwd(), "components.json");
       if (fs.existsSync(componentsJsonPath)) {
         try {
-          const config = JSON.parse(fs.readFileSync(componentsJsonPath, "utf-8"));
+          const config = JSON.parse(
+            fs.readFileSync(componentsJsonPath, "utf-8"),
+          );
           const compAlias = config.aliases?.components;
           if (compAlias) {
             const cleanAlias = compAlias.replace(/^[@~]\//, "");
@@ -392,9 +411,7 @@ async function main() {
   const domain = process.env.TWEENLABS_REGISTRY_URL || "https://tweenlabs.xyz";
   let slugsToInstall = [];
   if (componentSlug === "." || componentSlug === "all") {
-    console.log(
-      `${colors.cyan}Fetching all components list...${colors.reset}`,
-    );
+    console.log(`${colors.cyan}Fetching all components list...${colors.reset}`);
     const listUrl = `${domain}/api/registry/list`;
     try {
       const listData = await fetchJson(listUrl);
@@ -441,22 +458,26 @@ async function main() {
       let suggestions = [];
       try {
         const listData = await fetchJson(`${domain}/api/registry/list`);
-        const validSlugs = listData.components.map((c) => c.cleanSlug || c.slug);
-        
+        const validSlugs = listData.components.map(
+          (c) => c.cleanSlug || c.slug,
+        );
+
         // Find slugs with low Levenshtein distance
         const matches = validSlugs.map((validSlug) => {
           return {
             slug: validSlug,
-            distance: getLevenshteinDistance(slug, validSlug)
+            distance: getLevenshteinDistance(slug, validSlug),
           };
         });
-        
+
         // Sort by distance ascending
         matches.sort((a, b) => a.distance - b.distance);
-        
+
         // Threshold: distance <= 3 or distance <= half of query length
         suggestions = matches
-          .filter((m) => m.distance <= 3 || m.distance <= Math.round(slug.length / 2))
+          .filter(
+            (m) => m.distance <= 3 || m.distance <= Math.round(slug.length / 2),
+          )
           .map((m) => m.slug);
       } catch (_e) {
         // If list fetch fails, we just don't show suggestions
@@ -464,14 +485,16 @@ async function main() {
 
       if (suggestions.length > 0) {
         console.error(
-          `${colors.yellow}Did you mean: ${suggestions.map(s => `${colors.bold}${s}${colors.reset}`).join(", ")}?${colors.reset}\n`
+          `${colors.yellow}Did you mean: ${suggestions.map((s) => `${colors.bold}${s}${colors.reset}`).join(", ")}?${colors.reset}\n`,
         );
       }
     }
   }
 
   if (filesToWrite.length === 0) {
-    console.log(`${colors.red}Error: No files to install. Exiting.${colors.reset}`);
+    console.log(
+      `${colors.red}Error: No files to install. Exiting.${colors.reset}`,
+    );
     process.exit(1);
   }
 
