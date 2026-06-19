@@ -13,8 +13,8 @@ To get started, follow these instructions to set up the codebase on your local m
 1. **Fork the Repository**: Click the **Fork** button at the top-right of this repository's GitHub page.
 2. **Clone your Fork**:
    ```bash
-   git clone https://github.com/your-username/gsap-playground.git
-   cd gsap-playground
+   git clone https://github.com/your-username/TweenLabs.git
+   cd TweenLabs
    ```
 3. **Install Dependencies**: We use `pnpm` as the primary package manager. Run:
    ```bash
