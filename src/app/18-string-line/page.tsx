@@ -23,7 +23,7 @@ const networkData: NetworkItem[] = [
   {
     id: 1,
     title: "Discover",
-    imgUrl: "/Untitled design.png",
+    imgUrl: "https://tweenlabs.xyz/showcase-1.png",
     x: "50%",
     y: "22%",
     accentHex: "229, 91, 60",
@@ -32,7 +32,7 @@ const networkData: NetworkItem[] = [
   {
     id: 2,
     title: "Explore",
-    imgUrl: "/Untitled design (1).png",
+    imgUrl: "https://tweenlabs.xyz/showcase-2.png",
     x: "66%",
     y: "26%",
     accentHex: "12, 147, 103",
@@ -41,7 +41,7 @@ const networkData: NetworkItem[] = [
   {
     id: 3,
     title: "Interact",
-    imgUrl: "/Untitled design (2).png",
+    imgUrl: "https://tweenlabs.xyz/showcase-3.png",
     x: "79%",
     y: "34%",
     accentHex: "241, 179, 51",
@@ -50,7 +50,7 @@ const networkData: NetworkItem[] = [
   {
     id: 4,
     title: "Connect",
-    imgUrl: "/Untitled design (3).png",
+    imgUrl: "https://tweenlabs.xyz/showcase-4.png",
     x: "81%",
     y: "50%",
     accentHex: "59, 130, 246",
@@ -59,7 +59,7 @@ const networkData: NetworkItem[] = [
   {
     id: 5,
     title: "Engage",
-    imgUrl: "/Untitled design (4).png",
+    imgUrl: "https://tweenlabs.xyz/showcase-5.png",
     x: "76%",
     y: "71%",
     accentHex: "103, 88, 165",
@@ -68,7 +68,7 @@ const networkData: NetworkItem[] = [
   {
     id: 6,
     title: "Immerse",
-    imgUrl: "/Untitled design.png",
+    imgUrl: "https://tweenlabs.xyz/showcase-1.png",
     x: "58%",
     y: "81%",
     accentHex: "229, 91, 60",
@@ -77,7 +77,7 @@ const networkData: NetworkItem[] = [
   {
     id: 7,
     title: "Navigate",
-    imgUrl: "/Untitled design (1).png",
+    imgUrl: "https://tweenlabs.xyz/showcase-2.png",
     x: "41%",
     y: "83%",
     accentHex: "12, 147, 103",
@@ -86,7 +86,7 @@ const networkData: NetworkItem[] = [
   {
     id: 8,
     title: "Experience",
-    imgUrl: "/Untitled design (2).png",
+    imgUrl: "https://tweenlabs.xyz/showcase-3.png",
     x: "20%",
     y: "60%",
     accentHex: "241, 179, 51",
@@ -95,7 +95,7 @@ const networkData: NetworkItem[] = [
   {
     id: 9,
     title: "Remember",
-    imgUrl: "/Untitled design (3).png",
+    imgUrl: "https://tweenlabs.xyz/showcase-4.png",
     x: "15%",
     y: "45%",
     accentHex: "59, 130, 246",
@@ -104,7 +104,7 @@ const networkData: NetworkItem[] = [
   {
     id: 10,
     title: "Return",
-    imgUrl: "/Untitled design (4).png",
+    imgUrl: "https://tweenlabs.xyz/showcase-5.png",
     x: "28%",
     y: "34%",
     accentHex: "103, 88, 165",

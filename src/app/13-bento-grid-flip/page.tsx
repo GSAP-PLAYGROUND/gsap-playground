@@ -33,7 +33,7 @@ export default function BentoGridPage() {
       gridClass: "col-span-1 md:col-span-2 h-[280px]",
       color: "bg-[#e55b3c]",
       accentHex: "229, 91, 60", // wtf-orange rgb
-      imgUrl: "/Untitled design.png",
+      imgUrl: "https://tweenlabs.xyz/Untitled%20design.png",
       statLabel: "RENDER STABILITY",
       statValue: "99.8% // PASS",
     },
@@ -46,7 +46,7 @@ export default function BentoGridPage() {
       gridClass: "col-span-1 row-span-1 md:row-span-2 h-auto md:h-[584px]",
       color: "bg-[#0c9367]",
       accentHex: "12, 147, 103", // wtf-green rgb
-      imgUrl: "/Untitled design (1).png",
+      imgUrl: "https://tweenlabs.xyz/Untitled%20design%20(1).png",
       statLabel: "VARIABLE SYNC",
       statValue: "42 TOKENS",
     },
@@ -59,7 +59,7 @@ export default function BentoGridPage() {
       gridClass: "col-span-1 h-[280px]",
       color: "bg-[#f1b333]",
       accentHex: "241, 179, 51", // wtf-yellow rgb
-      imgUrl: "/Untitled design (2).png",
+      imgUrl: "https://tweenlabs.xyz/Untitled%20design%20(2).png",
       statLabel: "INTERPOLATION RATE",
       statValue: "0.15s DAMP",
     },
@@ -72,7 +72,7 @@ export default function BentoGridPage() {
       gridClass: "col-span-1 h-[280px]",
       color: "bg-[#6758a5]",
       accentHex: "103, 88, 165", // wtf-purple rgb
-      imgUrl: "/Untitled design (3).png",
+      imgUrl: "https://tweenlabs.xyz/Untitled%20design%20(3).png",
       statLabel: "SPRING STIFFNESS",
       statValue: "k=0.75",
     },
@@ -85,7 +85,7 @@ export default function BentoGridPage() {
       gridClass: "col-span-1 md:col-span-2 h-[280px]",
       color: "bg-[#3b82f6]",
       accentHex: "59, 130, 246", // wtf-blue rgb
-      imgUrl: "/Untitled design (4).png",
+      imgUrl: "https://tweenlabs.xyz/Untitled%20design%20(4).png",
       statLabel: "TRANSITION DELAY",
       statValue: "0.08s STAG",
     },

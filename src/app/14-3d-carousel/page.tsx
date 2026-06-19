@@ -26,7 +26,7 @@ const items: CarouselItem[] = [
     title: "Quantum Compiler",
     category: "ENGINEERING",
     desc: "A custom LLVM backend translating abstract syntax trees into parallel topological gates.",
-    imgUrl: "/Untitled design.png",
+    imgUrl: "https://tweenlabs.xyz/Untitled%20design.png",
     bgColor: "#e55b3c", // wtf-orange
     accentColor: "bg-[#e55b3c]",
     textColor: "text-white",
@@ -37,7 +37,7 @@ const items: CarouselItem[] = [
     title: "Kinetic Geometry",
     category: "GRAPHICS",
     desc: "GPU-accelerated vector fields tracing magnetic flow lines with spring-damper integrations.",
-    imgUrl: "/Untitled design (1).png",
+    imgUrl: "https://tweenlabs.xyz/Untitled%20design%20(1).png",
     bgColor: "#0c9367", // wtf-green
     accentColor: "bg-[#0c9367]",
     textColor: "text-white",
@@ -48,7 +48,7 @@ const items: CarouselItem[] = [
     title: "Syntactic Shadow",
     category: "AESTHETICS",
     desc: "High-contrast editorial grid structures utilizing strict monospace matrices and ink traps.",
-    imgUrl: "/Untitled design (2).png",
+    imgUrl: "https://tweenlabs.xyz/Untitled%20design%20(2).png",
     bgColor: "#6758a5", // wtf-purple
     accentColor: "bg-[#6758a5]",
     textColor: "text-white",
@@ -59,7 +59,7 @@ const items: CarouselItem[] = [
     title: "Hydra Protocol",
     category: "NETWORKS",
     desc: "A peer-to-peer ledger using ephemeral cryptographic state rings and consensus maps.",
-    imgUrl: "/Untitled design (3).png",
+    imgUrl: "https://tweenlabs.xyz/Untitled%20design%20(3).png",
     bgColor: "#3b82f6", // wtf-blue
     accentColor: "bg-[#3b82f6]",
     textColor: "text-white",
@@ -70,7 +70,7 @@ const items: CarouselItem[] = [
     title: "Hyperion Core",
     category: "HARDWARE",
     desc: "FPGA solvers designed for extreme throughput pipelines and multi-threaded register stacks.",
-    imgUrl: "/Untitled design (4).png",
+    imgUrl: "https://tweenlabs.xyz/Untitled%20design%20(4).png",
     bgColor: "#c53b3a", // wtf-red
     accentColor: "bg-[#c53b3a]",
     textColor: "text-white",
@@ -81,7 +81,7 @@ const items: CarouselItem[] = [
     title: "Helios Shader",
     category: "RAYTRACING",
     desc: "Real-time volumetric path tracers modeling multi-scatter atmospheric absorption.",
-    imgUrl: "/Untitled design (5).png",
+    imgUrl: "https://tweenlabs.xyz/Untitled%20design%20(5).png",
     bgColor: "#f1b333", // wtf-yellow
     accentColor: "bg-[#f1b333]",
     textColor: "text-black",
@@ -247,7 +247,7 @@ export default function ThreeDCarouselPage() {
     const deltaX = e.clientX - state.startX;
 
     // Sensitivity: how many cards to slide per full width drag
-    const sensitivity = 2.2;
+    const sensitivity = 4.5;
     state.rotation = state.startRotation - (deltaX / width) * sensitivity;
 
     // Track instant velocity

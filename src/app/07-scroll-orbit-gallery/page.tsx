@@ -350,7 +350,7 @@ export default function ScrollOrbitGallery() {
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
                     <Image
-                      src="/demo.svg"
+                      src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
                       alt="Golden Spiral Preview"
                       fill
                       unoptimized
@@ -404,7 +404,7 @@ export default function ScrollOrbitGallery() {
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
                     <Image
-                      src="/demo.svg"
+                      src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80"
                       alt="Waves Preview"
                       fill
                       unoptimized
@@ -458,7 +458,7 @@ export default function ScrollOrbitGallery() {
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
                     <Image
-                      src="/demo.svg"
+                      src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&w=600&q=80"
                       alt="Quantum Ring Preview"
                       fill
                       unoptimized
@@ -512,7 +512,7 @@ export default function ScrollOrbitGallery() {
                   </div>
                   <div className="card-image absolute inset-0 w-full h-full z-10 pointer-events-none will-change-transform">
                     <Image
-                      src="/demo.svg"
+                      src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=600&q=80"
                       alt="Iso Matrix Preview"
                       fill
                       unoptimized

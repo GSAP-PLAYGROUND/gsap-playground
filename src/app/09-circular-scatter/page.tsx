@@ -61,7 +61,7 @@ function ScrambleText({
 const talentData = [
   {
     id: 0,
-    img: "/Untitled design.png",
+    img: "https://tweenlabs.xyz/Untitled%20design.png",
     name: "Sarah Jenkins",
     role: "iOS Tech Lead",
     color: "#f1b333", // Gold
@@ -71,7 +71,7 @@ const talentData = [
   },
   {
     id: 1,
-    img: "/Untitled design (1).png",
+    img: "https://tweenlabs.xyz/Untitled%20design%20(1).png",
     name: "Alex Rivera",
     role: "Android Architect",
     color: "#0c9367", // Green
@@ -81,7 +81,7 @@ const talentData = [
   },
   {
     id: 2,
-    img: "/Untitled design (2).png",
+    img: "https://tweenlabs.xyz/Untitled%20design%20(2).png",
     name: "Elena Rostova",
     role: "SwiftUI Lead",
     color: "#8b5cf6", // Purple
@@ -91,7 +91,7 @@ const talentData = [
   },
   {
     id: 3,
-    img: "/Untitled design (3).png",
+    img: "https://tweenlabs.xyz/Untitled%20design%20(3).png",
     name: "Marcus Vance",
     role: "Flutter Specialist",
     color: "#3b82f6", // Blue
@@ -101,7 +101,7 @@ const talentData = [
   },
   {
     id: 4,
-    img: "/Untitled design (4).png",
+    img: "https://tweenlabs.xyz/Untitled%20design%20(4).png",
     name: "Siddharth Mehta",
     role: "React Native Lead",
     color: "#c53b3a", // Red
@@ -111,7 +111,7 @@ const talentData = [
   },
   {
     id: 5,
-    img: "/Untitled design (5).png",
+    img: "https://tweenlabs.xyz/Untitled%20design%20(5).png",
     name: "Chloe Dupont",
     role: "KMP Engineer",
     color: "#eab308", // Yellow
@@ -121,7 +121,7 @@ const talentData = [
   },
   {
     id: 6,
-    img: "/Untitled design (6).png",
+    img: "https://tweenlabs.xyz/Untitled%20design%20(6).png",
     name: "Liam O'Connor",
     role: "iOS UI Specialist",
     color: "#06b6d4", // Cyan
@@ -131,7 +131,7 @@ const talentData = [
   },
   {
     id: 7,
-    img: "/Untitled design (7).png",
+    img: "https://tweenlabs.xyz/Untitled%20design%20(7).png",
     name: "Sofia Giraldo",
     role: "Mobile DevOps Lead",
     color: "#ec4899", // Pink
