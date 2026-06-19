@@ -104,9 +104,11 @@ export default function Header() {
           ) : session ? (
             <div className="flex items-center gap-2.5">
               {session.user.image && !avatarError ? (
-                <img
+                <Image
                   src={session.user.image}
                   alt={session.user.name || "User Avatar"}
+                  width={28}
+                  height={28}
                   onError={() => setAvatarError(true)}
                   className="w-7 h-7 rounded-full border-2 border-[#2a2a2a] object-cover"
                 />

@@ -1,12 +1,26 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext } from "react";
 import { authClient } from "@/lib/auth-client";
 
+export interface SessionData {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    image?: string | null;
+  };
+  session: {
+    id: string;
+    userId: string;
+    expiresAt: Date | string;
+  };
+}
+
 interface SessionContextType {
-  session: any;
+  session: SessionData | null;
   isPending: boolean;
-  error: any;
+  error: Error | null;
 }
 
 const SessionContext = createContext<SessionContextType>({
@@ -20,24 +34,16 @@ export function SessionProvider({
   initialSession,
 }: {
   children: React.ReactNode;
-  initialSession: any;
+  initialSession: SessionData | null;
 }) {
   const { data: clientSession, isPending: clientPending, error } = authClient.useSession();
   
-  const [session, setSession] = useState(initialSession);
-  // Only set isPending to false if the server successfully resolved an active session.
-  // If the server resolved null (or is undefined), wait for client-side confirmation.
-  const [isPending, setIsPending] = useState(initialSession === null || initialSession === undefined);
-
-  useEffect(() => {
-    if (!clientPending) {
-      setSession(clientSession);
-      setIsPending(false);
-    }
-  }, [clientSession, clientPending]);
+  // Derive session and isPending directly from render to avoid useEffect/setState cascades
+  const session = !clientPending ? (clientSession as SessionData | null) : initialSession;
+  const isPending = clientPending && (initialSession === null || initialSession === undefined);
 
   return (
-    <SessionContext.Provider value={{ session, isPending, error }}>
+    <SessionContext.Provider value={{ session, isPending, error: error as Error | null }}>
       {children}
     </SessionContext.Provider>
   );

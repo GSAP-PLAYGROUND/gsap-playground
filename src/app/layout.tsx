@@ -112,6 +112,7 @@ export default async function RootLayout({
         session: {
           id: "",
           userId: user._id,
+          // eslint-disable-next-line react-hooks/purity
           expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         },
       }
