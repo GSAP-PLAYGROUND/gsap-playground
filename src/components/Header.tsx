@@ -46,9 +46,11 @@ export default function Header() {
             <button
               onClick={() => {
                 if (typeof window !== "undefined") {
-                  window.history.length > 1
-                    ? window.history.back()
-                    : (window.location.href = "/");
+                  if (window.history.length > 1) {
+                    window.history.back();
+                  } else {
+                    window.location.href = "/";
+                  }
                 }
               }}
               className="brutalist-btn bg-white hover:bg-wtf-orange hover:text-white text-[#2a2a2a] font-mono font-bold text-xs py-1.5 px-3.5 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150"
@@ -97,15 +99,15 @@ export default function Header() {
           )}
 
 
-          <iframe
-            src="https://ghbtns.com/github-btn.html?user=TweenLabs&repo=TweenLabs&type=star&count=true&size=large"
-            frameBorder="0"
-            scrolling="0"
-            width="120"
-            height="30"
-            title="GitHub Star"
-            className="overflow-hidden border-0"
-          />
+          <a
+            href="https://github.com/TweenLabs/TweenLabs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="brutalist-btn bg-white hover:bg-wtf-orange hover:text-white text-[#2a2a2a] font-mono font-bold text-xs py-1.5 px-3.5 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150"
+            aria-label="Star TweenLabs repository on GitHub"
+          >
+            Star us on GitHub ↗
+          </a>
 
           {!mounted || isPending ? (
             <span className="font-mono text-xs font-bold text-zinc-400 uppercase tracking-wider">

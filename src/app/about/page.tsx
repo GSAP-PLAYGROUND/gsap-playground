@@ -124,17 +124,7 @@ export default function AboutPage() {
               >
                 → TweenLabs GitHub Repository ↗
               </a>
-              <div className="my-1.5">
-                <iframe
-                  src="https://ghbtns.com/github-btn.html?user=TweenLabs&repo=TweenLabs&type=star&count=true"
-                  frameBorder="0"
-                  scrolling="0"
-                  width="110"
-                  height="20"
-                  title="GitHub Star"
-                  className="overflow-hidden border-0"
-                />
-              </div>
+
               <Link
                 id="ref-mit-license"
                 href="/LICENSE"
@@ -155,26 +145,15 @@ export default function AboutPage() {
           >
             ← Back to Directory
           </Link>
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto justify-center">
-            <a
-              id="about-github-btn"
-              href="https://github.com/TweenLabs/TweenLabs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto text-center brutalist-btn bg-white hover:bg-wtf-orange hover:text-white text-[#2a2a2a] font-mono font-bold text-sm py-3 px-8 rounded-lg uppercase tracking-wider cursor-pointer transition-colors"
-            >
+          <a
+            id="about-github-btn"
+            href="https://github.com/TweenLabs/TweenLabs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto text-center brutalist-btn bg-white hover:bg-wtf-orange hover:text-white text-[#2a2a2a] font-mono font-bold text-sm py-3 px-8 rounded-lg uppercase tracking-wider cursor-pointer transition-colors"
+          >
               View on GitHub ↗
-            </a>
-            <iframe
-              src="https://ghbtns.com/github-btn.html?user=TweenLabs&repo=TweenLabs&type=star&count=true&size=large"
-              frameBorder="0"
-              scrolling="0"
-              width="120"
-              height="30"
-              title="GitHub Star"
-              className="overflow-hidden border-0 scale-110 sm:scale-125 my-1 sm:my-0"
-            />
-          </div>
+          </a>
         </div>
       </main>
     </div>

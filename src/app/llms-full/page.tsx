@@ -13,7 +13,7 @@ export default function LlmFullPage() {
   let content = "";
   try {
     content = fs.readFileSync(filePath, "utf8");
-  } catch (err) {
+  } catch {
     content = "# Component: Not Found\nCould not load `public/llms-full.txt`. Ensure it is generated.";
   }
 

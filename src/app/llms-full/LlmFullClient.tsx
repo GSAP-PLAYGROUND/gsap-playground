@@ -128,7 +128,7 @@ export default function LlmFullClient({
           >
             {components.map((comp) => (
               <option key={comp.id} value={comp.slug}>
-                {comp.id} // {comp.name}
+                {comp.id} {"//"} {comp.name}
               </option>
             ))}
           </select>
@@ -154,7 +154,7 @@ export default function LlmFullClient({
                         : "text-zinc-500 hover:text-wtf-purple hover:translate-x-1 border-2 border-transparent"
                     }`}
                   >
-                    {comp.id} // {comp.name}
+                    {comp.id} {"//"} {comp.name}
                   </button>
                 );
               })}
