@@ -47,7 +47,7 @@ export default function AboutLayout({
           description:
             "A team of open-source developers and creative UI engineers specializing in high-performance web animations and interactive frontend experiences.",
           logo: "https://tweenlabs.xyz/logo.svg",
-          sameAs: ["https://github.com/GSAP-PLAYGROUND/TweenLabs"],
+          sameAs: ["https://github.com/TweenLabs/TweenLabs"],
         },
       },
     ],

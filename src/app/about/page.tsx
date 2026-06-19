@@ -117,7 +117,7 @@ export default function AboutPage() {
             <div className="flex flex-col gap-2 mt-auto pt-4 border-t border-[#2a2a2a]/10">
               <a
                 id="ref-github-repo"
-                href="https://github.com/GSAP-PLAYGROUND/TweenLabs"
+                href="https://github.com/TweenLabs/TweenLabs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-mono font-bold text-wtf-blue hover:underline"
@@ -146,7 +146,7 @@ export default function AboutPage() {
           </Link>
           <a
             id="about-github-btn"
-            href="https://github.com/GSAP-PLAYGROUND/TweenLabs"
+            href="https://github.com/TweenLabs/TweenLabs"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto text-center brutalist-btn bg-white hover:bg-wtf-orange hover:text-white text-[#2a2a2a] font-mono font-bold text-sm py-3 px-8 rounded-lg uppercase tracking-wider cursor-pointer transition-colors"

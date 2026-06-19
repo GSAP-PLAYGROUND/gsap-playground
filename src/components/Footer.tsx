@@ -46,7 +46,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/GSAP-PLAYGROUND/TweenLabs"
+                  href="https://github.com/TweenLabs/TweenLabs"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-zinc-600 hover:text-wtf-orange transition-colors duration-150 flex items-center gap-1.5"

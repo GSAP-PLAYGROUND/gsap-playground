@@ -148,7 +148,7 @@ export default async function CodePage({ params }: PageProps) {
       "name": "TypeScript",
       "alternateName": "TS"
     },
-    "codeRepository": "https://github.com/GSAP-PLAYGROUND/TweenLabs",
+    "codeRepository": "https://github.com/TweenLabs/TweenLabs",
     "runtimePlatform": "Next.js 16, React 19, GSAP 3.15, Tailwind CSS 4",
     "codeSampleType": "snippet",
     "text": authenticated ? (standaloneCode || pageCode) : "Please sign in to view the source code.",

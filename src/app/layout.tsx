@@ -126,7 +126,7 @@ export default async function RootLayout({
         name: "TweenLabs",
         url: "https://tweenlabs.xyz",
         logo: "https://tweenlabs.xyz/logo.svg",
-        sameAs: ["https://github.com/GSAP-PLAYGROUND/TweenLabs"],
+        sameAs: ["https://github.com/TweenLabs/TweenLabs"],
         description: "TweenLabs is an open-source engineering repository providing high-performance, copy-paste GreenSock (GSAP) UI components, ScrollTrigger timelines, and custom animation hooks tailored specifically for React 19 and Next.js 16 (App Router) environments."
       },
       {

@@ -17,7 +17,7 @@ keywords: TweenLabs, GSAP component library, GSAP Next.js, GSAP animations React
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
-<!-- [Contributors](https://img.shields.io/github/contributors/GSAP-PLAYGROUND/TweenLabs?style=flat-square) -->
+<!-- [Contributors](https://img.shields.io/github/contributors/TweenLabs/TweenLabs?style=flat-square) -->
 
 ---
 
@@ -64,7 +64,7 @@ No paid plugins. No locked content. Just clean, modern animation patterns anyone
 npm install -g pnpm
 
 # Clone and run
-git clone https://github.com/GSAP-PLAYGROUND/TweenLabs.git
+git clone https://github.com/TweenLabs/TweenLabs.git
 cd TweenLabs
 pnpm install
 pnpm dev
