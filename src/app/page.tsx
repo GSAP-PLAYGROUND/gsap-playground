@@ -1,4 +1,4 @@
-import AnimationCard from "@/components/AnimationCard";
+import AnimationGrid from "@/components/AnimationGrid";
 import FAQ from "@/components/FAQ";
 import Hero from "@/components/Hero";
 
@@ -23,11 +23,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {animations.map((anim) => (
-            <AnimationCard key={anim.id} anim={anim} />
-          ))}
-        </div>
+        <AnimationGrid animations={animations} />
       </main>
 
       <FAQ />

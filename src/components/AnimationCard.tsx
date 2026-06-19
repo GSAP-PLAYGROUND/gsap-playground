@@ -44,7 +44,7 @@ export default function AnimationCard({ anim }: AnimationCardProps) {
   };
 
   return (
-    <div className="brutalist-card brutalist-card-interactive p-6 bg-white flex flex-col justify-between gap-6">
+    <div className="brutalist-card brutalist-card-interactive p-6 bg-white flex flex-col justify-between gap-6 h-full">
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <span className="font-mono font-bold text-sm text-zinc-500">
