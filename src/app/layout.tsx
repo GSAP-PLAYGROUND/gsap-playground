@@ -66,19 +66,19 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://tweenlabs.xyz/Untitled%20design.png",
-        width: 1200,
-        height: 630,
-        alt: "TweenLabs GSAP Component Library",
+        url: "https://tweenlabs.xyz/logo.png",
+        width: 512,
+        height: 512,
+        alt: "TweenLabs Logo",
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "TweenLabs | Best GSAP UI Components & React Animation Templates",
     description:
       "TweenLabs is an open-source library of premium, copy-paste React, Next.js, and GSAP animation components. Build high-fidelity web experiences with ScrollTrigger, 3D tilt, and interactive typography templates.",
-    images: ["https://tweenlabs.xyz/Untitled%20design.png"],
+    images: ["https://tweenlabs.xyz/logo.png"],
   },
   verification: {
     google: "GcVbSl__f6IIF7TagtI2w_1xL_iMucTM86gTAqN",
