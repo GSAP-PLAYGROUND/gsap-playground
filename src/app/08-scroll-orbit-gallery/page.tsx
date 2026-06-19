@@ -279,7 +279,7 @@ export default function ScrollOrbitGallery() {
       />
 
       {/* Scroll Indicator HUD */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 font-mono text-xs uppercase tracking-widest text-[#2a2a2a]/60 animate-bounce pointer-events-none flex flex-col items-center gap-1">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 font-mono text-xs uppercase tracking-widest text-[#2a2a2a]/60 animate-bounce pointer-events-none flex flex-col items-center gap-1">
         <span>Scroll Down to Assemble</span>
         <span className="text-[#e55b3c] font-bold text-sm">↓</span>
       </div>

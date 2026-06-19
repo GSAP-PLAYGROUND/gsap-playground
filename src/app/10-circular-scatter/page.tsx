@@ -148,7 +148,7 @@ export default function CircularScatterPage() {
 
   useGSAP(
     () => {
-      const cards = gsap.utils.toArray<HTMLElement>(".scatter-card");
+      const cards = Array.from(containerRef.current?.querySelectorAll<HTMLElement>(".scatter-card") ?? []);
 
       // Compute all coordinates relative to screen center while cards are in their initial CSS positions
       const cardParams = cards.map((card) => {

@@ -2,7 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 gsap.registerPlugin(useGSAP);
 
@@ -17,6 +17,19 @@ export default function FluidCursorPage() {
   const mouseCoords = useRef({ x: 0, y: 0 });
   const isHovered = useRef(false);
   const activeTargetRef = useRef<HTMLElement | null>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  // IntersectionObserver: only activate cursor effects when component is in viewport
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const { contextSafe } = useGSAP(
     () => {
@@ -72,10 +85,11 @@ export default function FluidCursorPage() {
         }
       };
 
+      if (!isInView) return;
       window.addEventListener("mousemove", updateCursor);
       return () => window.removeEventListener("mousemove", updateCursor);
     },
-    { scope: containerRef },
+    { scope: containerRef, dependencies: [isInView] },
   );
 
   // Handle snapping mouse enter
@@ -171,7 +185,7 @@ export default function FluidCursorPage() {
 
   return (
     <div
-      className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center justify-center p-8 selection:bg-[#f1b333] selection:text-black overflow-hidden cursor-none"
+      className={`relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center justify-center p-8 selection:bg-[#f1b333] selection:text-black overflow-hidden ${isInView ? 'cursor-none' : ''}`}
       ref={containerRef}
     >
       <div
@@ -186,11 +200,12 @@ export default function FluidCursorPage() {
       <div
         ref={dotRef}
         className="fixed top-0 left-0 w-3 h-3 bg-[#2a2a2a] rounded-full pointer-events-none z-[9999] transform -translate-x-1/2 -translate-y-1/2"
+        style={{ display: isInView ? 'block' : 'none' }}
       />
       <div
         ref={ringRef}
         className="fixed top-0 left-0 w-8 h-8 border-3 border-[#2a2a2a] rounded-full pointer-events-none z-[9998] flex items-center justify-center bg-transparent"
-        style={{ transformOrigin: "top left" }}
+        style={{ transformOrigin: "top left", display: isInView ? 'flex' : 'none' }}
       >
         <span className="cursor-label absolute pointer-events-none font-mono text-[9px] font-black bg-[#f1b333] text-black border-2 border-[#2a2a2a] px-2 py-0.5 rounded shadow-[1.5px_1.5px_0px_#2a2a2a] uppercase opacity-0 scale-75 tracking-widest whitespace-nowrap z-50 select-none" />
       </div>

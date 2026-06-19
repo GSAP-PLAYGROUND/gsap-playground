@@ -58,7 +58,7 @@ export default function AnimationFivePage() {
 
             // Directly update DOM nodes for high-performance scroll transitions
             navItems.forEach((item) => {
-              const el = document.getElementById(`nav-${item}`);
+              const el = containerRef.current?.querySelector(`#nav-${item}`) as HTMLElement | null;
               if (el) {
                 if (item === active) {
                   el.classList.add(
@@ -253,26 +253,13 @@ export default function AnimationFivePage() {
     >
       {/* Tactile Noise Overlay */}
       <div
-        className="fixed inset-0 pointer-events-none z-[49] opacity-[0.035]"
+        className="absolute inset-0 pointer-events-none z-[49] opacity-[0.035]"
         style={{
           backgroundImage:
             "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
         }}
       />
 
-      {/* Floating Navigator */}
-      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4">
-        {navItems.map((item) => (
-          <button
-            key={item}
-            id={`nav-${item}`}
-            onClick={() => handleNavClick(item)}
-            className={`w-28 text-left border-2 border-black bg-white text-[#2a2a2a] px-3 py-1.5 font-mono font-bold text-[10px] uppercase rounded shadow-[2px_2px_0px_rgba(0,0,0,0.85)] cursor-pointer transform rotate-[2deg] transition-all duration-200 hover:scale-105 opacity-60 hover:opacity-100 ${hoverClasses[item]}`}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
 
       {/* Main Pinned Scroll Section Container — perspective + preserve-3d enables rotateX fall-back */}
       <div
@@ -284,6 +271,20 @@ export default function AnimationFivePage() {
           transformStyle: "preserve-3d",
         }}
       >
+        {/* Floating Navigator — inside pinned section so it stays visible */}
+        <div className="absolute right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4">
+          {navItems.map((item) => (
+            <button
+              key={item}
+              id={`nav-${item}`}
+              onClick={() => handleNavClick(item)}
+              className={`w-28 text-left border-2 border-black bg-white text-[#2a2a2a] px-3 py-1.5 font-mono font-bold text-[10px] uppercase rounded shadow-[2px_2px_0px_rgba(0,0,0,0.85)] cursor-pointer transform rotate-[2deg] transition-all duration-200 hover:scale-105 opacity-60 hover:opacity-100 ${hoverClasses[item]}`}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+
         {/* PANEL 0: GREEN SECTION (Pulsars) */}
         <section className="panel-item panel-0 absolute inset-0 bg-[#0c9367] text-white flex flex-col justify-between p-8 md:p-16 z-10 select-none">
           <div className="flex justify-between items-center w-full">

@@ -73,7 +73,7 @@ export default function AnimationFourPage() {
         },
       });
 
-      const cards = gsap.utils.toArray<HTMLElement>(".card-item");
+      const cards = Array.from(containerRef.current?.querySelectorAll<HTMLElement>(".card-item") ?? []);
 
       // Timeline Sequence:
       // 1. Staggered Entry: Cards enter from bottom one by one.
@@ -138,8 +138,8 @@ export default function AnimationFourPage() {
           );
       });
 
-      // Continuous idle floating/bouncing effect for cards when standing still
-      gsap.to(".card-inner", {
+      const cardInners = Array.from(containerRef.current?.querySelectorAll<HTMLElement>(".card-inner") ?? []);
+      gsap.to(cardInners, {
         y: "-10px",
         rotation: "1.5",
         duration: 2.2,

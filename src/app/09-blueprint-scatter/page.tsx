@@ -229,7 +229,7 @@ export default function BlueprintScatterPage() {
       function startFloatingIdle() {
         floatTimelineRef.current = gsap.timeline({ repeat: -1 });
 
-        const cards = gsap.utils.toArray<HTMLElement>(".scatter-card");
+        const cards = Array.from(containerRef.current?.querySelectorAll<HTMLElement>(".scatter-card") ?? []);
         cards.forEach((card, idx) => {
           const offset = idx % 2 === 0 ? 1 : -1;
           gsap.to(card, {

@@ -117,13 +117,13 @@ export default function StringLinePage() {
 
   useGSAP(
     () => {
-      const path = document.querySelector(
+      const path = containerRef.current?.querySelector(
         "#network-path",
       ) as SVGPathElement | null;
-      const dot = document.querySelector(
+      const dot = containerRef.current?.querySelector(
         ".moving-dot",
       ) as HTMLDivElement | null;
-      const cards = document.querySelectorAll(".im-card");
+      const cards = containerRef.current?.querySelectorAll(".im-card") ?? [];
 
       if (!path) return;
       const pathLength = path.getTotalLength();

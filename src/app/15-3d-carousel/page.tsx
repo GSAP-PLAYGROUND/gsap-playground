@@ -2,9 +2,10 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface CarouselItem {
   id: number;
@@ -96,6 +97,19 @@ export default function ThreeDCarouselPage() {
 
   const [activeIdx, setActiveIdx] = useState(0);
   const [detailIdx, setDetailIdx] = useState<number | null>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  // IntersectionObserver: only activate keyboard listener when component is in viewport
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Dragging and scrolling state references
   const dragRef = useRef({
@@ -213,7 +227,24 @@ export default function ThreeDCarouselPage() {
       };
 
       gsap.ticker.add(updatePositions);
-      return () => gsap.ticker.remove(updatePositions);
+
+      // Pin the carousel dome so it stays fixed when embedded in another page.
+      // The carousel itself uses onWheel to rotate cards (not ScrollTrigger scrub).
+      const scroller =
+        wrapperRef.current?.closest("#main-scroller") || undefined;
+
+      ScrollTrigger.create({
+        trigger: wrapperRef.current,
+        scroller: scroller,
+        pin: true,
+        start: "top top",
+        end: "+=2000", // Enough scroll distance for carousel interaction
+        pinSpacing: true,
+      });
+
+      return () => {
+        gsap.ticker.remove(updatePositions);
+      };
     },
     { scope: wrapperRef, dependencies: [detailIdx] },
   );
@@ -292,6 +323,10 @@ export default function ThreeDCarouselPage() {
   const handleWheel = (e: React.WheelEvent) => {
     if (detailIdx !== null) return;
 
+    // Prevent outer page from scrolling while interacting with carousel
+    e.preventDefault();
+    e.stopPropagation();
+
     const state = dragRef.current;
     const numCards = items.length;
 
@@ -344,6 +379,8 @@ export default function ThreeDCarouselPage() {
 
   // Keyboard navigation
   useEffect(() => {
+    if (!isInView) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (detailIdx !== null) {
         if (e.key === "Escape") {
@@ -366,7 +403,7 @@ export default function ThreeDCarouselPage() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [detailIdx, closeDetail]);
+  }, [detailIdx, closeDetail, isInView]);
 
   // Card Mouse Hover 3D Tilt Effect
   const handleCardMouseMove = (e: React.MouseEvent, index: number) => {

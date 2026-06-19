@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 
+const showupSectionSelector = ".showup-cards-sec";
+
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface StageItem {
@@ -53,6 +55,7 @@ const stageData: StageItem[] = [
 
 export default function ShowUpCardsPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const showupSectionRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -66,7 +69,7 @@ export default function ShowUpCardsPage() {
         scroller: scroller,
         start: "top top",
         end: "bottom bottom",
-        pin: ".showup-cards-sec",
+        pin: showupSectionRef.current,
         pinSpacing: false,
       });
 
@@ -87,7 +90,7 @@ export default function ShowUpCardsPage() {
               1,
               (progress - delay * 0.1) / (0.9 - delay * 0.1),
             );
-            const innerCard = document.querySelector(
+            const innerCard = containerRef.current?.querySelector(
               `${cardId} .flip-card-inner`,
             );
 
@@ -233,7 +236,7 @@ export default function ShowUpCardsPage() {
         }}
       />
       <div
-        className="fixed inset-0 pointer-events-none z-10 opacity-[0.035]"
+        className="absolute inset-0 pointer-events-none z-10 opacity-[0.035]"
         style={{
           backgroundImage:
             "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
@@ -241,7 +244,7 @@ export default function ShowUpCardsPage() {
       />
 
       {/* Interactive Cards Overlay (Pins on scroll) */}
-      <section className="showup-cards-sec relative w-full h-screen flex flex-col justify-center items-center bg-[#f8f5ee] border-b-3 border-[#2a2a2a] overflow-hidden">
+      <section ref={showupSectionRef} className="showup-cards-sec relative w-full h-screen flex flex-col justify-center items-center bg-[#f8f5ee] border-b-3 border-[#2a2a2a] overflow-hidden">
         <div
           className="absolute inset-0 opacity-15"
           style={{

@@ -63,7 +63,7 @@ export default function ScrollCardsPage() {
 
   useGSAP(
     () => {
-      const cardEls = gsap.utils.toArray<HTMLElement>(".scroll-card-item");
+      const cardEls = Array.from(containerRef.current?.querySelectorAll<HTMLElement>(".scroll-card-item") ?? []);
       if (cardEls.length === 0) return;
 
       const scroller =
@@ -176,7 +176,7 @@ export default function ScrollCardsPage() {
         }}
       />
       <div
-        className="fixed inset-0 pointer-events-none z-10 opacity-[0.035]"
+        className="absolute inset-0 pointer-events-none z-10 opacity-[0.035]"
         style={{
           backgroundImage:
             "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
@@ -194,7 +194,7 @@ export default function ScrollCardsPage() {
       </div>
 
       {/* Left-Side Fixed Progress Gauge (Only desktop) */}
-      <div className="hidden lg:flex fixed left-10 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-6 select-none pointer-events-none">
+      <div className="hidden lg:flex absolute left-10 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-6 select-none pointer-events-none">
         <div className="w-[4px] h-48 bg-zinc-300 relative rounded">
           {/* Active progress fill line */}
           <div

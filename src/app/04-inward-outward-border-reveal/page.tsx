@@ -16,7 +16,7 @@ export default function AnimationThreePage() {
     () => {
       const scroller =
         containerRef.current?.closest("#main-scroller") || undefined;
-      const chars = gsap.utils.toArray<HTMLElement>(".reveal-char");
+      const chars = Array.from(containerRef.current?.querySelectorAll<HTMLElement>(".reveal-char") ?? []);
 
       // 1. Create the main horizontal translation tween
       const horizontalTween = gsap.to(textTrackRef.current, {
@@ -163,7 +163,7 @@ export default function AnimationThreePage() {
       />
 
       {/* Scroll Indicator */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 font-mono text-xs uppercase tracking-widest text-white/50 animate-bounce pointer-events-none flex flex-col items-center gap-1">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 font-mono text-xs uppercase tracking-widest text-white/50 animate-bounce pointer-events-none flex flex-col items-center gap-1">
         <span>Scroll to Explore</span>
         <span className="text-[#e55b3c] font-bold text-sm">↓</span>
       </div>
