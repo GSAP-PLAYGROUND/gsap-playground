@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { animations } from "@/data/animations";
 import { authClient } from "@/lib/auth-client";
 import { useAuthModal } from "@/provider/AuthModalProvider";
@@ -17,7 +17,7 @@ export default function Header() {
   const [lastUserId, setLastUserId] = useState<string | undefined>(undefined);
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const hasEverOpened = useRef(false);
+  const [hasEverOpened, setHasEverOpened] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -173,7 +173,7 @@ export default function Header() {
         {/* Mobile Hamburger Button */}
         <button
           onClick={() => {
-            if (!mobileMenuOpen) hasEverOpened.current = true;
+            if (!mobileMenuOpen) setHasEverOpened(true);
             setMobileMenuOpen(!mobileMenuOpen);
           }}
           className="md:hidden flex flex-col items-center justify-center w-10 h-10 gap-[5px] cursor-pointer z-[60]"
@@ -198,7 +198,7 @@ export default function Header() {
       </div>
 
       {/* Lazy-mounted mobile menu: zero DOM cost until first open, stays mounted after */}
-      {hasEverOpened.current && (
+      {hasEverOpened && (
         <>
           {/* Backdrop overlay — toggled via opacity + pointer-events for zero layout cost */}
           <div
