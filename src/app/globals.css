@@ -107,6 +107,45 @@ body {
   box-shadow: 2px 2px 0px var(--shadow-color);
 }
 
+/* Mobile-Optimized Brutalist Styles */
+@media (max-width: 767px) {
+  .brutalist-card {
+    border-width: 2px;
+    box-shadow: 4px 4px 0px var(--shadow-color);
+  }
+
+  .brutalist-card-interactive:hover {
+    transform: none;
+    box-shadow: 4px 4px 0px var(--shadow-color);
+  }
+
+  .brutalist-card-interactive:active {
+    transform: translate(1px, 1px);
+    box-shadow: 3px 3px 0px var(--shadow-color);
+  }
+
+  .brutalist-btn {
+    border-width: 2px;
+    box-shadow: 3px 3px 0px var(--shadow-color);
+    min-height: 40px;
+  }
+
+  .brutalist-btn:hover {
+    transform: none;
+    box-shadow: 3px 3px 0px var(--shadow-color);
+  }
+
+  .brutalist-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px var(--shadow-color);
+  }
+
+  .dot-grid {
+    background-size: 20px 20px;
+    opacity: 0.1;
+  }
+}
+
 /* Asymmetric tilt utility */
 .tilt-right {
   transform: rotate(2deg);

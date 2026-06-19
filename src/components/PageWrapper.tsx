@@ -114,10 +114,10 @@ export default function PageWrapper({
         id={isDemoPage ? "main-scroller" : undefined}
         className={
           isDemoPage
-            ? "flex-grow w-full relative overflow-y-auto overflow-x-hidden mt-16 demo-page-container"
-            : "flex-1 flex flex-col w-full relative pt-24"
+            ? "flex-grow w-full relative overflow-y-auto overflow-x-hidden mt-[53px] md:mt-16 demo-page-container"
+            : "flex-1 flex flex-col w-full relative pt-[69px] md:pt-24"
         }
-        style={isDemoPage ? { height: "calc(100vh - 64px)" } : undefined}
+        style={isDemoPage ? { height: "calc(100dvh - 53px)" } : undefined}
       >
         {children}
         {!isDemoPage && <Footer />}

@@ -13,13 +13,14 @@ export default function AuthModal() {
   const router = useRouter();
 
   const handleBack = useCallback(() => {
+    closeModal(true); // Force-close the modal before navigating
     if (callbackUrl && callbackUrl.startsWith("/code/")) {
       const targetUrl = callbackUrl.replace("/code/", "/");
       router.push(targetUrl);
     } else {
       router.push("/");
     }
-  }, [callbackUrl, router]);
+  }, [callbackUrl, router, closeModal]);
 
   const triggerShake = () => {
     setIsShaking(true);
