@@ -922,14 +922,14 @@ export default function CodePageClient({
           </h1>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-2 md:gap-4">
           <Link href={`/${slug}`}>
-            <button className="brutalist-btn bg-wtf-yellow hover:bg-[#e5a420] text-[#2a2a2a] font-mono font-bold text-xs py-3 px-6 rounded-lg uppercase tracking-wider cursor-pointer shadow-[3.5px_3.5px_0px_#2a2a2a]">
+            <button className="brutalist-btn bg-wtf-yellow hover:bg-[#e5a420] text-[#2a2a2a] font-mono font-bold text-[10px] md:text-xs py-2 px-4 md:py-3 md:px-6 rounded-lg uppercase tracking-wider cursor-pointer shadow-[2.5px_2.5px_0px_#2a2a2a] md:shadow-[3.5px_3.5px_0px_#2a2a2a]">
               ← View Sandbox
             </button>
           </Link>
           <Link href="/">
-            <button className="brutalist-btn bg-white hover:bg-zinc-50 text-[#2a2a2a] border-[#2a2a2a] font-mono font-bold text-xs py-3 px-6 rounded-lg uppercase tracking-wider cursor-pointer shadow-[3.5px_3.5px_0px_#2a2a2a]">
+            <button className="brutalist-btn bg-white hover:bg-zinc-50 text-[#2a2a2a] border-[#2a2a2a] font-mono font-bold text-[10px] md:text-xs py-2 px-4 md:py-3 md:px-6 rounded-lg uppercase tracking-wider cursor-pointer shadow-[2.5px_2.5px_0px_#2a2a2a] md:shadow-[3.5px_3.5px_0px_#2a2a2a]">
               All Components
             </button>
           </Link>
@@ -963,15 +963,15 @@ export default function CodePageClient({
         {/* VS Code Style Editor Container */}
         <div className="brutalist-card bg-[#121212] overflow-hidden flex flex-col border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a]">
           {/* Top Bar: macOS circles & Actions */}
-          <div className="bg-[#181818] border-b-2 border-[#2a2a2a] px-4 py-3 flex items-center justify-between">
+          <div className="bg-[#181818] border-b-2 border-[#2a2a2a] px-3 md:px-4 py-2.5 md:py-3 flex flex-wrap items-center justify-between gap-2">
             {/* Left: Window Dots & Filename */}
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 mr-2">
+            <div className="flex items-center gap-2 md:gap-3 min-w-0">
+              <div className="hidden md:flex items-center gap-1.5 mr-2">
                 <span className="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e]" />
                 <span className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dfa224]" />
                 <span className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1a9c2b]" />
               </div>
-              <span className="font-mono text-xs font-bold text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-md flex items-center gap-2 shadow-[1px_1px_0px_rgba(0,0,0,0.2)]">
+              <span className="font-mono text-[10px] md:text-xs font-bold text-zinc-400 bg-zinc-900 border border-zinc-800 px-2 md:px-3 py-1 rounded-md flex items-center gap-1.5 md:gap-2 shadow-[1px_1px_0px_rgba(0,0,0,0.2)] truncate">
                 {getFileIcon(activeTab.file)}
                 {activeTab.file}
               </span>
@@ -979,19 +979,19 @@ export default function CodePageClient({
 
             {/* Right: Copy & Download actions */}
             <div
-              className={`flex items-center gap-3 ${!isAuthenticated ? "opacity-50 pointer-events-none" : ""}`}
+              className={`flex items-center gap-2 md:gap-3 ${!isAuthenticated ? "opacity-50 pointer-events-none" : ""}`}
             >
               <button
                 onClick={handleCopy}
-                className="brutalist-btn bg-white hover:bg-zinc-50 text-[#2a2a2a] font-mono text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer shadow-[2.5px_2.5px_0px_#000] transition-all duration-75 active:translate-y-[1px] active:shadow-[1.5px_1.5px_0px_#000]"
+                className="brutalist-btn bg-white hover:bg-zinc-50 text-[#2a2a2a] font-mono text-[10px] md:text-xs font-bold px-2.5 md:px-4 py-1.5 md:py-2 rounded-lg flex items-center gap-1.5 md:gap-2 cursor-pointer shadow-[2px_2px_0px_#000] md:shadow-[2.5px_2.5px_0px_#000] transition-all duration-75 active:translate-y-[1px] active:shadow-[1.5px_1.5px_0px_#000]"
               >
-                {copied ? "✓ Copied!" : "📋 Copy Code"}
+                {copied ? "✓ Copied!" : "📋 Copy"}
               </button>
               <button
                 onClick={handleDownload}
-                className="brutalist-btn bg-wtf-yellow hover:bg-[#e5a420] text-black font-mono text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer shadow-[2.5px_2.5px_0px_#000] transition-all duration-75 active:translate-y-[1px] active:shadow-[1.5px_1.5px_0px_#000]"
+                className="brutalist-btn bg-wtf-yellow hover:bg-[#e5a420] text-black font-mono text-[10px] md:text-xs font-bold px-2.5 md:px-4 py-1.5 md:py-2 rounded-lg flex items-center gap-1.5 md:gap-2 cursor-pointer shadow-[2px_2px_0px_#000] md:shadow-[2.5px_2.5px_0px_#000] transition-all duration-75 active:translate-y-[1px] active:shadow-[1.5px_1.5px_0px_#000]"
               >
-                💾 Download
+                💾 Save
               </button>
             </div>
           </div>
@@ -1022,10 +1022,10 @@ export default function CodePageClient({
 
           {/* Code Body */}
           <div
-            className={`relative font-mono text-[13px] bg-[#121212] py-5 px-4 flex items-start transition-all duration-300 ${isExpanded ? "" : "max-h-[380px] overflow-hidden"} ${blurClass}`}
+            className={`relative font-mono text-[10px] md:text-[13px] bg-[#121212] py-3 md:py-5 px-2 md:px-4 flex items-start transition-all duration-300 ${isExpanded ? "" : "max-h-[300px] md:max-h-[380px] overflow-hidden"} ${blurClass}`}
           >
             {/* Line Numbers */}
-            <pre className="select-none text-right pr-4 border-r border-zinc-800 text-zinc-650 min-w-[3.5rem] whitespace-pre scrollbar-none">
+            <pre className="select-none text-right pr-2 md:pr-4 border-r border-zinc-800 text-zinc-650 min-w-[2.5rem] md:min-w-[3.5rem] whitespace-pre scrollbar-none">
               {activeTab.code
                 .split("\n")
                 .map((_, i) => i + 1)
@@ -1033,7 +1033,7 @@ export default function CodePageClient({
             </pre>
 
             {/* Highlighted Code */}
-            <pre className="pl-5 flex-1 overflow-x-auto text-[#abb2bf] scrollbar-none whitespace-pre select-text selection:bg-wtf-orange selection:text-white">
+            <pre className="pl-3 md:pl-5 flex-1 overflow-x-auto text-[#abb2bf] scrollbar-none whitespace-pre select-text selection:bg-wtf-orange selection:text-white">
               <code dangerouslySetInnerHTML={{ __html: highlighted }} />
             </pre>
 
@@ -1063,12 +1063,12 @@ export default function CodePageClient({
           )}
 
           {/* Bottom VS Code Status Bar */}
-          <div className="bg-[#007acc] text-white px-4 py-1 flex items-center justify-between text-[11px] font-mono select-none border-t border-[#2a2a2a]">
+          <div className="bg-[#007acc] text-white px-2 md:px-4 py-1 flex items-center justify-between text-[9px] md:text-[11px] font-mono select-none border-t border-[#2a2a2a]">
             {/* Left side */}
-            <div className="flex items-center gap-4">
-              <span className="flex items-center gap-1 hover:bg-[#008be6] px-1.5 py-0.5 rounded cursor-pointer">
+            <div className="flex items-center gap-2 md:gap-4">
+              <span className="flex items-center gap-1 hover:bg-[#008be6] px-1 md:px-1.5 py-0.5 rounded cursor-pointer">
                 <svg
-                  className="w-3.5 h-3.5"
+                  className="w-3 h-3 md:w-3.5 md:h-3.5"
                   fill="currentColor"
                   viewBox="0 0 16 16"
                 >
@@ -1083,27 +1083,26 @@ export default function CodePageClient({
             </div>
 
             {/* Right side */}
-            <div className="flex items-center gap-4">
-              <span>Ln {activeTab.code.split("\n").length}, Col 1</span>
-              <span>Spaces: 2</span>
-              <span>UTF-8</span>
-              <span className="hover:bg-[#008be6] px-1.5 py-0.5 rounded cursor-pointer">
+            <div className="flex items-center gap-2 md:gap-4">
+              <span className="hidden sm:inline">Ln {activeTab.code.split("\n").length}, Col 1</span>
+              <span className="hidden md:inline">Spaces: 2</span>
+              <span className="hidden sm:inline">UTF-8</span>
+              <span className="hover:bg-[#008be6] px-1 md:px-1.5 py-0.5 rounded cursor-pointer">
                 {activeTab.file.endsWith(".tsx")
-                  ? "TypeScript JSX"
+                  ? "TSX"
                   : activeTab.file.endsWith(".js")
-                    ? "JavaScript"
+                    ? "JS"
                     : activeTab.file.endsWith(".css")
                       ? "CSS"
-                      : "Markdown"}
+                      : "MD"}
               </span>
-              <span>Prettier</span>
+              <span className="hidden md:inline">Prettier</span>
             </div>
           </div>
         </div>
 
-        {/* Setup Guide Container */}
         <div
-          className={`brutalist-card p-8 bg-white flex flex-col gap-8 border-3 border-[#2a2a2a] shadow-[6px_6px_0px_#2a2a2a] ${blurClass}`}
+          className={`brutalist-card p-4 md:p-8 bg-white flex flex-col gap-6 md:gap-8 border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] md:shadow-[6px_6px_0px_#2a2a2a] ${blurClass}`}
         >
           <div className="border-b-3 border-[#2a2a2a] pb-4">
             <h2 className="text-2xl md:text-3xl font-serif font-black uppercase tracking-tight text-[#2a2a2a]">
@@ -1115,22 +1114,22 @@ export default function CodePageClient({
             </p>
           </div>
 
-          <div className="flex flex-col gap-8 font-sans font-medium text-zinc-700 leading-relaxed text-sm">
+          <div className="flex flex-col gap-6 md:gap-8 font-sans font-medium text-zinc-700 leading-relaxed text-xs md:text-sm">
             {/* CLI Option (Recommended) */}
-            <div className="flex gap-4 items-start pb-8 border-b-2 border-dashed border-zinc-200">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-wtf-purple border-2 border-[#2a2a2a] text-white font-mono font-bold text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
+            <div className="flex gap-3 md:gap-4 items-start pb-6 md:pb-8 border-b-2 border-dashed border-zinc-200">
+              <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-full bg-wtf-purple border-2 border-[#2a2a2a] text-white font-mono font-bold text-[10px] md:text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
                 💻
               </div>
-              <div className="flex-1 flex flex-col gap-3">
-                <h3 className="text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
-                  Option A: Install via CLI (Recommended)
+              <div className="flex-1 flex flex-col gap-2 md:gap-3 min-w-0">
+                <h3 className="text-sm md:text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
+                  Option A: Install via CLI
                 </h3>
                 <p>
                   You can install this component directly into your project via
                   the TweenLabs CLI. It automatically creates the file and
                   configures dependencies:
                 </p>
-                <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[3px_3px_0px_#2a2a2a] max-w-md mt-1">
+                <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[2px_2px_0px_#2a2a2a] md:shadow-[3px_3px_0px_#2a2a2a] w-full max-w-md mt-1">
                   <div className="bg-[#181818] border-b-2 border-[#2a2a2a] px-4 py-2 flex items-center justify-between text-xs font-mono text-zinc-400">
                     <div className="flex gap-2">
                       {(["npm", "pnpm", "yarn", "bun"] as const).map((pm) => (
@@ -1149,7 +1148,7 @@ export default function CodePageClient({
                     </div>
                     <CopyButton text={getCliCommand(pkgManager, slug)} />
                   </div>
-                  <div className="p-4 font-mono text-xs text-emerald-400 select-all">
+                  <div className="p-2.5 md:p-4 font-mono text-[10px] md:text-xs text-emerald-400 select-all overflow-x-auto">
                     {getCliCommand(pkgManager, slug)}
                   </div>
                 </div>
@@ -1157,8 +1156,8 @@ export default function CodePageClient({
             </div>
 
             {/* Manual Option */}
-            <div className="flex flex-col gap-2 -mb-2 mt-2">
-              <h3 className="text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none">
+            <div className="flex flex-col gap-2 -mb-2 mt-1 md:mt-2">
+              <h3 className="text-sm md:text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none">
                 Option B: Manual Installation
               </h3>
               <p className="text-xs text-zinc-500 font-medium">
@@ -1168,12 +1167,12 @@ export default function CodePageClient({
             </div>
 
             {/* Step 1: Install Dependencies */}
-            <div className="flex gap-4 items-start">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-wtf-orange border-2 border-[#2a2a2a] text-white font-mono font-bold text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
+            <div className="flex gap-3 md:gap-4 items-start">
+              <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-full bg-wtf-orange border-2 border-[#2a2a2a] text-white font-mono font-bold text-[10px] md:text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
                 1
               </div>
-              <div className="flex-1 flex flex-col gap-3">
-                <h3 className="text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
+              <div className="flex-1 flex flex-col gap-2 md:gap-3 min-w-0">
+                <h3 className="text-sm md:text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
                   Install Packages
                 </h3>
                 <p>
@@ -1184,7 +1183,7 @@ export default function CodePageClient({
                   </code>
                   ).
                 </p>
-                <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[3px_3px_0px_#2a2a2a] max-w-md mt-1">
+                <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[2px_2px_0px_#2a2a2a] md:shadow-[3px_3px_0px_#2a2a2a] w-full max-w-md mt-1">
                   <div className="bg-[#181818] border-b-2 border-[#2a2a2a] px-4 py-2 flex items-center justify-between text-xs font-mono text-zinc-400">
                     <div className="flex gap-2">
                       {(["npm", "pnpm", "yarn", "bun"] as const).map((pm) => (
@@ -1203,7 +1202,7 @@ export default function CodePageClient({
                     </div>
                     <CopyButton text={getInstallCommand(pkgManager)} />
                   </div>
-                  <div className="p-4 font-mono text-xs text-emerald-400 select-all">
+                  <div className="p-2.5 md:p-4 font-mono text-[10px] md:text-xs text-emerald-400 select-all overflow-x-auto">
                     {getInstallCommand(pkgManager)}
                   </div>
                 </div>
@@ -1212,12 +1211,12 @@ export default function CodePageClient({
 
             {/* Step 2: Add Required CSS */}
             {cssCode && (
-              <div className="flex gap-4 items-start">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-wtf-purple border-2 border-[#2a2a2a] text-white font-mono font-bold text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
+            <div className="flex gap-3 md:gap-4 items-start">
+                <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-full bg-wtf-purple border-2 border-[#2a2a2a] text-white font-mono font-bold text-[10px] md:text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
                   2
                 </div>
-                <div className="flex-1 flex flex-col gap-3">
-                  <h3 className="text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
+                <div className="flex-1 flex flex-col gap-2 md:gap-3 min-w-0">
+                  <h3 className="text-sm md:text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
                     Add Required CSS Styles
                   </h3>
                   <p>
@@ -1241,12 +1240,12 @@ export default function CodePageClient({
             )}
 
             {/* Step 3: Add Component File */}
-            <div className="flex gap-4 items-start">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-wtf-green border-2 border-[#2a2a2a] text-white font-mono font-bold text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
+            <div className="flex gap-3 md:gap-4 items-start">
+              <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-full bg-wtf-green border-2 border-[#2a2a2a] text-white font-mono font-bold text-[10px] md:text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
                 3
               </div>
-              <div className="flex-1 flex flex-col gap-3">
-                <h3 className="text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
+              <div className="flex-1 flex flex-col gap-2 md:gap-3 min-w-0">
+                <h3 className="text-sm md:text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
                   Create Component File
                 </h3>
                 <p>
@@ -1266,16 +1265,16 @@ export default function CodePageClient({
 
             {/* Step 4: ScrollTrigger (If needed) */}
             {usesScrollTrigger && (
-              <div className="flex gap-4 items-start border-l-4 border-wtf-yellow pl-4 my-2">
+              <div className="flex gap-3 md:gap-4 items-start border-l-4 border-wtf-yellow pl-3 md:pl-4 my-2">
                 <div className="flex-1 flex flex-col gap-2">
-                  <h4 className="font-serif font-black uppercase text-sm text-[#2a2a2a] flex items-center gap-2">
+                  <h4 className="font-serif font-black uppercase text-xs md:text-sm text-[#2a2a2a] flex items-center gap-2">
                     ⚠️ ScrollTrigger Plugin Notice
                   </h4>
                   <p className="text-xs text-zinc-650 leading-relaxed">
                     This component uses scroll-triggered timing events. Make
                     sure to register the plugin as shown inside the code:
                   </p>
-                  <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[2.5px_2.5px_0px_#2a2a2a] max-w-xl mt-1">
+                  <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[2px_2px_0px_#2a2a2a] md:shadow-[2.5px_2.5px_0px_#2a2a2a] w-full max-w-xl mt-1">
                     <div className="bg-[#181818] border-b-2 border-[#2a2a2a] px-4 py-2 flex items-center justify-between text-xs font-mono text-zinc-400">
                       <span>GSAP Registration</span>
                       <CopyButton
@@ -1292,18 +1291,18 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);`}
             )}
 
             {/* Step 5: Import & Render */}
-            <div className="flex gap-4 items-start">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-wtf-blue border-2 border-[#2a2a2a] text-white font-mono font-bold text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
+            <div className="flex gap-3 md:gap-4 items-start">
+              <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-full bg-wtf-blue border-2 border-[#2a2a2a] text-white font-mono font-bold text-[10px] md:text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
                 4
               </div>
-              <div className="flex-1 flex flex-col gap-3">
-                <h3 className="text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
+              <div className="flex-1 flex flex-col gap-2 md:gap-3 min-w-0">
+                <h3 className="text-sm md:text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
                   Import & Render
                 </h3>
                 <p>
                   Import and render the component in your page or view layout:
                 </p>
-                <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[3px_3px_0px_#2a2a2a] max-w-xl mt-1">
+                <div className="border-2 border-[#2a2a2a] rounded-lg overflow-hidden bg-[#121212] shadow-[2px_2px_0px_#2a2a2a] md:shadow-[3px_3px_0px_#2a2a2a] w-full max-w-xl mt-1">
                   <div className="bg-[#181818] border-b-2 border-[#2a2a2a] px-4 py-2 flex items-center justify-between text-xs font-mono text-zinc-400">
                     <span>App Page</span>
                     <CopyButton
@@ -1327,13 +1326,13 @@ export default function Page() {
 
             {/* Custom markdown customization section from HOW_TO_USE.md if present */}
             {customization && customization.trim() !== "" && (
-              <div className="mt-8 border-t-2 border-zinc-200 pt-8 flex gap-4 items-start">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-wtf-purple border-2 border-[#2a2a2a] text-white font-mono font-bold text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
+              <div className="mt-6 md:mt-8 border-t-2 border-zinc-200 pt-6 md:pt-8 flex gap-3 md:gap-4 items-start">
+                <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-full bg-wtf-purple border-2 border-[#2a2a2a] text-white font-mono font-bold text-[10px] md:text-xs flex items-center justify-center shadow-[1.5px_1.5px_0px_#2a2a2a] mt-1">
                   💡
                 </div>
-                <div className="flex-1 flex flex-col gap-4">
-                  <h3 className="text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
-                    Customization & Component Properties
+                <div className="flex-1 flex flex-col gap-3 md:gap-4 min-w-0">
+                  <h3 className="text-sm md:text-lg font-serif font-black uppercase text-[#2a2a2a] leading-none mt-1">
+                    Customization & Properties
                   </h3>
                   <div className="prose prose-zinc max-w-none text-zinc-750 font-sans font-medium text-sm">
                     {renderMarkdown(customization)}
