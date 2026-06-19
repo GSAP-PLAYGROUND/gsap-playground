@@ -37,13 +37,18 @@ export default function AnimationGrid({ animations }: AnimationGridProps) {
     sessionStorage.setItem("grid-show-all", showAll.toString());
   }, [showAll]);
 
-  // Clear grid state on actual page refresh/close (beforeunload only fires on real navigations, not Next.js client-side)
+  // Clear grid state on actual page refresh/close
+  // beforeunload: desktop browsers; pagehide: mobile browsers (iOS Safari, Android Chrome)
   useEffect(() => {
     const handleUnload = () => {
       sessionStorage.removeItem("grid-show-all");
     };
     window.addEventListener("beforeunload", handleUnload);
-    return () => window.removeEventListener("beforeunload", handleUnload);
+    window.addEventListener("pagehide", handleUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+      window.removeEventListener("pagehide", handleUnload);
+    };
   }, []);
 
   const totalCount = animations.length;
