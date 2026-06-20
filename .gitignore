@@ -42,4 +42,4 @@ yarn-error.log*
 next-env.d.ts
 
 # WIP pages — keep local until ready to publish
-/src/app/kinetic-purple-wip/
+gsapskills.md
