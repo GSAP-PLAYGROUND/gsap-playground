@@ -35,7 +35,7 @@ export default function AnimationCard({ anim }: AnimationCardProps) {
 
   const handleGetCode = (e: React.MouseEvent) => {
     e.preventDefault();
-    const targetUrl = `/code/${anim.route.slice(1)}`;
+    const targetUrl = `/code/${anim.route.replace("/animations/", "")}`;
     if (session) {
       router.push(targetUrl);
     } else {

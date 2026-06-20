@@ -31,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Dynamic component source code routes (e.g. /code/01-gravity-drop)
   const codeRoutes = animations.map((anim) => ({
-    url: `${baseUrl}/code/${anim.route.slice(1)}`,
+    url: `${baseUrl}/code/${anim.route.replace("/animations/", "")}`,
     lastModified: today,
     changeFrequency: "weekly" as const,
     priority: 0.7,

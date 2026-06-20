@@ -12,7 +12,7 @@ export const animations: AnimationItem[] = [
   {
     id: "01",
     name: "Flip Cards",
-    route: "/01-showup-cards",
+    route: "/animations/01-showup-cards",
     bgColor: "bg-wtf-green",
     textColor: "text-white",
     description:
@@ -22,7 +22,7 @@ export const animations: AnimationItem[] = [
   {
     id: "02",
     name: "3D Carousel",
-    route: "/02-3d-carousel",
+    route: "/animations/02-3d-carousel",
     bgColor: "bg-wtf-yellow",
     textColor: "text-black",
     description:
@@ -32,7 +32,7 @@ export const animations: AnimationItem[] = [
   {
     id: "03",
     name: "Skill Fit",
-    route: "/03-screen-skill-fit",
+    route: "/animations/03-screen-skill-fit",
     bgColor: "bg-wtf-green",
     textColor: "text-white",
     description:
@@ -42,7 +42,7 @@ export const animations: AnimationItem[] = [
   {
     id: "04",
     name: "Page Transition",
-    route: "/04-page-change-animation",
+    route: "/animations/04-page-change-animation",
     bgColor: "bg-wtf-yellow",
     textColor: "text-black",
     description:
@@ -52,7 +52,7 @@ export const animations: AnimationItem[] = [
   {
     id: "05",
     name: "Horizontal Cards",
-    route: "/05-horizontal-cards-showcase",
+    route: "/animations/05-horizontal-cards-showcase",
     bgColor: "bg-wtf-blue",
     textColor: "text-white",
     description:
@@ -62,7 +62,7 @@ export const animations: AnimationItem[] = [
   {
     id: "06",
     name: "Circular Scatter",
-    route: "/06-circular-scatter",
+    route: "/animations/06-circular-scatter",
     bgColor: "bg-wtf-orange",
     textColor: "text-white",
     description:
@@ -72,7 +72,7 @@ export const animations: AnimationItem[] = [
   {
     id: "07",
     name: "Fluid Cursor",
-    route: "/07-fluid-cursor",
+    route: "/animations/07-fluid-cursor",
     bgColor: "bg-wtf-purple",
     textColor: "text-white",
     description:
@@ -82,7 +82,7 @@ export const animations: AnimationItem[] = [
   {
     id: "08",
     name: "Blueprint",
-    route: "/08-blueprint-scatter",
+    route: "/animations/08-blueprint-scatter",
     bgColor: "bg-wtf-purple",
     textColor: "text-white",
     description:
@@ -92,7 +92,7 @@ export const animations: AnimationItem[] = [
   {
     id: "09",
     name: "Scroll Cards",
-    route: "/09-scroll-cards-01",
+    route: "/animations/09-scroll-cards-01",
     bgColor: "bg-wtf-orange",
     textColor: "text-white",
     description:
@@ -102,7 +102,7 @@ export const animations: AnimationItem[] = [
   {
     id: "10",
     name: "Scroll Tags",
-    route: "/10-scroll-tags-assembly",
+    route: "/animations/10-scroll-tags-assembly",
     bgColor: "bg-wtf-green",
     textColor: "text-white",
     description:
@@ -112,7 +112,7 @@ export const animations: AnimationItem[] = [
   {
     id: "11",
     name: "Orbit Gallery",
-    route: "/11-scroll-orbit-gallery",
+    route: "/animations/11-scroll-orbit-gallery",
     bgColor: "bg-wtf-blue",
     textColor: "text-white",
     description:
@@ -122,7 +122,7 @@ export const animations: AnimationItem[] = [
   {
     id: "12",
     name: "Gravity Drop",
-    route: "/12-gravity-drop",
+    route: "/animations/12-gravity-drop",
     bgColor: "bg-wtf-orange",
     textColor: "text-white",
     description:
@@ -132,7 +132,7 @@ export const animations: AnimationItem[] = [
   {
     id: "13",
     name: "String Line",
-    route: "/13-string-line",
+    route: "/animations/13-string-line",
     bgColor: "bg-wtf-yellow",
     textColor: "text-black",
     description:
@@ -142,7 +142,7 @@ export const animations: AnimationItem[] = [
   {
     id: "14",
     name: "Border Reveal",
-    route: "/14-inward-outward-border-reveal",
+    route: "/animations/14-inward-outward-border-reveal",
     bgColor: "bg-wtf-red",
     textColor: "text-white",
     description:
@@ -152,7 +152,7 @@ export const animations: AnimationItem[] = [
   {
     id: "15",
     name: "Kinetic Text",
-    route: "/15-kinetic-typography",
+    route: "/animations/15-kinetic-typography",
     bgColor: "bg-wtf-purple",
     textColor: "text-white",
     description:
@@ -162,7 +162,7 @@ export const animations: AnimationItem[] = [
   {
     id: "16",
     name: "Magnetic Dock",
-    route: "/16-magnetic-dock",
+    route: "/animations/16-magnetic-dock",
     bgColor: "bg-wtf-orange",
     textColor: "text-white",
     description:
@@ -172,7 +172,7 @@ export const animations: AnimationItem[] = [
   {
     id: "17",
     name: "Bento Grid",
-    route: "/17-bento-grid-flip",
+    route: "/animations/17-bento-grid-flip",
     bgColor: "bg-wtf-green",
     textColor: "text-white",
     description:
@@ -182,7 +182,7 @@ export const animations: AnimationItem[] = [
   {
     id: "18",
     name: "Accordion",
-    route: "/18-morphing-accordion",
+    route: "/animations/18-morphing-accordion",
     bgColor: "bg-wtf-blue",
     textColor: "text-white",
     description:

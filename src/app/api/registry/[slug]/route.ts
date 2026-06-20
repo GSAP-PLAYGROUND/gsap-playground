@@ -79,7 +79,7 @@ export async function GET(
   // Handle list of components request
   if (slug === "list" || slug === "index") {
     const list = animations.map((anim) => {
-      const folderName = anim.route.slice(1);
+      const folderName = anim.route.replace("/animations/", "");
       return {
         name: anim.name,
         slug: folderName,
@@ -93,10 +93,10 @@ export async function GET(
   // Handle bulk components request
   if (slug === "all" || slug === "all-components") {
     const files = [];
-    const appDir = path.join(process.cwd(), "src", "app");
+    const animationsDir = path.join(process.cwd(), "src", "app", "animations");
     for (const anim of animations) {
-      const folderName = anim.route.slice(1);
-      const pagePath = path.join(appDir, folderName, "page.tsx");
+      const folderName = anim.route.replace("/animations/", "");
+      const pagePath = path.join(animationsDir, folderName, "page.tsx");
       try {
         const pageCode = fs.readFileSync(pagePath, "utf-8");
         const componentName = getClassName(folderName);
@@ -119,7 +119,7 @@ export async function GET(
 
   // Find the animation (supporting both exact folder slug "11-magnetic-dock" and clean slug "magnetic-dock")
   const anim = animations.find((a) => {
-    const routeName = a.route.slice(1);
+    const routeName = a.route.replace("/animations/", "");
     const cleanRouteName = routeName.replace(/^\d+[a-z]?[-_]/, "");
     return routeName === slug || cleanRouteName === slug;
   });
@@ -128,9 +128,9 @@ export async function GET(
     return NextResponse.json({ error: "Component not found" }, { status: 404 });
   }
 
-  const folderName = anim.route.slice(1);
-  const appDir = path.join(process.cwd(), "src", "app");
-  const pagePath = path.join(appDir, folderName, "page.tsx");
+  const folderName = anim.route.replace("/animations/", "");
+  const animationsDir = path.join(process.cwd(), "src", "app", "animations");
+  const pagePath = path.join(animationsDir, folderName, "page.tsx");
 
   let pageCode = "";
   try {

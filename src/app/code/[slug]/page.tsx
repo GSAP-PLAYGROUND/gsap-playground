@@ -86,14 +86,14 @@ function parseHowToUse(markdown: string): ParsedMarkdown {
 // Generate static params for all available animations
 export async function generateStaticParams() {
   return animations.map((anim) => ({
-    slug: anim.route.slice(1),
+    slug: anim.route.replace("/animations/", ""),
   }));
 }
 
 // Dynamic Metadata generation for SEO optimization
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const anim = animations.find((a) => a.route.slice(1) === slug);
+  const anim = animations.find((a) => a.route.replace("/animations/", "") === slug);
 
   return {
     title: anim
@@ -109,16 +109,16 @@ export default async function CodePage({ params }: PageProps) {
   const { slug } = await params;
 
   // Verify that the slug is a valid animation
-  const anim = animations.find((a) => a.route.slice(1) === slug);
+  const anim = animations.find((a) => a.route.replace("/animations/", "") === slug);
   if (!anim) {
     notFound();
   }
 
   const authenticated = await isAuthenticated();
 
-  const appDir = path.join(process.cwd(), "src", "app");
-  const pagePath = path.join(appDir, slug, "page.tsx");
-  const howToUsePath = path.join(appDir, slug, "HOW_TO_USE.md");
+  const animationsDir = path.join(process.cwd(), "src", "app", "animations");
+  const pagePath = path.join(animationsDir, slug, "page.tsx");
+  const howToUsePath = path.join(animationsDir, slug, "HOW_TO_USE.md");
 
   let pageCode = "";
   let standaloneCode: string | null = null;

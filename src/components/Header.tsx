@@ -16,7 +16,7 @@ export default function Header() {
   const { openModal } = useAuthModal();
 
   const handleGetCode = (animRoute: string) => {
-    const codeUrl = `/code/${animRoute.slice(1)}`;
+    const codeUrl = `/code/${animRoute.replace("/animations/", "")}`;
     if (session) {
       router.push(codeUrl);
     } else {
@@ -66,7 +66,7 @@ export default function Header() {
   const isCodePage = normalizedPath.startsWith("/code/");
   const codeSlug = isCodePage ? normalizedPath.split("/").pop() || null : null;
   const codeAnim = codeSlug
-    ? animations.find((anim) => anim.route.slice(1) === codeSlug)
+    ? animations.find((anim) => anim.route.replace("/animations/", "") === codeSlug)
     : null;
 
   return (
