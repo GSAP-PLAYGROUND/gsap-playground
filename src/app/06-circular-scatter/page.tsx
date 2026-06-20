@@ -2,9 +2,10 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // Custom Text Scramble Component
 function ScrambleText({
@@ -23,7 +24,10 @@ function ScrambleText({
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*";
 
   useEffect(() => {
-    if (!isActive) return;
+    if (!isActive) {
+      setDisplayText("");
+      return;
+    }
     let timer: NodeJS.Timeout;
     let frame = 0;
     const finalLength = text.length;
@@ -145,40 +149,33 @@ const talentData = [
 
 export default function CircularScatterPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const pinnedSectionRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const floatingCardsRef = useRef<HTMLDivElement>(null);
-  const floatTimelineRef = useRef<gsap.core.Timeline | null>(null);
-  const [hasEntered, setHasEntered] = useState(false);
-
-  // IntersectionObserver: only trigger animation when component enters viewport
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHasEntered(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const [animStarted, setAnimStarted] = useState(false);
 
   useGSAP(
     () => {
-      if (!hasEntered) return;
-      const cards = Array.from(containerRef.current?.querySelectorAll<HTMLElement>(".cs-scatter-card") ?? []);
+      const container = heroRef.current;
+      if (!container) return;
+
+      let idleTweens: gsap.core.Tween[] = [];
+
+      const scrollerEl = containerRef.current?.closest("#main-scroller") || null;
+      const scroller = scrollerEl || undefined;
+      const scrollerRect = scrollerEl ? scrollerEl.getBoundingClientRect() : { left: 0, top: 0 };
+      const screenCenterX = (scrollerEl ? (scrollerEl as HTMLElement).clientWidth : window.innerWidth) / 2;
+      const screenCenterY = (scrollerEl ? (scrollerEl as HTMLElement).clientHeight : window.innerHeight) / 2;
+
+      const cards = Array.from(
+        pinnedSectionRef.current?.querySelectorAll<HTMLElement>(".cs-scatter-card") ?? []
+      );
 
       // Compute all coordinates relative to screen center while cards are in their initial CSS positions
       const cardParams = cards.map((card) => {
         const rect = card.getBoundingClientRect();
-        const targetCenterX = rect.left + rect.width / 2;
-        const screenCenterX = window.innerWidth / 2;
-        const targetCenterY = rect.top + rect.height / 2;
-        const screenCenterY = window.innerHeight / 2;
+        const targetCenterX = rect.left + rect.width / 2 - scrollerRect.left;
+        const targetCenterY = rect.top + rect.height / 2 - scrollerRect.top;
 
         const X_c = screenCenterX - targetCenterX;
         const Y_c = screenCenterY - targetCenterY;
@@ -208,6 +205,20 @@ export default function CircularScatterPage() {
       });
 
       const introTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: pinnedSectionRef.current,
+          scroller: scroller,
+          start: "top top",
+          end: "+=1000",
+          pin: true,
+          pinSpacing: true,
+          toggleActions: "play none none reverse",
+          onEnter: () => setAnimStarted(true),
+          onLeaveBack: () => {
+            setAnimStarted(false);
+            killFloatingIdle();
+          },
+        },
         defaults: { ease: "power4.out" },
         onComplete: () => {
           startFloatingIdle();
@@ -288,21 +299,15 @@ export default function CircularScatterPage() {
           { y: 30, opacity: 0 },
           { y: 0, opacity: 1, duration: 1.2 },
           scatterStart + 0.4,
-        )
-        .fromTo(
-          ".cs-hero-cta-btn",
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1.2 },
-          scatterStart + 0.6,
         );
 
       // 2. Continuous Floating Idle Loop
       function startFloatingIdle() {
-        floatTimelineRef.current = gsap.timeline({ repeat: -1 });
+        killFloatingIdle();
 
         cardParams.forEach((param, idx) => {
           const offset = idx % 2 === 0 ? 1 : -1;
-          gsap.to(param.card, {
+          const t = gsap.to(param.card, {
             y: `+=${10 * offset}`,
             x: `+=${5 * -offset}`,
             rotation: `+=${1.5 * offset}`,
@@ -311,14 +316,23 @@ export default function CircularScatterPage() {
             repeat: -1,
             ease: "sine.inOut",
           });
+          idleTweens.push(t);
         });
       }
 
+      // Helper to kill idle tweens
+      function killFloatingIdle() {
+        idleTweens.forEach((t) => t.kill());
+        idleTweens = [];
+      }
+
+      ScrollTrigger.refresh();
+
       return () => {
-        if (floatTimelineRef.current) floatTimelineRef.current.kill();
+        killFloatingIdle();
       };
     },
-    { scope: containerRef, dependencies: [hasEntered] },
+    { scope: containerRef }
   );
 
   // Custom mouse-move/hover functions for cards
@@ -355,7 +369,7 @@ export default function CircularScatterPage() {
 
   return (
     <div
-      className="relative h-screen w-screen bg-[#f2ece0] text-[#2a2a2a] overflow-hidden selection:bg-[#f1b333] selection:text-black"
+      className="relative w-full min-h-screen bg-[#f2ece0] text-[#2a2a2a] selection:bg-[#f1b333] selection:text-black overflow-x-hidden"
       ref={containerRef}
     >
       {/* Premium subtle grid background overlay */}
@@ -367,72 +381,72 @@ export default function CircularScatterPage() {
         }}
       />
 
-      {/* 1. Hero Section (Circular Cards Workspace) */}
-      <div
-        ref={heroRef}
-        className="h-screen w-full relative flex flex-col justify-center items-center overflow-hidden"
+      <section
+        ref={pinnedSectionRef}
+        className="relative w-full h-screen overflow-hidden flex flex-col justify-center items-center"
       >
-        {/* Central Hero Text Area (Bottom Centered) */}
-        <div className="absolute bottom-[4vh] md:bottom-[6vh] left-1/2 -translate-x-1/2 z-20 text-center w-full max-w-2xl px-6 pointer-events-none">
-          <span className="cs-hero-tagline inline-block font-mono text-[9px] tracking-[0.2em] uppercase text-[#f1b333] font-black bg-[#2a2a2a] text-white px-3 py-1 rounded-full mb-4">
-            Vetted Mobile Engineers
-          </span>
-          <h1 className="cs-hero-title-scramble font-serif font-black text-4xl md:text-6xl text-[#2a2a2a] leading-[1.05] tracking-tighter uppercase mb-4">
-            <ScrambleText text="Hire Mobile Devs" delay={2800} isActive={hasEntered} />
-            <br />
-            <span className="text-[#f1b333]">
-              <ScrambleText text="Differently" delay={3400} isActive={hasEntered} />
-            </span>
-          </h1>
-          <p className="cs-hero-subtitle font-mono text-[11px] md:text-xs text-[#2a2a2a]/70 max-w-lg mx-auto leading-relaxed mb-8 pointer-events-auto">
-            Engineers who own outcomes — CTO-screened with a ≤ 5% pass rate.
-            Ready to scale your product immediately.
-          </p>
-        </div>
-
-        {/* Floating cards container */}
+        {/* 1. Hero Section (Circular Cards Workspace) */}
         <div
-          ref={floatingCardsRef}
-          className="absolute inset-0 w-full h-full pointer-events-none z-10"
+          ref={heroRef}
+          className="h-full w-full relative flex flex-col justify-center items-center overflow-hidden"
         >
-          {talentData.map((card, idx) => (
-            <div
-              key={card.id}
-              className={`cs-scatter-card cs-scatter-card-${idx} absolute w-[36vw] md:w-[13.5vw] aspect-[3/4] pointer-events-auto select-none rounded-3xl border-2 border-[#2a2a2a] bg-white p-3 shadow-[4px_4px_0px_#2a2a2a] cursor-pointer transition-shadow duration-200`}
-              style={{
-                left: card.left,
-                top: card.top,
-              }}
-              onMouseEnter={(e) => handleCardEnter(e, card.color)}
-              onMouseLeave={handleCardLeave}
-            >
-              {/* Card Image Area */}
-              <div className="w-full h-[70%] bg-[#fcfbfa] border border-[#2a2a2a]/10 rounded-2xl overflow-hidden relative">
-                <img
-                  src={card.img}
-                  alt={card.name}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
+          {/* Central Hero Text Area (Bottom Centered) */}
+          <div className="absolute bottom-[4vh] md:bottom-[6vh] left-1/2 -translate-x-1/2 z-20 text-center w-full max-w-2xl px-6 pointer-events-none">
+            <span className="cs-hero-tagline inline-block font-mono text-[9px] tracking-[0.2em] uppercase text-[#f1b333] font-black bg-[#2a2a2a] text-white px-3 py-1 rounded-full mb-4">
+              [ Circular Orbit Physics ]
+            </span>
+            <h1 className="cs-hero-title-scramble font-serif font-black text-4xl md:text-6xl text-[#2a2a2a] leading-[1.05] tracking-tighter uppercase mb-4">
+              <ScrambleText text="Orbital Equilibrium" delay={2800} isActive={animStarted} />
+            </h1>
+            <p className="cs-hero-subtitle font-mono text-[11px] md:text-xs text-[#2a2a2a]/70 max-w-lg mx-auto leading-relaxed mb-8 pointer-events-auto">
+              Watch cards dynamically calculate their angular trajectories and spiral outward into an elegant circular geometry on scroll.
+            </p>
+          </div>
 
-              {/* Card Title Details */}
-              <div className="h-[30%] flex flex-col justify-end pt-2">
-                <h4 className="font-serif font-black text-xs md:text-sm text-[#2a2a2a] leading-none mb-1 truncate">
-                  {card.name}
-                </h4>
-                <div className="flex justify-between items-center w-full">
-                  <span className="card-role-text font-mono text-[8px] md:text-[9px] text-zinc-400 font-bold uppercase">
-                    {card.role}
-                  </span>
-                  <span className="font-mono text-[7px] text-zinc-400/80">
-                    [0{idx + 1}]
-                  </span>
+          {/* Floating cards container */}
+          <div
+            ref={floatingCardsRef}
+            className="absolute inset-0 w-full h-full pointer-events-none z-10"
+          >
+            {talentData.map((card, idx) => (
+              <div
+                key={card.id}
+                className={`cs-scatter-card cs-scatter-card-${idx} absolute w-[36vw] md:w-[13.5vw] aspect-[3/4] pointer-events-auto select-none rounded-3xl border-2 border-[#2a2a2a] bg-white p-3 shadow-[4px_4px_0px_#2a2a2a] cursor-pointer transition-shadow duration-200`}
+                style={{
+                  left: card.left,
+                  top: card.top,
+                }}
+                onMouseEnter={(e) => handleCardEnter(e, card.color)}
+                onMouseLeave={handleCardLeave}
+              >
+                {/* Card Image Area */}
+                <div className="w-full h-[70%] bg-[#fcfbfa] border border-[#2a2a2a]/10 rounded-2xl overflow-hidden relative">
+                  <img
+                    src={card.img}
+                    alt={card.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Card Title Details */}
+                <div className="h-[30%] flex flex-col justify-end pt-2">
+                  <h4 className="font-serif font-black text-xs md:text-sm text-[#2a2a2a] leading-none mb-1 truncate">
+                    {card.name}
+                  </h4>
+                  <div className="flex justify-between items-center w-full">
+                    <span className="card-role-text font-mono text-[8px] md:text-[9px] text-zinc-400 font-bold uppercase">
+                      {card.role}
+                    </span>
+                    <span className="font-mono text-[7px] text-zinc-400/80">
+                      [0{idx + 1}]
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
