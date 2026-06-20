@@ -2,10 +2,10 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP);
 
 interface CarouselItem {
   id: number;
@@ -99,12 +99,19 @@ export default function ThreeDCarouselPage() {
   const [detailIdx, setDetailIdx] = useState<number | null>(null);
   const [isInView, setIsInView] = useState(false);
 
+  // Ref shadows for GSAP ticker — avoids re-creating animation context when state changes
+  const isInViewRef = useRef(false);
+  const detailIdxRef = useRef<number | null>(null);
+
   // IntersectionObserver: only activate keyboard listener when component is in viewport
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+        isInViewRef.current = entry.isIntersecting;
+      },
       { threshold: 0.3 }
     );
     observer.observe(el);
@@ -135,11 +142,12 @@ export default function ThreeDCarouselPage() {
   useGSAP(
     () => {
       const updatePositions = () => {
-        if (!isInView) return;
+        if (!isInViewRef.current) return;
         const state = dragRef.current;
         const numCards = items.length;
+        const currentDetailIdx = detailIdxRef.current;
 
-        if (detailIdx === null) {
+        if (currentDetailIdx === null) {
           // Normal interactive carousel behavior
           if (state.isDragging) {
             state.smoothRotation +=
@@ -167,7 +175,7 @@ export default function ThreeDCarouselPage() {
 
         // Interpolate ambient background color
         const activeItem = items[currentActive];
-        if (wrapperRef.current && detailIdx === null) {
+        if (wrapperRef.current && currentDetailIdx === null) {
           const targetBg = getHexWithOpacity(activeItem.bgColor, 0.12);
           gsap.to(wrapperRef.current, {
             backgroundColor: targetBg,
@@ -181,14 +189,14 @@ export default function ThreeDCarouselPage() {
           if (!card) return;
 
           // In detail mode, the active card gets a special animation, and others fade out completely
-          if (detailIdx !== null) {
-            if (index !== detailIdx) {
+          if (currentDetailIdx !== null) {
+            if (index !== currentDetailIdx) {
               gsap.to(card, {
                 opacity: 0,
                 scale: 0.5,
                 z: -400,
-                x: index < detailIdx ? -600 : 600,
-                rotationY: index < detailIdx ? -60 : 60,
+                x: index < currentDetailIdx ? -600 : 600,
+                rotationY: index < currentDetailIdx ? -60 : 60,
                 pointerEvents: "none",
                 duration: 0.6,
                 overwrite: "auto",
@@ -229,25 +237,11 @@ export default function ThreeDCarouselPage() {
 
       gsap.ticker.add(updatePositions);
 
-      // Pin the carousel dome so it stays fixed when embedded in another page.
-      // The carousel itself uses onWheel to rotate cards (not ScrollTrigger scrub).
-      const scroller =
-        wrapperRef.current?.closest("#main-scroller") || undefined;
-
-      ScrollTrigger.create({
-        trigger: wrapperRef.current,
-        scroller: scroller,
-        pin: true,
-        start: "top top",
-        end: "+=2000", // Enough scroll distance for carousel interaction
-        pinSpacing: true,
-      });
-
       return () => {
         gsap.ticker.remove(updatePositions);
       };
     },
-    { scope: wrapperRef, dependencies: [detailIdx, isInView] },
+    { scope: wrapperRef },
   );
 
   // Handle Drag / Pointer Events
@@ -361,6 +355,7 @@ export default function ThreeDCarouselPage() {
 
     const previousIdx = detailIdx;
     setDetailIdx(null);
+    detailIdxRef.current = null;
 
     // Stagger out elements inside detail panel
     if (detailPanelRef.current) {
@@ -474,6 +469,7 @@ export default function ThreeDCarouselPage() {
     }
 
     setDetailIdx(index);
+    detailIdxRef.current = index;
     const card = cardsRef.current[index];
     const activeItem = items[index];
 
@@ -727,7 +723,7 @@ export default function ThreeDCarouselPage() {
       {/* Expanded Split Detail View Panel */}
       <div
         ref={detailPanelRef}
-        className="fixed top-0 right-0 w-full md:w-[50vw] h-full bg-white border-l-4 border-[#2a2a2a] z-40 flex flex-col justify-between p-8 md:p-14 shadow-2xl pointer-events-auto transform translate-x-full opacity-0"
+        className="absolute top-0 right-0 w-full md:w-[50vw] h-full bg-white border-l-4 border-[#2a2a2a] z-40 flex flex-col justify-between p-8 md:p-14 shadow-2xl pointer-events-auto transform translate-x-full opacity-0"
       >
         {detailIdx !== null && (
           <>

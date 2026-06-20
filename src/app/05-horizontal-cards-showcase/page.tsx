@@ -3,7 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -54,27 +54,62 @@ export default function AnimationFourPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollSectionRef = useRef<HTMLDivElement>(null);
   const floatTweenRef = useRef<gsap.core.Tween | null>(null);
-  const [isInView, setIsInView] = useState(false);
+  const isInViewRef = useRef(false);
 
   // IntersectionObserver: track viewport visibility for float animation
+  // Uses a ref instead of state to avoid re-triggering useGSAP and disrupting ScrollTrigger pins
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
+      ([entry]) => {
+        const wasInView = isInViewRef.current;
+        isInViewRef.current = entry.isIntersecting;
+
+        // Start floating animation when entering viewport
+        if (entry.isIntersecting && !wasInView) {
+          const cardInners = Array.from(containerRef.current?.querySelectorAll<HTMLElement>(".card-inner") ?? []);
+          if (cardInners.length > 0) {
+            floatTweenRef.current = gsap.to(cardInners, {
+              y: "-10px",
+              rotation: "1.5",
+              duration: 2.2,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+              stagger: {
+                each: 0.35,
+                from: "random",
+              },
+            });
+          }
+        } else if (!entry.isIntersecting && wasInView) {
+          // Kill floating animation when leaving viewport
+          if (floatTweenRef.current) {
+            floatTweenRef.current.kill();
+            floatTweenRef.current = null;
+          }
+        }
+      },
       { threshold: 0.1 }
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (floatTweenRef.current) {
+        floatTweenRef.current.kill();
+        floatTweenRef.current = null;
+      }
+    };
   }, []);
 
   useGSAP(
     () => {
+      // Auto-detect custom scroll container (falls back to window for standalone use)
       const scroller =
         containerRef.current?.closest("#main-scroller") || undefined;
 
       // Master timeline linked to vertical scroll pinning
-      // Pinned section height is 4500px to ensure smooth scroll scrubbing
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: scrollSectionRef.current,
@@ -152,23 +187,6 @@ export default function AnimationFourPage() {
           );
       });
 
-      // Infinite floating idle — only when in view
-      if (isInView) {
-        const cardInners = Array.from(containerRef.current?.querySelectorAll<HTMLElement>(".card-inner") ?? []);
-        floatTweenRef.current = gsap.to(cardInners, {
-          y: "-10px",
-          rotation: "1.5",
-          duration: 2.2,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          stagger: {
-            each: 0.35,
-            from: "random",
-          },
-        });
-      }
-
       // Recalculate ScrollTrigger parameters once fonts load
       const handleLoad = () => {
         ScrollTrigger.refresh();
@@ -188,13 +206,9 @@ export default function AnimationFourPage() {
       return () => {
         window.removeEventListener("load", handleLoad);
         clearTimeout(timer);
-        if (floatTweenRef.current) {
-          floatTweenRef.current.kill();
-          floatTweenRef.current = null;
-        }
       };
     },
-    { scope: containerRef, dependencies: [isInView] },
+    { scope: containerRef },
   );
 
   return (
