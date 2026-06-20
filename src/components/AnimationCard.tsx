@@ -31,7 +31,7 @@ export default function AnimationCard({ anim }: AnimationCardProps) {
     if (session) {
       router.push(targetUrl);
     } else {
-      openModal(anim.route, true);
+      openModal(targetUrl, true);
     }
   };
 

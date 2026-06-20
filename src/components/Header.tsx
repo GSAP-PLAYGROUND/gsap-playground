@@ -21,7 +21,7 @@ export default function Header() {
     if (session) {
       router.push(codeUrl);
     } else {
-      openModal(currentAnim.route, true);
+      openModal(codeUrl, true);
     }
   };
   const [avatarError, setAvatarError] = useState(false);

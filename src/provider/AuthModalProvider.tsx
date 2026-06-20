@@ -1,8 +1,9 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 import type React from "react";
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useRef, useState } from "react";
 
 // Lazy-load: only needed when user clicks Sign In
 const AuthModal = dynamic(() => import("../components/AuthModal"), {
@@ -22,27 +23,52 @@ const AuthModalContext = createContext<AuthModalContextType | undefined>(
 );
 
 export function AuthModalProvider({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isClosable, setIsClosable] = useState(true);
   const [callbackUrl, setCallbackUrl] = useState("/");
+  const dismissedRef = useRef(false);
 
-  const openModal = (url = "/", closable = true) => {
+  const openModal = useCallback((url = "/", closable = true) => {
+    if (dismissedRef.current) return;
     setCallbackUrl(url);
     setIsClosable(closable);
     setIsOpen(true);
-  };
+  }, []);
 
-  const closeModal = (force = false) => {
-    if (!isClosable && !force) return; // Cannot close if isClosable is false unless forced
-    setIsOpen(false);
-  };
+  const closeModal = useCallback((force = false) => {
+    if (force) {
+      dismissedRef.current = true;
+      setTimeout(() => { dismissedRef.current = false; }, 1500);
+      setIsOpen(false);
+      return;
+    }
+    setIsClosable((current) => {
+      if (current) setIsOpen(false);
+      return current;
+    });
+  }, []);
+
+  // Synchronous render-time check: if we navigated away from /code/
+  // and the modal was opened as non-closable (by CodePageClient), suppress it instantly.
+  const isOnCodePage = pathname?.startsWith("/code/");
+  const shouldShow = isOpen && (isClosable || isOnCodePage);
+
+  // Sync state: if the modal is stale, clear it so future openModal calls work
+  if (isOpen && !shouldShow) {
+    // Schedule state cleanup (can't call setState during render synchronously in strict mode)
+    queueMicrotask(() => {
+      setIsOpen(false);
+      setIsClosable(true);
+    });
+  }
 
   return (
     <AuthModalContext.Provider
-      value={{ isOpen, isClosable, callbackUrl, openModal, closeModal }}
+      value={{ isOpen: shouldShow, isClosable, callbackUrl, openModal, closeModal }}
     >
       {children}
-      {isOpen && <AuthModal />}
+      {shouldShow && <AuthModal />}
     </AuthModalContext.Provider>
   );
 }
