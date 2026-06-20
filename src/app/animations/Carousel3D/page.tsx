@@ -389,7 +389,7 @@ export default function ThreeDCarouselPage() {
   }, [detailIdx]);
 
   // Detail Panel Reveal Transition
-  const openDetail = (index: number) => {
+  const openDetail = useCallback((index: number) => {
     if (index !== activeIdx) return;
 
     setDetailIdx(index);
@@ -470,7 +470,7 @@ export default function ThreeDCarouselPage() {
         }
       );
     }
-  };
+  }, [activeIdx]);
 
   return (
     <div
