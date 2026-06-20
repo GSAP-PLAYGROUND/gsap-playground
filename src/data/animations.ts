@@ -208,4 +208,41 @@ export const animations: AnimationItem[] = [
       "Vertical accordion showcase where selection morphs page background color and staggers content.",
     tiltClass: "tilt-right",
   },
+  {
+    id: "19",
+    name: "Reveal Text",
+    componentName: "RevealText",
+    route: "/animations/RevealText",
+    bgColor: "bg-wtf-purple",
+    textColor: "text-white",
+    description:
+      "Premium line-by-line text reveal using SplitText masks with staggered choreography.",
+    tiltClass: "tilt-left",
+  },
+
+  {
+    id: "20",
+    name: "Tabs Motion",
+    componentName: "TabsMotion",
+    route: "/animations/TabsMotion",
+    bgColor: "bg-wtf-green",
+    textColor: "text-white",
+    description:
+      "Animated tab navigation with sliding indicator pill and directional content crossfade transitions.",
+    tiltClass: "tilt-left",
+  },
+
+
+  {
+    id: "21",
+    name: "Parallax Hero",
+    componentName: "ParallaxHero",
+    route: "/animations/ParallaxHero",
+    bgColor: "bg-wtf-orange",
+    textColor: "text-white",
+    description:
+      "Multi-layer parallax hero with SplitText character scatter entrance and scroll-driven depth motion.",
+    tiltClass: "tilt-left",
+  },
+
 ];
