@@ -171,7 +171,7 @@ export default function AnimationThreePage() {
       {/* Main assembly wrapper */}
       <div
         ref={scrollSectionRef}
-        className="h-[calc(100vh-64px)] w-full flex items-center relative overflow-hidden"
+        className="h-screen w-full flex items-center relative overflow-hidden"
       >
         {/* Horizontal text scroll track */}
         <div

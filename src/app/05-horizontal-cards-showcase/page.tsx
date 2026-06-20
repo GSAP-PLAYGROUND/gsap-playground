@@ -228,7 +228,7 @@ export default function AnimationFourPage() {
 
       <div
         ref={scrollSectionRef}
-        className="h-[calc(100vh-64px)] w-full flex items-center justify-center relative overflow-hidden"
+        className="h-screen w-full flex items-center justify-center relative overflow-hidden"
       >
         {/* Absolute Cards container */}
         <div className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none z-20">

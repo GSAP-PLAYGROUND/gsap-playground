@@ -296,7 +296,7 @@ export default function StringLinePage() {
     <div className="relative bg-[#f0eadf] text-[#2a2a2a] selection:bg-[#f1b333] selection:text-black">
       <section
         ref={containerRef}
-        className="relative h-[calc(100vh-64px)] w-full overflow-hidden bg-white border-y-3 border-[#2a2a2a] select-none font-sans"
+        className="relative h-screen w-full overflow-hidden bg-white border-y-3 border-[#2a2a2a] select-none font-sans"
       >
         {/* Console readout display (Top center/right) */}
         <div className="absolute top-6 right-6 z-30 font-mono text-[9px] md:text-[10px] font-bold text-zinc-500 text-right flex flex-col gap-1">
