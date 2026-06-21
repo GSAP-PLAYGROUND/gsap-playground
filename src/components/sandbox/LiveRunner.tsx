@@ -1,14 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import * as LucideIcons from "lucide-react";
-import { SandboxErrorBoundary } from "./ErrorBoundary";
 import { Loader2 } from "lucide-react";
-
-// Register GSAP plugins in outer scope
-gsap.registerPlugin(useGSAP);
 
 interface LiveRunnerProps {
   code: string;
@@ -25,7 +18,7 @@ export default function LiveRunner({
 }: LiveRunnerProps) {
   const [isBabelLoaded, setIsBabelLoaded] = useState(false);
   const [babelError, setBabelError] = useState<string | null>(null);
-  const [RenderedComponent, setRenderedComponent] = useState<React.ComponentType | null>(null);
+  const [transpiledCode, setTranspiledCode] = useState<string | null>(null);
   const [compileLogs, setCompileLogs] = useState<string[]>([]);
   const compileTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -50,10 +43,6 @@ export default function LiveRunner({
     };
 
     document.head.appendChild(script);
-
-    return () => {
-      // Clean up script if unmounted before loading completes (rare)
-    };
   }, []);
 
   // Compile TSX to JS when code changes and Babel is loaded
@@ -91,78 +80,26 @@ export default function LiveRunner({
       // Transpile JSX/TSX code
       logs.push(`[Compiler] Parsing TSX syntax trees...`);
       const transformed = Babel.transform(code, {
-        presets: ["env", "react"],
+        presets: ["env", "react", "typescript"],
         filename: "dynamic-component.tsx",
       }).code;
 
-      logs.push(`[Compiler] Transpilation complete. Executing module factory...`);
-
-      // Mock CJS require
-      const customRequire = (moduleName: string) => {
-        logs.push(`[Runtime] Resolving module: "${moduleName}"`);
-        if (moduleName === "react" || moduleName === "React") {
-          return React;
-        }
-        if (moduleName === "gsap") {
-          return gsap;
-        }
-        if (moduleName === "@gsap/react") {
-          return { useGSAP };
-        }
-        if (moduleName === "lucide-react") {
-          return LucideIcons;
-        }
-        throw new Error(`Module "${moduleName}" is not available in the sandbox workspace.`);
-      };
-
-      // Set up CJS environment
-      const exports: any = {};
-      const module = { exports };
-
-      // Wrap in scope and execute
-      // Injected keys: React, gsap, useGSAP, require, exports, module
-      const factory = new Function(
-        "React",
-        "gsap",
-        "useGSAP",
-        "require",
-        "exports",
-        "module",
-        transformed
-      );
-
-      factory(React, gsap, useGSAP, customRequire, exports, module);
-
-      // Extract the exported react component
-      const Component = exports.default || module.exports.default || module.exports;
-
-      if (!Component) {
-        throw new Error(
-          "The compiled code did not export a default component. Ensure you have 'export default function ComponentName() { ... }'"
-        );
-      }
-
-      // Test instantiate
-      if (typeof Component !== "function") {
-        throw new Error("Exported default element is not a valid React Component function.");
+      if (!transformed) {
+        throw new Error("Transpilation yielded empty code.");
       }
 
       const duration = (performance.now() - startTime).toFixed(1);
-      logs.push(`[Compiler] Success! Component compiled and linked in ${duration}ms.`);
-      
-      setRenderedComponent(() => Component);
+      logs.push(`[Compiler] Success! Component compiled in ${duration}ms.`);
+
+      setTranspiledCode(transformed);
       setCompileLogs(logs);
       onCompileSuccess?.(logs);
     } catch (err: any) {
       logs.push(`[Compiler Error] ${err.message}`);
       setCompileLogs(logs);
       onCompileError?.(err);
-      
-      // Fallback component showing execution error
-      const ErrComponent = () => {
-        throw err; // Trigger ErrorBoundary
-      };
-      setRenderedComponent(() => ErrComponent);
+      // Inject standard error throw in iframe
+      setTranspiledCode(`throw new Error(${JSON.stringify(err.message)});`);
     }
   };
 
@@ -189,17 +126,141 @@ export default function LiveRunner({
     );
   }
 
+  // Create isolated iframe page document
+  const srcDoc = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18.2.0/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/EasePack.min.js"></script>
+  <script>
+    window.require = function(name) {
+      if (name === 'react') return window.React;
+      if (name === 'gsap') return window.gsap;
+      throw new Error("Module '" + name + "' is not available in sandbox.");
+    };
+  </script>
+  <script src="https://unpkg.com/@gsap/react@2.1.1/dist/index.js"></script>
+  <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: auto;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Hide scrollbars inside canvas wrapper */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    // CommonJS module mock registry inside Sandbox IFrame
+    const modules = {
+      "react": window.React,
+      "react-dom": window.ReactDOM,
+      "gsap": window.gsap,
+      "gsap/ScrollTrigger": { ScrollTrigger: window.ScrollTrigger, default: window.ScrollTrigger },
+      "gsap/ScrollToPlugin": { ScrollToPlugin: window.ScrollToPlugin, default: window.ScrollToPlugin },
+      "gsap/MotionPathPlugin": { MotionPathPlugin: window.MotionPathPlugin, default: window.MotionPathPlugin },
+      "gsap/TextPlugin": { TextPlugin: window.TextPlugin, default: window.TextPlugin },
+      "gsap/EasePack": { EasePack: window.EasePack, default: window.EasePack },
+      "gsap/all": {
+        gsap: window.gsap,
+        ScrollTrigger: window.ScrollTrigger,
+        ScrollToPlugin: window.ScrollToPlugin,
+        MotionPathPlugin: window.MotionPathPlugin,
+        TextPlugin: window.TextPlugin,
+        EasePack: window.EasePack,
+        default: window.gsap
+      },
+      "@gsap/react": { useGSAP: window.useGSAP, default: window.useGSAP },
+      "lucide-react": window.lucide
+    };
+
+    window.require = function(name) {
+      if (modules[name]) return modules[name];
+      if (name.startsWith("lucide-react")) {
+        return window.lucide;
+      }
+      throw new Error("Module '" + name + "' is not available in sandbox.");
+    };
+
+    window.exports = {};
+    window.module = { exports: window.exports };
+  </script>
+  <script>
+    try {
+      ${transpiledCode}
+      
+      const Component = window.exports.default || window.module.exports.default || window.module.exports;
+      if (Component) {
+        // Automatically register standard GSAP plugins inside Sandbox context
+        if (window.gsap) {
+          window.gsap.registerPlugin(
+            window.ScrollTrigger, 
+            window.ScrollToPlugin, 
+            window.MotionPathPlugin, 
+            window.TextPlugin, 
+            window.EasePack
+          );
+        }
+        
+        const root = window.ReactDOM.createRoot(document.getElementById("root"));
+        root.render(window.React.createElement(Component));
+      } else {
+        throw new Error("The compiled code did not export a default React Component.");
+      }
+    } catch(err) {
+      document.body.innerHTML = \`
+        <div style="color: #ef4444; padding: 16px; font-family: monospace; font-size: 11px; border: 2px dashed #ef4444; background: #fef2f2; max-width: 90%; margin: 20px auto; border-radius: 6px; box-shadow: 2px 2px 0px rgba(0,0,0,1);">
+          <h3 style="margin-top: 0; text-transform: uppercase;">Sandbox Runtime Error</h3>
+          <p>\${err.message}</p>
+        </div>
+      \`;
+    }
+  </script>
+</body>
+</html>`;
+
   return (
-    <div className="w-full h-full">
-      <SandboxErrorBoundary>
-        {RenderedComponent ? (
-          <RenderedComponent />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-[#171717] text-zinc-500 font-mono text-sm">
-            Compiling and rendering workspace...
-          </div>
-        )}
-      </SandboxErrorBoundary>
+    <div className="w-full h-full flex items-center justify-center p-1 overflow-auto">
+      {transpiledCode ? (
+        <iframe
+          key={transpiledCode} // Remount and reload IFrame on every code modification
+          srcDoc={srcDoc}
+          title="Sandbox Execution Window"
+          className="w-full h-full border-none bg-transparent"
+          sandbox="allow-scripts"
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center bg-[#f0eadf] text-zinc-400 font-mono text-xs">
+          Compiling workspace components...
+        </div>
+      )}
     </div>
   );
 }

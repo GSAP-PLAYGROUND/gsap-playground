@@ -11,13 +11,13 @@ export default function MainLayout({
   children: React.ReactNode
 }) {
   return (
-    <SidebarProvider>
+    <SidebarProvider className="h-svh overflow-hidden">
       <AppSidebar />
-      <SidebarInset>
+      <SidebarInset className="h-full overflow-hidden">
         {/* <header className="flex shrink-0 items-center gap-2 px-4">
           <SidebarTrigger />
         </header> */}
-        <main className="flex-1">
+        <main className="flex-1 h-full overflow-hidden">
           {children}
         </main>
       </SidebarInset>

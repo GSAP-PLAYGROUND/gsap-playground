@@ -6,6 +6,7 @@ import "allotment/dist/style.css";
 
 import AgentChartPanel from "./AgentChartPanel";
 import PreviewPanel from "./PreviewPanel";
+import { useAgentSSE } from "@/hooks/useAgentSSE";
 
 const defaultCodeString = `import React, { useRef } from 'react';
 import gsap from 'gsap';
@@ -47,6 +48,18 @@ export default function SandboxWorkspace() {
     setMounted(true);
   }, []);
 
+  // Instantiate SSE Agent Hook
+  const {
+    messages,
+    status,
+    activeNode,
+    runAgent,
+    stopExecution,
+  } = useAgentSSE((generatedCode) => {
+    console.log("Successfully received new generated code from agent!");
+    setCode(generatedCode);
+  });
+
   const handleCompileStart = () => {
     setIsCompiling(true);
   };
@@ -60,12 +73,6 @@ export default function SandboxWorkspace() {
     setIsCompiling(false);
   };
 
-  const handleSendMessage = (text: string) => {
-    // In a real application, the prompt is sent to the AI agent to produce new code.
-    // For local sandbox simulation, we can log the request in console.
-    console.log("Agent requested compilation for prompt:", text);
-  };
-
   if (!mounted) {
     return (
       <div className="w-full h-screen bg-[#f0eadf] flex items-center justify-center font-mono text-sm text-[#2a2a2a]">
@@ -75,14 +82,20 @@ export default function SandboxWorkspace() {
   }
 
   return (
-    <div className="w-full h-full  relative">
+    <div className="w-full h-full relative">
       {/* Visual noise overlay to match the premium neo-brutalist styling */}
       <div className="absolute inset-0 noise-overlay pointer-events-none z-50 mix-blend-overlay opacity-40" />
 
       <Allotment defaultSizes={[40, 60]} className="h-full">
         {/* Left pane: Agent Workspace Chat */}
         <Allotment.Pane preferredSize="40%" minSize={320}>
-          <AgentChartPanel onSendMessage={handleSendMessage} />
+          <AgentChartPanel
+            messages={messages}
+            status={status}
+            activeNode={activeNode}
+            runAgent={runAgent}
+            stopExecution={stopExecution}
+          />
         </Allotment.Pane>
 
         {/* Right pane: Execution Sandbox Canvas & Editor */}
