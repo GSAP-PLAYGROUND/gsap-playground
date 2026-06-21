@@ -42,6 +42,7 @@
     "@base-ui/react": "^1.6.0",
     "@convex-dev/better-auth": "^0.12.4",
     "@gsap/react": "^2.1.2",
+    "allotment": "^1.20.5",
     "better-auth": "^1.6.19",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

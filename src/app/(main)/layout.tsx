@@ -14,9 +14,9 @@ export default function MainLayout({
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 px-4">
+        {/* <header className="flex shrink-0 items-center gap-2 px-4">
           <SidebarTrigger />
-        </header>
+        </header> */}
         <main className="flex-1">
           {children}
         </main>
