@@ -290,7 +290,7 @@ export default function AgentChartPanel({
               </button>
 
               {isLinterOpen && (
-                <div className="border-t border-black p-3 bg-zinc-950 text-[9px] font-mono whitespace-pre-wrap max-h-48 overflow-y-auto text-rose-400 leading-normal select-text">
+                <div className="border-t border-black p-3 bg-zinc-950 text-[9px] font-mono whitespace-pre-wrap max-h-48 overflow-y-auto scrollbar-none text-rose-400 leading-normal select-text">
                   {failedLinterRuns.map((run, idx) => (
                     <div
                       key={idx}
@@ -338,7 +338,7 @@ export default function AgentChartPanel({
       )}
 
       {/* Scrollable Agent Chat Logs */}
-      <div className="flex-1 min-h-0 overflow-y-auto p-4 flex flex-col gap-4">
+      <div className="flex-1 min-h-0 overflow-y-auto scrollbar-none p-4 flex flex-col gap-4">
         {/* Welcome Empty State */}
         {!hasMessages && !hasStartedPipeline && (
           <div className="flex-1 flex flex-col items-center justify-center gap-5 py-8">

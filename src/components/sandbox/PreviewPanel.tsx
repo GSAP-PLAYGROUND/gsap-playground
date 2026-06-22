@@ -40,7 +40,7 @@ export default function PreviewPanel({
     <div className="w-full h-full flex flex-col bg-white overflow-hidden relative select-none">
       {/* Main Container Area */}
       <div
-        className={`flex-1 relative overflow-auto ${getThemeBg()} transition-colors duration-500`}
+        className={`flex-1 relative overflow-auto scrollbar-none ${getThemeBg()} transition-colors duration-500`}
       >
         {showCode ? (
           /* Inline Code Editor */
@@ -68,7 +68,7 @@ export default function PreviewPanel({
               <textarea
                 value={code}
                 onChange={(e) => onCodeChange(e.target.value)}
-                className="flex-1 bg-transparent text-[#e4e4e7] font-mono text-xs p-4 leading-5 h-full focus:outline-none resize-none overflow-y-auto whitespace-pre tab-size-2 select-text"
+                className="flex-1 bg-transparent text-[#e4e4e7] font-mono text-xs p-4 leading-5 h-full focus:outline-none resize-none overflow-y-auto scrollbar-none whitespace-pre tab-size-2 select-text"
                 style={{ tabSize: 2 }}
                 spellCheck={false}
               />
