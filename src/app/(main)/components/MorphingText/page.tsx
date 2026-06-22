@@ -119,11 +119,19 @@ export default function MorphingTextPage() {
     rafRef.current = requestAnimationFrame(tick);
   }, []);
 
-  // Auto-cycle
+  // Auto-cycle — first morph fires sooner, then regular interval
   useEffect(() => {
-    const timer = setInterval(startMorph, 3200);
+    // Start first morph quickly after entrance animation finishes
+    const firstTimer = setTimeout(() => {
+      startMorph();
+    }, 1400);
+
+    // Then regular interval for subsequent morphs
+    const interval = setInterval(startMorph, 3200);
+
     return () => {
-      clearInterval(timer);
+      clearTimeout(firstTimer);
+      clearInterval(interval);
       cancelAnimationFrame(rafRef.current);
     };
   }, [startMorph]);

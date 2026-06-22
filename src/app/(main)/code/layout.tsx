@@ -3,9 +3,8 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import ComponentsHeader from "@/components/ComponentsHeader";
 import ComponentsLenis from "@/components/ComponentsLenis";
-import GetCodeButton from "@/components/GetCodeButton";
 
-export default function ComponentsLayout({
+export default function CodeLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -19,7 +18,6 @@ export default function ComponentsLayout({
           id="main-scroller"
           className="flex-grow w-full relative overflow-y-auto overflow-x-hidden bg-[#f0eadf] scroll-smooth scrollbar-none"
         >
-          <GetCodeButton />
           {children}
         </main>
         <ComponentsLenis />

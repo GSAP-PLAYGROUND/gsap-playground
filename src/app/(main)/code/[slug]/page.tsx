@@ -259,7 +259,7 @@ export default async function CodePage({ params }: PageProps) {
         "@type": "ListItem",
         position: 2,
         name: anim.name,
-        item: `https://tweenlabs.xyz/${slug}`,
+        item: `https://tweenlabs.xyz/components/${slug}`,
       },
       {
         "@type": "ListItem",

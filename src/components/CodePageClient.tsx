@@ -1026,40 +1026,40 @@ export default function CodePageClient({
   const componentName = slug;
 
   return (
-    <div className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center selection:bg-wtf-yellow selection:text-black pb-20 w-full">
+    <div className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] flex flex-col items-center selection:bg-wtf-yellow selection:text-black pt-6 md:pt-8 pb-12 md:pb-20 w-full overflow-hidden">
       {/* Dot Grid Background */}
       <div className="absolute inset-0 dot-grid pointer-events-none z-0" />
 
       {/* Navigation Breadcrumb / Header */}
-      <header className="w-full max-w-6xl px-4 md:px-8 lg:px-12 z-10 flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6 mb-6 md:mb-8 lg:mb-10">
-        <div className="flex flex-col gap-1.5 md:gap-2.5">
-          <div className="flex items-center gap-1.5 md:gap-2 text-[10px] md:text-xs font-mono font-bold text-zinc-500 uppercase tracking-widest">
+      <header className="w-full max-w-5xl px-4 md:px-6 lg:px-8 z-10 flex items-end justify-between gap-4 mb-5 md:mb-8">
+        <div className="flex flex-col gap-1 md:gap-2 min-w-0">
+          <div className="flex items-center gap-1.5 text-[9px] md:text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest truncate">
             <Link href="/" className="hover:text-wtf-orange transition-colors">
               TweenLabs
             </Link>
             <span>/</span>
             <Link
-              href={`/${slug}`}
+              href={`/components/${slug}`}
               className="hover:text-wtf-orange transition-colors"
             >
-              Components
+              {name}
             </Link>
             <span>/</span>
             <span className="text-wtf-orange font-black">Source Code</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-serif font-black uppercase tracking-tight text-[#2a2a2a] leading-none">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-serif font-black uppercase tracking-tight text-[#2a2a2a] leading-none truncate">
             {name} Code
           </h1>
         </div>
 
-        <div className="flex flex-wrap gap-2 md:gap-4">
-          <Link href={`/${slug}`}>
-            <button className="brutalist-btn bg-wtf-yellow hover:bg-[#e5a420] text-[#2a2a2a] font-mono font-bold text-[10px] md:text-xs py-2 px-4 md:py-3 md:px-6 rounded-lg uppercase tracking-wider cursor-pointer shadow-[2.5px_2.5px_0px_#2a2a2a] md:shadow-[3.5px_3.5px_0px_#2a2a2a]">
+        <div className="flex flex-wrap gap-2 shrink-0">
+          <Link href={`/components/${slug}`}>
+            <button className="brutalist-btn bg-wtf-yellow hover:bg-[#e5a420] text-[#2a2a2a] font-mono font-bold text-[9px] md:text-[10px] py-1.5 px-3 md:py-2 md:px-4 rounded-lg uppercase tracking-wider cursor-pointer shadow-[2px_2px_0px_#2a2a2a] md:shadow-[3px_3px_0px_#2a2a2a] whitespace-nowrap">
               ← View Demo
             </button>
           </Link>
-          <Link href="/">
-            <button className="brutalist-btn bg-white hover:bg-zinc-50 text-[#2a2a2a] border-[#2a2a2a] font-mono font-bold text-[10px] md:text-xs py-2 px-4 md:py-3 md:px-6 rounded-lg uppercase tracking-wider cursor-pointer shadow-[2.5px_2.5px_0px_#2a2a2a] md:shadow-[3.5px_3.5px_0px_#2a2a2a]">
+          <Link href="/components">
+            <button className="brutalist-btn bg-white hover:bg-zinc-50 text-[#2a2a2a] border-[#2a2a2a] font-mono font-bold text-[9px] md:text-[10px] py-1.5 px-3 md:py-2 md:px-4 rounded-lg uppercase tracking-wider cursor-pointer shadow-[2px_2px_0px_#2a2a2a] md:shadow-[3px_3px_0px_#2a2a2a] whitespace-nowrap">
               All Components
             </button>
           </Link>
@@ -1067,8 +1067,8 @@ export default function CodePageClient({
       </header>
 
       {/* Info Card */}
-      <section className="w-full max-w-6xl px-4 md:px-8 lg:px-12 z-10 mb-6 md:mb-8 lg:mb-10">
-        <div className="brutalist-card p-4 md:p-6 bg-white flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] md:shadow-[6px_6px_0px_#2a2a2a]">
+      <section className="w-full max-w-5xl px-4 md:px-6 lg:px-8 z-10 mb-5 md:mb-8">
+        <div className="brutalist-card p-3 md:p-5 bg-white flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-5 border-2 md:border-3 border-[#2a2a2a] shadow-[3px_3px_0px_#2a2a2a] md:shadow-[5px_5px_0px_#2a2a2a] overflow-hidden">
           <div className="flex-1 flex flex-col gap-3">
             <div className="inline-flex self-start items-center gap-2 border-2 border-[#2a2a2a] px-3.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase bg-wtf-orange text-white shadow-[1.5px_1.5px_0px_#2a2a2a] tilt-right">
               Endpoint: /{slug}
@@ -1077,7 +1077,7 @@ export default function CodePageClient({
               {description}
             </p>
           </div>
-          <div className="flex flex-col gap-1.5 border-t-2 md:border-t-0 md:border-l-2 border-zinc-200 pt-4 md:pt-0 md:pl-6 font-mono text-[10px] font-bold text-zinc-500 uppercase tracking-wider min-w-[210px]">
+          <div className="flex flex-col gap-1.5 border-t-2 md:border-t-0 md:border-l-2 border-zinc-200 pt-3 md:pt-0 md:pl-5 font-mono text-[9px] md:text-[10px] font-bold text-zinc-500 uppercase tracking-wider shrink-0">
             <div>📦 GSAP: ^3.15.0</div>
             <div>📦 @gsap/react: ^2.1.2</div>
             <div>
@@ -1089,9 +1089,9 @@ export default function CodePageClient({
       </section>
 
       {/* Main Content Layout */}
-      <main className="w-full max-w-6xl px-4 md:px-8 lg:px-12 z-10 flex flex-col gap-8 lg:gap-10">
+      <main className="w-full max-w-5xl px-4 md:px-6 lg:px-8 z-10 flex flex-col gap-6 md:gap-8">
         {/* VS Code Style Editor Container */}
-        <div className="brutalist-card bg-[#121212] overflow-hidden flex flex-col border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] md:shadow-[6px_6px_0px_#2a2a2a]">
+        <div className="brutalist-card bg-[#121212] overflow-hidden flex flex-col border-2 md:border-3 border-[#2a2a2a] shadow-[3px_3px_0px_#2a2a2a] md:shadow-[5px_5px_0px_#2a2a2a]">
           {/* Top Bar: macOS circles & Actions */}
           <div className="bg-[#181818] border-b-2 border-[#2a2a2a] px-3 md:px-4 py-2.5 md:py-3 flex flex-wrap items-center justify-between gap-2">
             {/* Left: Window Dots & Filename */}
@@ -1137,7 +1137,7 @@ export default function CodePageClient({
                     setActiveTabId(tab.id);
                     setIsExpanded(false);
                   }}
-                  className={`font-mono text-xs font-bold px-6 py-3.5 border-r border-[#2a2a2a] relative transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+                  className={`font-mono text-[10px] md:text-xs font-bold px-3 md:px-5 py-2.5 md:py-3 border-r border-[#2a2a2a] relative transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 md:gap-2 ${
                     isActive
                       ? "bg-[#121212] text-white border-t-2 border-t-wtf-orange font-black"
                       : "bg-[#181818] text-zinc-500 hover:text-zinc-300 hover:bg-[#151515]"
@@ -1234,10 +1234,10 @@ export default function CodePageClient({
         </div>
 
         <div
-          className={`brutalist-card p-4 md:p-8 bg-white flex flex-col gap-6 md:gap-8 border-3 border-[#2a2a2a] shadow-[4px_4px_0px_#2a2a2a] md:shadow-[6px_6px_0px_#2a2a2a] ${blurClass}`}
+          className={`brutalist-card p-3 md:p-6 bg-white flex flex-col gap-5 md:gap-7 border-2 md:border-3 border-[#2a2a2a] shadow-[3px_3px_0px_#2a2a2a] md:shadow-[5px_5px_0px_#2a2a2a] overflow-hidden ${blurClass}`}
         >
           <div className="border-b-3 border-[#2a2a2a] pb-3 md:pb-4">
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-serif font-black uppercase tracking-tight text-[#2a2a2a]">
+            <h2 className="text-lg md:text-2xl font-serif font-black uppercase tracking-tight text-[#2a2a2a]">
               ⚙️ Setup & Integration
             </h2>
             <div className="flex flex-wrap items-center gap-2 mt-1">
