@@ -42,7 +42,7 @@ jobs:
       - name: Verify animation registry matches folders
         run: |
           FOLDER_COUNT=$(find 'src/app/(main)/components' -mindepth 1 -maxdepth 1 -type d | wc -l)
-          REGISTRY_COUNT=$(grep -c '"componentName"' src/data/components.ts)
+          REGISTRY_COUNT=$(grep -cE 'componentName: "' src/data/components.ts)
           echo "📁 Animation folders: $FOLDER_COUNT"
           echo "📋 Registry entries:  $REGISTRY_COUNT"
           if [ "$FOLDER_COUNT" -ne "$REGISTRY_COUNT" ]; then
