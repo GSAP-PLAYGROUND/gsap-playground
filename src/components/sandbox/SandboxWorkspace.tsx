@@ -6,7 +6,10 @@ import "allotment/dist/style.css";
 
 import { useAgentSSE } from "@/hooks/useAgentSSE";
 import AgentChartPanel from "./AgentChartPanel";
-import PlaygroundToolbar from "./PlaygroundToolbar";
+import {
+  PlaygroundLeftToolbar,
+  PlaygroundRightToolbar,
+} from "./PlaygroundToolbar";
 import PreviewPanel from "./PreviewPanel";
 
 type ThemeType = "default" | "white" | "dark";
@@ -94,37 +97,46 @@ export default function SandboxWorkspace() {
       {/* Visual noise overlay */}
       <div className="absolute inset-0 noise-overlay pointer-events-none z-50 mix-blend-overlay opacity-40" />
 
-      {/* Unified Toolbar */}
-      <PlaygroundToolbar
-        status={status}
-        showCode={showCode}
-        theme={theme}
-        onReplay={handleReplay}
-        onToggleCode={() => setShowCode(!showCode)}
-        onThemeChange={setTheme}
-      />
-
-      {/* Split Panels */}
+      {/* Split Panels (including separate headers inside) */}
       <div className="flex-1 min-h-0">
-        <Allotment defaultSizes={[30, 70]} className="h-full">
+        <Allotment
+          defaultSizes={[30, 70]}
+          className="h-full custom-playground-allotment"
+        >
           <Allotment.Pane preferredSize="30%" minSize={300}>
-            <AgentChartPanel
-              messages={messages}
-              status={status}
-              activeNode={activeNode}
-              runAgent={runAgent}
-              stopExecution={stopExecution}
-            />
+            <div className="h-full flex flex-col">
+              <PlaygroundLeftToolbar status={status} />
+              <div className="flex-1 min-h-0">
+                <AgentChartPanel
+                  messages={messages}
+                  status={status}
+                  activeNode={activeNode}
+                  runAgent={runAgent}
+                  stopExecution={stopExecution}
+                />
+              </div>
+            </div>
           </Allotment.Pane>
 
           <Allotment.Pane minSize={400}>
-            <PreviewPanel
-              code={code}
-              onCodeChange={setCode}
-              remountKey={remountKey}
-              showCode={showCode}
-              theme={theme}
-            />
+            <div className="h-full flex flex-col">
+              <PlaygroundRightToolbar
+                showCode={showCode}
+                theme={theme}
+                onReplay={handleReplay}
+                onToggleCode={() => setShowCode(!showCode)}
+                onThemeChange={setTheme}
+              />
+              <div className="flex-1 min-h-0">
+                <PreviewPanel
+                  code={code}
+                  onCodeChange={setCode}
+                  remountKey={remountKey}
+                  showCode={showCode}
+                  theme={theme}
+                />
+              </div>
+            </div>
           </Allotment.Pane>
         </Allotment>
       </div>

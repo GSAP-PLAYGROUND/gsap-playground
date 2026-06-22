@@ -397,3 +397,29 @@ body::-webkit-scrollbar {
     @apply font-sans;
   }
 }
+
+/* Custom Allotment Neo-Brutalist divider */
+.custom-playground-allotment {
+  --separator-border: #2a2a2a;
+  --focus-border: #2a2a2a;
+}
+.custom-playground-allotment .sash-container {
+  background-color: #2a2a2a !important;
+}
+
+/* Responsive Playground Right Toolbar container query rules */
+.playground-toolbar-right {
+  container-type: inline-size;
+}
+
+@container (max-width: 380px) {
+  .playground-theme-switcher {
+    display: none !important;
+  }
+}
+
+@container (max-width: 280px) {
+  .playground-btn-text {
+    display: none !important;
+  }
+}
