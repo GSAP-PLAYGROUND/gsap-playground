@@ -423,3 +423,29 @@ body::-webkit-scrollbar {
     display: none !important;
   }
 }
+
+/* Sidebar Premium Easing and Transitions (GSAP-like behavior) */
+[data-slot="sidebar"] [data-slot="sidebar-gap"],
+[data-slot="sidebar"] [data-slot="sidebar-container"] {
+  transition-property: left, right, width, transform !important;
+  transition-duration: 500ms !important;
+}
+
+/* Expanding state: premium organic overshoot bounce (back.out) */
+[data-slot="sidebar"][data-state="expanded"] [data-slot="sidebar-gap"],
+[data-slot="sidebar"][data-state="expanded"] [data-slot="sidebar-container"] {
+  transition-timing-function: cubic-bezier(0.34, 1.25, 0.64, 1) !important;
+}
+
+/* Collapsing state: smooth, fast-start deceleration (power4.out/expo.out) */
+[data-slot="sidebar"][data-state="collapsed"] [data-slot="sidebar-gap"],
+[data-slot="sidebar"][data-state="collapsed"] [data-slot="sidebar-container"] {
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* Sidebar inner label transitions */
+[data-slot="sidebar"] [data-slot="sidebar-group-label"] {
+  transition-property: margin, opacity !important;
+  transition-duration: 400ms !important;
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1) !important;
+}

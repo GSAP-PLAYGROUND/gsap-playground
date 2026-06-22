@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+import { useEffect } from "react";
+import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { animations } from "@/data/components";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
@@ -25,6 +26,37 @@ export default function ComponentsHeader() {
   const { openModal } = useAuthModal();
   const user = session?.user;
   const pathname = usePathname();
+  const { open } = useSidebar();
+
+  useEffect(() => {
+    let active = true;
+    const timers: NodeJS.Timeout[] = [];
+
+    // Dynamic import to avoid SSR references to window/document
+    import("gsap").then(({ gsap }) => {
+      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        if (!active) return;
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.refresh();
+
+        // Refresh at intervals during the 500ms transition and immediately after
+        const delays = [100, 250, 400, 550];
+        for (const delay of delays) {
+          const t = setTimeout(() => {
+            if (active) ScrollTrigger.refresh();
+          }, delay);
+          timers.push(t);
+        }
+      });
+    });
+
+    return () => {
+      active = false;
+      for (const t of timers) {
+        clearTimeout(t);
+      }
+    };
+  }, [open]);
 
   const normalizedPath = pathname?.replace(/\/$/, "") ?? "";
   const currentAnim = animations.find((a) => a.route === normalizedPath);

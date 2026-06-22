@@ -116,15 +116,12 @@ export function AppSidebar() {
   const normalizedPath = pathname?.replace(/\/$/, "") ?? "";
 
   return (
-    <Sidebar
-      collapsible="icon"
-      className="bg-white text-[#2a2a2a] transition-all duration-200 z-40"
-    >
+    <Sidebar collapsible="icon" className="bg-white text-[#2a2a2a] z-40">
       {/* Sidebar Header: Brand Info */}
       <div
         data-slot="sidebar-header"
         data-sidebar="header"
-        className="h-[72px] flex flex-row items-center justify-center px-4 md:px-6 border-b-3 border-[#2a2a2a] shrink-0 bg-white"
+        className="h-[72px] flex flex-row items-center justify-center px-4 md:px-6 group-data-[collapsible=icon]:px-0 border-b-3 border-[#2a2a2a] shrink-0 bg-white"
       >
         <Link href="/" className="flex items-center gap-2.5 group">
           <Image
