@@ -142,8 +142,8 @@ export default function PageWrapper({
     };
   }, [isDemoPage]);
 
-  // /components, /code, /contribution and /installation pages have their own layout (custom header + sidebar) — skip PageWrapper entirely
-  if (isComponentsPage || isCodePage || normalizedPath.startsWith("/contribution") || normalizedPath.startsWith("/installation")) {
+  // /components, /code, /contribution, /installation and /playground pages have their own layout (custom header + sidebar) — skip PageWrapper entirely
+  if (isComponentsPage || isCodePage || isPlayground || normalizedPath.startsWith("/contribution") || normalizedPath.startsWith("/installation")) {
     return <>{children}</>;
   }
 

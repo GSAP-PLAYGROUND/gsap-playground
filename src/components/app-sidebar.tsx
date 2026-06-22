@@ -13,7 +13,6 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  useSidebar,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { animations } from "@/data/components";
@@ -92,8 +91,6 @@ const specialTags: Record<string, { label: string; color: string }[]> = {
 export function AppSidebar() {
   const pathname = usePathname();
   const normalizedPath = pathname?.replace(/\/$/, "") ?? "";
-  const { state } = useSidebar();
-  const isCollapsed = state === "collapsed";
 
   return (
     <Sidebar
@@ -122,7 +119,7 @@ export function AppSidebar() {
 
       {/* Sidebar Navigation items */}
       <SidebarContent
-        className="bg-white py-4 overscroll-contain scrollbar-none"
+        className="bg-white py-4 overscroll-contain scrollbar-none group-data-[collapsible=icon]:hidden"
         onWheel={(e) => e.stopPropagation()}
       >
         {categories.map((cat) => (
@@ -203,10 +200,6 @@ export function AppSidebar() {
                             isActive && "text-[#e55b3c]"
                           )}
                         >
-                          {/* Left dot shown on collapsed view for visual representation */}
-                          {isCollapsed && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-wtf-orange shrink-0 mx-auto" />
-                          )}
                           <span className="group-data-[collapsible=icon]:hidden truncate">{anim.name}</span>
                           {tags && (
                             <span className="flex items-center gap-1 ml-auto shrink-0 group-data-[collapsible=icon]:hidden">
@@ -232,7 +225,7 @@ export function AppSidebar() {
       </SidebarContent>
 
       {/* Sidebar Footer: Playground Card */}
-      <SidebarFooter className="border-t-3 border-[#2a2a2a] bg-white p-3 justify-center shrink-0">
+      <SidebarFooter className="border-t-3 border-[#2a2a2a] bg-white p-3 justify-center shrink-0 group-data-[collapsible=icon]:border-0 group-data-[collapsible=icon]:p-0">
         <div className="bg-white border-2 border-[#2a2a2a] rounded-xl p-3 shadow-[4px_4px_0px_#2a2a2a] mx-1 my-1 group-data-[collapsible=icon]:hidden">
           <div className="flex items-center gap-1.5 mb-1.5">
             <span className="font-serif font-black text-[11px] text-[#2a2a2a] tracking-tight">PLAYGROUND</span>
