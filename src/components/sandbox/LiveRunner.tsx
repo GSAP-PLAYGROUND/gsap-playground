@@ -152,6 +152,7 @@ export default function LiveRunner({
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/EasePack.min.js"></script>
   <script>
+    window.react = window.React;
     window.require = function(name) {
       if (name === 'react') return window.React;
       if (name === 'gsap') return window.gsap;

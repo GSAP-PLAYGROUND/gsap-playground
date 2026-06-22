@@ -121,6 +121,7 @@ export default function SandboxWorkspace() {
           <Allotment.Pane minSize={400}>
             <div className="h-full flex flex-col">
               <PlaygroundRightToolbar
+                code={code}
                 showCode={showCode}
                 theme={theme}
                 onReplay={handleReplay}
