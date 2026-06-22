@@ -62,48 +62,38 @@ export default function Header() {
   }, [mobileMenuOpen]);
 
   // Auth action button (desktop)
-  const AuthButton = () => {
-    if (session) {
-      return (
-        <button
-          onClick={async () => { await authClient.signOut(); window.location.reload(); }}
-          className="brutalist-btn bg-wtf-red hover:bg-[#a82a29] text-white font-mono font-bold text-xs py-1.5 px-3.5 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150"
-        >
-          Sign Out
-        </button>
-      );
-    }
-    return (
-      <button
-        onClick={() => openModal()}
-        className="brutalist-btn bg-wtf-green hover:bg-[#09734f] text-white font-mono font-bold text-xs py-1.5 px-3.5 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150"
-      >
-        Sign In
-      </button>
-    );
-  };
+  const authButtonDesktop = session ? (
+    <button
+      onClick={async () => { await authClient.signOut(); window.location.reload(); }}
+      className="brutalist-btn bg-wtf-red hover:bg-[#a82a29] text-white font-mono font-bold text-xs py-1.5 px-3.5 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150"
+    >
+      Sign Out
+    </button>
+  ) : (
+    <button
+      onClick={() => openModal()}
+      className="brutalist-btn bg-wtf-green hover:bg-[#09734f] text-white font-mono font-bold text-xs py-1.5 px-3.5 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150"
+    >
+      Sign In
+    </button>
+  );
 
   // Auth action button (mobile)
-  const MobileAuthButton = () => {
-    if (session) {
-      return (
-        <button
-          onClick={async () => { await authClient.signOut(); window.location.reload(); }}
-          className="brutalist-btn bg-wtf-red hover:bg-[#a82a29] text-white font-mono font-bold text-[11px] py-2.5 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150 w-full text-center"
-        >
-          Sign Out
-        </button>
-      );
-    }
-    return (
-      <button
-        onClick={() => { setMobileMenuOpen(false); openModal(); }}
-        className="brutalist-btn bg-wtf-green hover:bg-[#09734f] text-white font-mono font-bold text-[11px] py-2.5 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150 w-full text-center"
-      >
-        Sign In
-      </button>
-    );
-  };
+  const mobileAuthButton = session ? (
+    <button
+      onClick={async () => { await authClient.signOut(); window.location.reload(); }}
+      className="brutalist-btn bg-wtf-red hover:bg-[#a82a29] text-white font-mono font-bold text-[11px] py-2.5 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150 w-full text-center"
+    >
+      Sign Out
+    </button>
+  ) : (
+    <button
+      onClick={() => { setMobileMenuOpen(false); openModal(); }}
+      className="brutalist-btn bg-wtf-green hover:bg-[#09734f] text-white font-mono font-bold text-[11px] py-2.5 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150 w-full text-center"
+    >
+      Sign In
+    </button>
+  );
 
   return (
     <header ref={headerRef} className="fixed top-0 left-0 w-full z-50 bg-[#fafaf9] border-b-3 border-[#2a2a2a]">
@@ -146,7 +136,7 @@ export default function Header() {
           >
             Star us on GitHub ↗
           </a>
-          <AuthButton />
+          {authButtonDesktop}
         </div>
 
         {/* Mobile Hamburger */}
@@ -192,7 +182,7 @@ export default function Header() {
                 Star us on GitHub ↗
               </a>
               <div className="border-t-2 border-[#2a2a2a]/15 my-2" />
-              <MobileAuthButton />
+              {mobileAuthButton}
             </div>
           </div>
         </>

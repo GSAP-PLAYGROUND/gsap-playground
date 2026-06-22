@@ -649,7 +649,7 @@ function renderMarkdown(
                   CLI Notice & Disclaimer
                 </div>
                 <p className="font-sans font-medium text-[11px] md:text-xs leading-relaxed">
-                  Make sure to run the installation command in your project's root directory. It automatically creates the file under <code className="bg-amber-100/50 px-1 py-0.5 border border-amber-300 rounded font-mono text-[10px] font-bold text-wtf-orange">src/components/tweenlabs/</code> and resolves dependencies automatically. Back up your work if you have conflicting filenames.
+                  Make sure to run the installation command in your project&apos;s root directory. It automatically creates the file under <code className="bg-amber-100/50 px-1 py-0.5 border border-amber-300 rounded font-mono text-[10px] font-bold text-wtf-orange">src/components/tweenlabs/</code> and resolves dependencies automatically. Back up your work if you have conflicting filenames.
                 </p>
               </div>
             </div>
@@ -1297,7 +1297,7 @@ export default function CodePageClient({
                       Disclaimer & Notice
                     </div>
                     <p className="font-sans font-medium text-xs md:text-sm leading-relaxed">
-                      Make sure to run the installation command in your project's root directory. It automatically updates files and resolves dependencies. Back up your work if you have custom conflicts.
+                      Make sure to run the installation command in your project&apos;s root directory. It automatically updates files and resolves dependencies. Back up your work if you have custom conflicts.
                     </p>
                   </div>
                 </div>

@@ -39,12 +39,12 @@ function highlight(raw: string): React.ReactNode[] {
   return lines.map((line, li) => {
     // tokenise each line into segments
     const segments: React.ReactNode[] = [];
-    let rest = line;
+    const rest = line;
     let key = 0;
 
     // comment at end of line or full-line comment
     const commentIdx = rest.indexOf('//');
-    let beforeComment = commentIdx !== -1 ? rest.slice(0, commentIdx) : rest;
+    const beforeComment = commentIdx !== -1 ? rest.slice(0, commentIdx) : rest;
     const commentPart  = commentIdx !== -1 ? rest.slice(commentIdx)   : null;
 
     // tokenise beforeComment into: strings, numbers, keywords, properties, punctuation, plain

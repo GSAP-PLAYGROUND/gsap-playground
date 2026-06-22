@@ -141,13 +141,13 @@ export default function Hero() {
         </div>
 
         <div className="hero-headline-wrap will-change-transform">
-          <h1 className="hero-headline text-3xl sm:text-4xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-black tracking-tight text-[#2a2a2a] max-w-4xl xl:max-w-5xl leading-[1.05]">
+          <h1 className="hero-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-black tracking-tight text-[#2a2a2a] max-w-4xl xl:max-w-5xl leading-[1.05]">
             TweenLabs
           </h1>
         </div>
 
         <div className="hero-sub-wrap will-change-transform">
-          <span className="hero-subtitle block text-3xl sm:text-4xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-black tracking-tight text-wtf-orange uppercase leading-[1.05]">
+          <span className="hero-subtitle block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-black tracking-tight text-wtf-orange uppercase leading-[1.05]">
             GSAP Components
           </span>
 
