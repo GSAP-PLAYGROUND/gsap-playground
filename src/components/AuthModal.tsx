@@ -83,7 +83,7 @@ export default function AuthModal() {
 
       {/* Auth Card Modal Container */}
       <div
-        className={`w-full max-w-md lg:max-w-lg brutalist-card bg-white relative z-10 p-8 lg:p-10 flex flex-col gap-6 select-none animate-in fade-in zoom-in-95 duration-200 ${
+        className={`w-full max-w-[90vw] sm:max-w-md lg:max-w-lg brutalist-card bg-white relative z-10 p-5 sm:p-8 lg:p-10 flex flex-col gap-4 sm:gap-6 select-none animate-in fade-in zoom-in-95 duration-200 ${
           isShaking ? "animate-brutalist-shake" : ""
         }`}
       >
@@ -111,7 +111,7 @@ export default function AuthModal() {
           <span className="text-[10px] font-mono font-bold text-wtf-orange uppercase tracking-wider">
             TweenLabs Authentication
           </span>
-          <h2 className="text-2xl lg:text-3xl font-serif font-black uppercase tracking-tight text-[#2a2a2a]">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-serif font-black uppercase tracking-tight text-[#2a2a2a]">
             Join the Lab
           </h2>
           <p className="text-xs lg:text-sm font-sans font-medium text-zinc-500 mt-1 leading-relaxed">
@@ -133,7 +133,7 @@ export default function AuthModal() {
           <button
             onClick={() => handleSocialAuth("google")}
             disabled={isLoading !== null}
-            className="w-full brutalist-btn bg-wtf-yellow hover:bg-[#e5a420] text-[#2a2a2a] font-mono font-bold text-xs py-3.5 px-6 rounded-lg uppercase tracking-wider cursor-pointer flex items-center justify-center gap-3 transition-colors duration-150"
+            className="w-full brutalist-btn bg-wtf-yellow hover:bg-[#e5a420] text-[#2a2a2a] font-mono font-bold text-[10px] sm:text-xs py-3 sm:py-3.5 px-4 sm:px-6 rounded-lg uppercase tracking-wider cursor-pointer flex items-center justify-center gap-3 transition-colors duration-150"
           >
             {isLoading === "google" ? (
               <span className="w-4 h-4 border-2 border-t-transparent border-[#2a2a2a] rounded-full animate-spin" />
@@ -148,7 +148,7 @@ export default function AuthModal() {
           <button
             onClick={() => handleSocialAuth("github")}
             disabled={isLoading !== null}
-            className="w-full brutalist-btn bg-white hover:bg-zinc-100 text-[#2a2a2a] font-mono font-bold text-xs py-3.5 px-6 rounded-lg uppercase tracking-wider cursor-pointer flex items-center justify-center gap-3 transition-colors duration-150"
+            className="w-full brutalist-btn bg-white hover:bg-zinc-100 text-[#2a2a2a] font-mono font-bold text-[10px] sm:text-xs py-3 sm:py-3.5 px-4 sm:px-6 rounded-lg uppercase tracking-wider cursor-pointer flex items-center justify-center gap-3 transition-colors duration-150"
           >
             {isLoading === "github" ? (
               <span className="w-4 h-4 border-2 border-t-transparent border-[#2a2a2a] rounded-full animate-spin" />
