@@ -245,4 +245,16 @@ export const animations: AnimationItem[] = [
     tiltClass: "tilt-left",
   },
 
+  {
+    id: "22",
+    name: "Morphing Text",
+    componentName: "MorphingText",
+    route: "/animations/MorphingText",
+    bgColor: "bg-wtf-purple",
+    textColor: "text-white",
+    description:
+      "Smooth auto-cycling text morphing animation with SVG threshold filter and color-coded word transitions.",
+    tiltClass: "tilt-right",
+  },
+
 ];
