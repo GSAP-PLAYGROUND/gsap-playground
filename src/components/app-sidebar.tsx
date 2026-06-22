@@ -36,7 +36,7 @@ const categories: CategoryGroup[] = [
   {
     label: "Quick Setup",
     items: [
-      { name: "Installation & Setup", href: "/components" },
+      { name: "Installation & Setup", href: "/installation" },
       { name: "Contribution", href: "/contribution" },
       { name: "Playground", href: "/playground", badge: "BETA", badgeColor: "bg-[#0c9367] text-white" },
     ],

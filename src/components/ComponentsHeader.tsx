@@ -7,40 +7,57 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { animations } from "@/data/components";
 import { cn } from "@/lib/utils";
 
+// Map pathnames to breadcrumb labels
+const BREADCRUMB_LABELS: Record<string, { label: string; parent?: { label: string; href: string } }> = {
+  "/installation": { label: "Installation & Setup" },
+  "/contribution": { label: "Contribution" },
+  "/playground":   { label: "Playground" },
+  "/components":   { label: "Components" },
+};
+
 export default function ComponentsHeader() {
   const { session, isPending } = useSession();
   const user = session?.user;
   const pathname = usePathname();
 
-  // Normalize pathname to match components routes
   const normalizedPath = pathname?.replace(/\/$/, "") ?? "";
   const currentAnim = animations.find((a) => a.route === normalizedPath);
+  const staticPage = BREADCRUMB_LABELS[normalizedPath];
+
+  // Determine what to show in the breadcrumb
+  const isComponentDetail = !!currentAnim;
+  const isStaticPage = !!staticPage && !isComponentDetail;
 
   return (
     <header className="sticky top-0 z-30 flex items-center justify-between h-[72px] px-4 md:px-6 border-b-3 border-[#2a2a2a] bg-white shrink-0">
       {/* Left: Sidebar Trigger + Breadcrumbs */}
       <div className="flex items-center gap-3">
-        {/* Simple sidebar trigger */}
         <SidebarTrigger className="cursor-pointer" />
 
         <div className="h-6 w-[2px] bg-[#2a2a2a]/20 mx-1" />
 
         {/* Dynamic Uppercase Breadcrumbs */}
         <nav className="flex items-center gap-2 font-mono text-[10px] md:text-[11px] font-black uppercase tracking-widest">
-          <Link
-            href="/components"
-            className={cn(
-              "transition-colors",
-              currentAnim
-                ? "text-zinc-500 hover:text-wtf-orange"
-                : "text-[#2a2a2a]"
-            )}
-          >
-            COMPONENTS
-          </Link>
-          {currentAnim && (
+          {isStaticPage ? (
+            // Static pages: just show their own label, active
+            <span className="text-[#2a2a2a]">{staticPage.label.toUpperCase()}</span>
+          ) : (
+            // Components pages: show "Components" as parent link
+            <Link
+              href="/components"
+              className={cn(
+                "transition-colors",
+                isComponentDetail
+                  ? "text-zinc-500 hover:text-wtf-orange"
+                  : "text-[#2a2a2a]"
+              )}
+            >
+              COMPONENTS
+            </Link>
+          )}
+          {isComponentDetail && (
             <>
-              <span className="text-zinc-400 font-bold text-zinc-500">&gt;</span>
+              <span className="text-zinc-400">&gt;</span>
               <span className="text-[#2a2a2a]">{currentAnim.name.toUpperCase()}</span>
             </>
           )}
