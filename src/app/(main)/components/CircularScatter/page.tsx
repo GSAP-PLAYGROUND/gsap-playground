@@ -162,7 +162,7 @@ export default function CircularScatterPage() {
       let idleTweens: gsap.core.Tween[] = [];
 
       const scrollerEl =
-        containerRef.current?.closest("#main-scroller") || null;
+        containerRef.current?.closest("#main-scroller") || undefined;
       const scroller = scrollerEl || undefined;
       const scrollerRect = scrollerEl
         ? scrollerEl.getBoundingClientRect()

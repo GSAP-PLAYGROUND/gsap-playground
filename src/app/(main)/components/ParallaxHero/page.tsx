@@ -79,7 +79,7 @@ export default function ParallaxHeroPage() {
 
   return (
     <div
-      className="relative min-h-[200vh] bg-[#f0eadf] text-[#2a2a2a] selection:bg-[#f1b333] selection:text-black overflow-x-hidden font-sans"
+      className="relative min-h-screen bg-[#f0eadf] text-[#2a2a2a] selection:bg-[#f1b333] selection:text-black overflow-x-hidden font-sans"
       ref={containerRef}
     >
       {/* Dot Grid (background layer) */}

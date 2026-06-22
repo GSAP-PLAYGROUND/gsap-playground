@@ -5,7 +5,7 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export default function ComponentsLenis() {
+export default function PreviewLenis() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -14,13 +14,6 @@ export default function ComponentsLenis() {
     const scroller = document.getElementById("main-scroller");
     if (!scroller) return;
 
-    // Reset scroll position to top
-    scroller.scrollTop = 0;
-
-    // Initialize Lenis smooth scroll on the sidebar main content scroller container.
-    // CRITICAL: eventsTarget must be scoped to the scroller element (not the default window).
-    // Without this, Lenis calls preventDefault() on ALL wheel events globally, which
-    // kills native overflow-y-auto scroll on every other element — including the sidebar.
     const lenis = new Lenis({
       wrapper: scroller,
       content: scroller,
@@ -32,7 +25,6 @@ export default function ComponentsLenis() {
       smoothWheel: true,
     });
 
-    // Synchronize scroll events with GSAP ScrollTrigger
     const handleScroll = () => {
       ScrollTrigger.update();
     };
