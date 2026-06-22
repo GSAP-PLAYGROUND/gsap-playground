@@ -67,7 +67,7 @@ export default function ComponentsPageClient({ animations }: Props) {
 
   // Filter + search
   const filtered = animations.filter((a) => {
-    const matchesType = !activeType || a.type.includes(activeType as any);
+    const matchesType = !activeType || a.type.includes(activeType as "text" | "scroll" | "card" | "interactive");
     const matchesSearch =
       !searchQuery ||
       a.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
