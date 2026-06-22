@@ -51,7 +51,8 @@ export default function PageWrapper({
     isCodePage ||
     isPlayground ||
     normalizedPath.startsWith("/contribution") ||
-    normalizedPath.startsWith("/installation");
+    normalizedPath.startsWith("/installation") ||
+    normalizedPath.startsWith("/preview/");
 
   useEffect(() => {
     if (typeof window === "undefined") return;

@@ -116,9 +116,17 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
-/* Custom Scrollbar */
+/* Hide right-side scrollbar for Chrome, Safari, Opera on root */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom Scrollbar for other inner scrollable panels */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
