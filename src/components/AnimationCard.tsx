@@ -68,6 +68,7 @@ export default function AnimationCard({ anim }: AnimationCardProps) {
           <AnimationMiniPreview
             componentName={anim.componentName}
             isHovered={isHovered}
+            previewImage={anim.preview}
           />
         </Link>
       </div>

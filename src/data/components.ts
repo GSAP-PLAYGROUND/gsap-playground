@@ -8,6 +8,7 @@ export interface AnimationItem {
   description: string;
   tiltClass: string;
   type: ("text" | "scroll" | "card" | "interactive")[];
+  preview?: string; // Static thumbnail path (e.g., "/previews/FlipCards.webp")
 }
 
 export const animations: AnimationItem[] = [
@@ -22,6 +23,7 @@ export const animations: AnimationItem[] = [
       "Interactive fanning cards and scroll-pinned cards flipping in 3D perspective space.",
     tiltClass: "tilt-left",
     type: ["card", "scroll"],
+    preview: "/previews/FlipCards.webp",
   },
   {
     id: "carousel-3d",
@@ -34,6 +36,7 @@ export const animations: AnimationItem[] = [
       "Interactive 3D mathematical wheel rotation with pointer drag inertia, keyboard navigation, and GSAP details panel expansion.",
     tiltClass: "tilt-left-lg",
     type: ["interactive", "card"],
+    preview: "/previews/Carousel3D.webp",
   },
   {
     id: "skill-fit",
@@ -46,6 +49,7 @@ export const animations: AnimationItem[] = [
       "Premium candidate profile showcase animation with vertical ScrollTrigger pinning and technology staggers.",
     tiltClass: "tilt-left",
     type: ["scroll"],
+    preview: "/previews/SkillFit.webp",
   },
   {
     id: "page-transition",
@@ -58,6 +62,7 @@ export const animations: AnimationItem[] = [
       "Premium stacked page-peel scroll animation where color-themed sections slide up and overlap with dynamic skewing.",
     tiltClass: "tilt-right",
     type: ["scroll"],
+    preview: "/previews/PageTransition.webp",
   },
   {
     id: "horizontal-cards",
@@ -70,6 +75,7 @@ export const animations: AnimationItem[] = [
       "Premium horizontal scroll layout where colorful Neo-Brutalist cards slide, float, enter from the bottom, and exit off the top of the viewport.",
     tiltClass: "tilt-left-lg",
     type: ["card", "scroll"],
+    preview: "/previews/HorizontalCards.webp",
   },
   {
     id: "circular-scatter",
@@ -82,6 +88,7 @@ export const animations: AnimationItem[] = [
       "Circular loop scatter animation where cards stack one-by-one at screen center, then scatter to the outer edges with hero text centered.",
     tiltClass: "tilt-right",
     type: ["card", "scroll"],
+    preview: "/previews/CircularScatter.webp",
   },
   {
     id: "fluid-cursor",
@@ -94,6 +101,7 @@ export const animations: AnimationItem[] = [
       "Custom elastic lagging cursor reticle that snaps, morphs, and hugs button boundaries.",
     tiltClass: "tilt-left",
     type: ["interactive"],
+    preview: "/previews/FluidCursor.webp",
   },
   {
     id: "blueprint",
@@ -106,6 +114,7 @@ export const animations: AnimationItem[] = [
       "Premium page-load exploding cards and text scramble animation matching the layout of blueprintapps.io.",
     tiltClass: "tilt-left",
     type: ["text", "card"],
+    preview: "/previews/Blueprint.webp",
   },
   {
     id: "scroll-cards",
@@ -118,6 +127,7 @@ export const animations: AnimationItem[] = [
       "Vertical scroll-pinned stacked cards container utilizing y-transform parallax staggers.",
     tiltClass: "tilt-right",
     type: ["scroll", "card"],
+    preview: "/previews/ScrollCards.webp",
   },
   {
     id: "scroll-tags",
@@ -130,6 +140,7 @@ export const animations: AnimationItem[] = [
       "Interactive scroll-triggered tags that fly into a grid board container from all offscreen directions.",
     tiltClass: "tilt-left",
     type: ["scroll"],
+    preview: "/previews/ScrollTags.webp",
   },
   {
     id: "orbit-gallery",
@@ -142,6 +153,7 @@ export const animations: AnimationItem[] = [
       "Premium scroll-driven layout where orbiting abstract cards converge into a sleek horizontal timeline.",
     tiltClass: "tilt-right",
     type: ["card", "scroll"],
+    preview: "/previews/OrbitGallery.webp",
   },
   {
     id: "gravity-drop",
@@ -154,6 +166,7 @@ export const animations: AnimationItem[] = [
       "Staggered letters falling down onto a shelf collider with realistic physics bounce.",
     tiltClass: "tilt-right",
     type: ["text", "interactive"],
+    preview: "/previews/GravityDrop.webp",
   },
   {
     id: "string-line",
@@ -166,6 +179,7 @@ export const animations: AnimationItem[] = [
       "ScrollTriggered SVG network line drawing tracking node proximity scale offsets.",
     tiltClass: "tilt-right",
     type: ["interactive"],
+    preview: "/previews/StringLine.webp",
   },
   {
     id: "border-reveal",
@@ -178,6 +192,7 @@ export const animations: AnimationItem[] = [
       "Premium horizontal text scroll where letters fly in and out from top/bottom screen borders.",
     tiltClass: "tilt-right-lg",
     type: ["text", "scroll"],
+    preview: "/previews/BorderReveal.webp",
   },
   {
     id: "kinetic-text",
@@ -190,6 +205,7 @@ export const animations: AnimationItem[] = [
       "Interactive kinetic text sandbox showcasing liquid wave, character scramble, and magnetic motion.",
     tiltClass: "tilt-left",
     type: ["text", "interactive"],
+    preview: "/previews/KineticText.webp",
   },
   {
     id: "magnetic-dock",
@@ -202,6 +218,7 @@ export const animations: AnimationItem[] = [
       "Premium floating menu bar where buttons pull dynamically toward the user's cursor.",
     tiltClass: "tilt-right",
     type: ["interactive"],
+    preview: "/previews/MagneticDock.webp",
   },
   {
     id: "bento-grid",
@@ -214,6 +231,7 @@ export const animations: AnimationItem[] = [
       "Neo-Brutalist bento box card grid with 3D perspective mouse tilt, spring physics recovery, and vector crosshairs.",
     tiltClass: "tilt-right-lg",
     type: ["card", "interactive"],
+    preview: "/previews/BentoGrid.webp",
   },
   {
     id: "accordion",
@@ -226,6 +244,7 @@ export const animations: AnimationItem[] = [
       "Vertical accordion showcase where selection morphs page background color and staggers content.",
     tiltClass: "tilt-right",
     type: ["interactive"],
+    preview: "/previews/Accordion.webp",
   },
   {
     id: "reveal-text",
@@ -238,6 +257,7 @@ export const animations: AnimationItem[] = [
       "Premium line-by-line text reveal using SplitText masks with staggered choreography.",
     tiltClass: "tilt-left",
     type: ["text"],
+    preview: "/previews/RevealText.webp",
   },
   {
     id: "tabs-motion",
@@ -250,6 +270,7 @@ export const animations: AnimationItem[] = [
       "Animated tab navigation with sliding indicator pill and directional content crossfade transitions.",
     tiltClass: "tilt-left",
     type: ["interactive"],
+    preview: "/previews/TabsMotion.webp",
   },
   {
     id: "parallax-hero",
@@ -262,6 +283,7 @@ export const animations: AnimationItem[] = [
       "Multi-layer parallax hero with SplitText character scatter entrance and scroll-driven depth motion.",
     tiltClass: "tilt-left",
     type: ["scroll", "text"],
+    preview: "/previews/ParallaxHero.webp",
   },
   {
     id: "morphing-text",
@@ -274,5 +296,6 @@ export const animations: AnimationItem[] = [
       "Smooth auto-cycling text morphing animation with SVG threshold filter and color-coded word transitions.",
     tiltClass: "tilt-right",
     type: ["text"],
+    preview: "/previews/MorphingText.webp",
   },
 ];

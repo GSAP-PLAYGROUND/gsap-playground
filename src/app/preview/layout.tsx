@@ -26,6 +26,7 @@ function EmbedBridge() {
     const scroller = document.getElementById("main-scroller");
     if (scroller) {
       scroller.style.scrollbarWidth = "none";
+      scroller.classList.remove("scroll-smooth"); // Direct scrollTop control needs instant response
       scroller.scrollTop = 0;
     }
     document.documentElement.style.scrollbarWidth = "none";
@@ -68,7 +69,9 @@ function EmbedBridge() {
             cancelAnimationFrame(scrollRafRef.current);
             scrollRafRef.current = null;
           }
-          el.scrollTo({ top: 0, behavior: "smooth" });
+          // Scroll back to top instantly — ScrollTrigger animations
+          // will naturally replay on the next scroll-through
+          el.scrollTop = 0;
           break;
         }
       }

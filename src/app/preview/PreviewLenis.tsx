@@ -11,6 +11,10 @@ export default function PreviewLenis() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    // Skip Lenis in embed mode — programmatic scrollTop needs direct control
+    if (new URLSearchParams(window.location.search).get("embed") === "true")
+      return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const scroller = document.getElementById("main-scroller");
