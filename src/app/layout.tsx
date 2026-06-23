@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { Fraunces, Geist, Inter, Space_Mono } from "next/font/google";
 import "./globals.css";
 import PageWrapper from "@/components/PageWrapper";
@@ -124,8 +124,17 @@ export default async function RootLayout({
   const prefsCookie = cookieStore.get("tl-prefs")?.value;
   const preferences = parsePreferences(prefsCookie);
 
+  // Skip auth for preview/embed pages — they only render animations
+  // and don't need Convex. This prevents 8x auth calls from iframes.
+  const headersList = await headers();
+  const isPreview =
+    headersList.get("x-invoke-path")?.startsWith("/preview") ||
+    headersList.get("x-matched-path")?.startsWith("/preview");
+
   // Fetch session server-side to prevent loading flicker in the client
-  const token = await getToken().catch(() => undefined);
+  const token = !isPreview
+    ? await getToken().catch(() => undefined)
+    : undefined;
   const user = token
     ? await fetchAuthQuery(api.auth.getCurrentUser).catch(() => null) as {
         _id: string;

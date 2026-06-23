@@ -2,6 +2,7 @@
 
 import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
 import { ConvexReactClient } from "convex/react";
+import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 import { AuthModalProvider } from "./AuthModalProvider";
@@ -21,6 +22,14 @@ export function ConvexClientProvider({
   initialToken?: string | null;
   initialSession?: SessionData | null;
 }) {
+  const pathname = usePathname();
+
+  // Preview/embed pages only render animations — skip Convex entirely
+  // to avoid unnecessary WebSocket connections and auth API calls.
+  if (pathname?.startsWith("/preview")) {
+    return <>{children}</>;
+  }
+
   return (
     <ConvexBetterAuthProvider
       client={convex}

@@ -179,7 +179,19 @@ export default function AnimationMiniPreview({
   }, [isHovered, iframeReady, embedInteraction]);
 
   const [imgError, setImgError] = useState(false);
-  const handleIframeLoad = useCallback(() => setIframeReady(true), []);
+  const readyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const handleIframeLoad = useCallback(() => {
+    // Small delay so the iframe's EmbedBridge useEffect can attach its
+    // message listener before we send the first interaction command.
+    readyTimerRef.current = setTimeout(() => setIframeReady(true), 150);
+  }, []);
+
+  // Clean up ready timer on unmount
+  useEffect(() => {
+    return () => {
+      if (readyTimerRef.current) clearTimeout(readyTimerRef.current);
+    };
+  }, []);
 
   // Iframe only mounts when this component has a pool slot
   const iframeSrc = hasSlot
