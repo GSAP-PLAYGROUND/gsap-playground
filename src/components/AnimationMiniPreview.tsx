@@ -34,20 +34,31 @@ export default function AnimationMiniPreview({
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const commandTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // ── Scale calculation via ResizeObserver ──
+  // ── Scale calculation via ResizeObserver (debounced + quantised) ──
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
+    let rafId: number | null = null;
+
     const ro = new ResizeObserver((entries) => {
       const width = entries[0]?.contentRect.width;
       if (width && width > 0) {
-        setScale(width / 1440);
+        // Debounce: batch into next frame to avoid mid-animation scale jumps
+        if (rafId != null) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          // Quantise to nearest 0.005 to avoid sub-pixel jitter
+          const raw = width / 1440;
+          setScale(Math.round(raw * 200) / 200);
+        });
       }
     });
 
     ro.observe(el);
-    return () => ro.disconnect();
+    return () => {
+      ro.disconnect();
+      if (rafId != null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // ── Hover lifecycle: load on hover, destroy on unhover ──
@@ -189,8 +200,10 @@ export default function AnimationMiniPreview({
           style={{
             width: "1440px",
             height: "810px",
-            transform: `scale(${scale})`,
+            transform: `scale(${scale}) translate3d(0,0,0)`,
             transformOrigin: "top left",
+            willChange: "transform",
+            backfaceVisibility: "hidden",
             opacity: iframeReady ? 1 : 0,
           }}
         />
