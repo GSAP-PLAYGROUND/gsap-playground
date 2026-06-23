@@ -46,20 +46,20 @@ export default function AnimationCard({ anim }: AnimationCardProps) {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="brutalist-card brutalist-card-interactive p-6 lg:p-8 bg-white flex flex-col justify-between gap-6 h-full overflow-hidden"
+      className="brutalist-card brutalist-card-interactive p-5 md:p-6 bg-white flex flex-col justify-between gap-4 md:gap-5 h-full overflow-hidden"
     >
-      <div className="flex flex-col gap-4 min-w-0">
+      <div className="flex flex-col gap-3 min-w-0">
         <div className="flex items-center justify-between gap-2">
-          <h2 className="text-lg lg:text-xl font-sans font-black uppercase tracking-tight text-[#2a2a2a] break-words leading-tight">
-            <span className="font-mono font-bold text-sm lg:text-base text-zinc-500 mr-1.5">
+          <h2 className="text-base md:text-lg font-sans font-black uppercase tracking-tight text-[#2a2a2a] leading-tight break-words">
+            <span className="font-mono font-bold text-[11px] text-zinc-400 mr-1.5">
               [{displayId}]
             </span>
             {anim.name}
           </h2>
           <span
-            className={`shrink-0 inline-flex items-center gap-2 border-2 border-[#2a2a2a] px-3 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase ${anim.bgColor} ${anim.textColor} shadow-[1.5px_1.5px_0px_#2a2a2a] ${anim.tiltClass}`}
+            className={`shrink-0 inline-flex items-center border-2 border-[#2a2a2a] px-2 py-0.5 rounded-full text-[7px] md:text-[8px] font-mono font-bold uppercase ${anim.bgColor} ${anim.textColor} shadow-[1px_1px_0px_#2a2a2a]`}
           >
-            Theme Color
+            {anim.bgColor.replace("bg-wtf-", "")}
           </span>
         </div>
 
@@ -69,22 +69,21 @@ export default function AnimationCard({ anim }: AnimationCardProps) {
             isHovered={isHovered}
             previewImage={anim.preview}
             embedInteraction={anim.embedInteraction}
-            embedZoom={anim.embedZoom}
           />
         </Link>
       </div>
 
-      <div className="w-full mt-2 flex gap-3 min-w-0">
-        <Link href={anim.route} className="flex-1">
+      <div className="flex gap-2 min-w-0">
+        <Link href={anim.route} className="flex-1 min-w-0">
           <button
-            className={`w-full brutalist-btn bg-white ${hoverColorsMap[anim.bgColor] || ""} border-[#2a2a2a] text-[#2a2a2a] font-mono font-bold text-xs py-3 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150 whitespace-nowrap`}
+            className={`w-full brutalist-btn bg-white ${hoverColorsMap[anim.bgColor] || ""} border-[#2a2a2a] text-[#2a2a2a] font-mono font-bold text-[10px] md:text-xs py-2.5 md:py-3 px-3 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150 whitespace-nowrap`}
           >
             View →
           </button>
         </Link>
         <button
           onClick={handleGetCode}
-          className={`flex-1 brutalist-btn bg-white ${hoverColorsMap[anim.bgColor] || ""} border-[#2a2a2a] text-[#2a2a2a] font-mono font-bold text-xs py-3 px-4 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150 whitespace-nowrap`}
+          className={`flex-1 min-w-0 brutalist-btn bg-white ${hoverColorsMap[anim.bgColor] || ""} border-[#2a2a2a] text-[#2a2a2a] font-mono font-bold text-[10px] md:text-xs py-2.5 md:py-3 px-3 rounded-lg uppercase tracking-wider cursor-pointer transition-colors duration-150 whitespace-nowrap`}
         >
           Get Code
         </button>

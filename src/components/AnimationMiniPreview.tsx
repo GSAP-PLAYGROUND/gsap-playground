@@ -10,8 +10,6 @@ interface AnimationMiniPreviewProps {
   previewImage?: string;
   /** Interaction mode sent to EmbedBridge via postMessage */
   embedInteraction?: "scroll" | "cursor" | "tabs" | "click-sequence";
-  /** Viewport width for the iframe. Lower = more zoomed in (default 1440) */
-  embedZoom?: number;
 }
 
 /**
@@ -27,7 +25,6 @@ export default function AnimationMiniPreview({
   isHovered,
   previewImage,
   embedInteraction = "scroll",
-  embedZoom = 1440,
 }: AnimationMiniPreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -37,10 +34,6 @@ export default function AnimationMiniPreview({
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const commandTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Iframe base dimensions — lower embedZoom creates a zoom-in effect
-  const IFRAME_W = embedZoom;
-  const IFRAME_H = Math.round((embedZoom * 9) / 16);
-
   // ── Scale calculation via ResizeObserver ──
   useEffect(() => {
     const el = containerRef.current;
@@ -49,13 +42,13 @@ export default function AnimationMiniPreview({
     const ro = new ResizeObserver((entries) => {
       const width = entries[0]?.contentRect.width;
       if (width && width > 0) {
-        setScale(width / IFRAME_W);
+        setScale(width / 1440);
       }
     });
 
     ro.observe(el);
     return () => ro.disconnect();
-  }, [IFRAME_W]);
+  }, []);
 
   // ── Hover lifecycle: load on hover, destroy on unhover ──
   useEffect(() => {
@@ -119,17 +112,46 @@ export default function AnimationMiniPreview({
     };
   }, [iframeReady, embedInteraction]);
 
+  const [imgError, setImgError] = useState(false);
+
   const handleIframeLoad = useCallback(() => {
     setIframeReady(true);
   }, []);
+
+  /** Fallback placeholder shown when no image or image fails to load */
+  const placeholder = (
+    <div
+      className={`absolute inset-0 flex flex-col items-center justify-center z-0 transition-opacity duration-300 ${iframeReady ? "opacity-0" : "opacity-100"}`}
+    >
+      <div
+        className="absolute inset-0 pointer-events-none opacity-15"
+        style={{
+          backgroundImage: "radial-gradient(#2a2a2a 1px, transparent 1px)",
+          backgroundSize: "16px 16px",
+        }}
+      />
+      <div className="w-8 h-8 rounded-full border-2 border-[#2a2a2a]/20 flex items-center justify-center">
+        <svg
+          className="w-3.5 h-3.5 text-[#2a2a2a]/30"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </div>
+      <span className="font-mono text-[9px] text-[#2a2a2a]/30 uppercase tracking-[0.15em] mt-2">
+        Hover to preview
+      </span>
+    </div>
+  );
 
   return (
     <div
       ref={containerRef}
       className="relative w-full aspect-video bg-[#f0eadf] border-2 border-[#2a2a2a] rounded-lg overflow-hidden select-none shadow-[2px_2px_0px_rgba(42,42,42,0.15)]"
     >
-      {/* ── Static thumbnail (always rendered, fades when iframe is ready) ── */}
-      {previewImage ? (
+      {/* ── Static thumbnail (fades when iframe is ready, falls back on error) ── */}
+      {previewImage && !imgError ? (
         <Image
           src={previewImage}
           alt={`${componentName} preview`}
@@ -137,25 +159,10 @@ export default function AnimationMiniPreview({
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={`object-cover object-top z-0 transition-opacity duration-300 ${iframeReady ? "opacity-0" : "opacity-100"}`}
           priority={false}
+          onError={() => setImgError(true)}
         />
       ) : (
-        <div
-          className={`absolute inset-0 flex flex-col items-center justify-center z-0 transition-opacity duration-300 ${iframeReady ? "opacity-0" : "opacity-100"}`}
-        >
-          <div className="dot-grid opacity-15 absolute inset-0 pointer-events-none" />
-          <div className="w-8 h-8 rounded-full border-2 border-[#2a2a2a]/20 flex items-center justify-center">
-            <svg
-              className="w-3.5 h-3.5 text-[#2a2a2a]/30"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <span className="font-mono text-[9px] text-[#2a2a2a]/30 uppercase tracking-[0.15em] mt-2">
-            Hover to preview
-          </span>
-        </div>
+        placeholder
       )}
 
       {/* ── Loading indicator ── */}
@@ -180,8 +187,8 @@ export default function AnimationMiniPreview({
           scrolling="no"
           className="absolute top-0 left-0 border-none pointer-events-none select-none z-10 transition-opacity duration-300"
           style={{
-            width: `${IFRAME_W}px`,
-            height: `${IFRAME_H}px`,
+            width: "1440px",
+            height: "810px",
             transform: `scale(${scale})`,
             transformOrigin: "top left",
             opacity: iframeReady ? 1 : 0,

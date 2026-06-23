@@ -282,7 +282,6 @@ function ComponentCard({
             isHovered={isHovered}
             previewImage={anim.preview}
             embedInteraction={anim.embedInteraction}
-            embedZoom={anim.embedZoom}
           />
         </Link>
       </div>
