@@ -40,7 +40,13 @@ function _gate(
   scope: string,
   ceil: number,
   ttl: number,
-): { blocked: boolean; wait: number; count: number; ceil: number; exp: number } {
+): {
+  blocked: boolean;
+  wait: number;
+  count: number;
+  ceil: number;
+  exp: number;
+} {
   _sweep();
 
   const k = `${sig}:${scope}`;
@@ -56,7 +62,13 @@ function _gate(
   rec.v++;
 
   if (rec.v > ceil) {
-    return { blocked: true, wait: rec.exp - t, count: rec.v, ceil, exp: rec.exp };
+    return {
+      blocked: true,
+      wait: rec.exp - t,
+      count: rec.v,
+      ceil,
+      exp: rec.exp,
+    };
   }
 
   return { blocked: false, wait: 0, count: rec.v, ceil, exp: rec.exp };
@@ -64,10 +76,9 @@ function _gate(
 
 // ── Rate-limit policies ─────────────────────────────────────────
 const _POLICY = {
-  auth: { ceil: 10, ttl: 60_000 },      // 10 req/min — brute-force protection
-  registry: { ceil: 60, ttl: 60_000 },   // 60 req/min
-  preview: { ceil: 30, ttl: 60_000 },    // 30 req/min
-  api: { ceil: 60, ttl: 60_000 },        // 60 req/min — general API
+  auth: { ceil: 10, ttl: 60_000 }, // 10 req/min — brute-force protection
+  registry: { ceil: 60, ttl: 60_000 }, // 60 req/min
+  api: { ceil: 60, ttl: 60_000 }, // 60 req/min — general API
 } as const;
 
 // ── Protected route prefixes ────────────────────────────────────
@@ -105,7 +116,10 @@ function _withRateLimitHeaders(
   exp: number,
 ): NextResponse {
   response.headers.set("X-RateLimit-Limit", String(ceil));
-  response.headers.set("X-RateLimit-Remaining", String(Math.max(0, ceil - count)));
+  response.headers.set(
+    "X-RateLimit-Remaining",
+    String(Math.max(0, ceil - count)),
+  );
   response.headers.set("X-RateLimit-Reset", String(exp));
   return response;
 }
@@ -146,9 +160,9 @@ export default function proxy(request: NextRequest) {
     gateResult = _gate(sig, "r", _POLICY.registry.ceil, _POLICY.registry.ttl);
   } else if (pathname.startsWith("/api/")) {
     gateResult = _gate(sig, "g", _POLICY.api.ceil, _POLICY.api.ttl);
-  } else if (pathname.startsWith("/preview/")) {
-    gateResult = _gate(sig, "p", _POLICY.preview.ceil, _POLICY.preview.ttl);
   }
+  // NOTE: /preview/ routes are NOT rate-limited — they are internal
+  // iframes used for animation previews, not user-facing API endpoints.
 
   // Block if rate limit exceeded
   if (gateResult?.blocked) {
@@ -176,8 +190,18 @@ export default function proxy(request: NextRequest) {
   // ── Pass through with rate-limit headers ──────────────────────
   const response = NextResponse.next();
 
+  // Tag preview routes so the root layout can skip Convex auth
+  if (pathname.startsWith("/preview")) {
+    response.headers.set("x-is-preview", "1");
+  }
+
   if (gateResult) {
-    _withRateLimitHeaders(response, gateResult.count, gateResult.ceil, gateResult.exp);
+    _withRateLimitHeaders(
+      response,
+      gateResult.count,
+      gateResult.ceil,
+      gateResult.exp,
+    );
   }
 
   return response;

@@ -194,9 +194,7 @@ export default function AnimationMiniPreview({
   }, []);
 
   // Iframe only mounts when this component has a pool slot
-  const iframeSrc = hasSlot
-    ? `/preview/${componentName}?embed=true`
-    : null;
+  const iframeSrc = hasSlot ? `/preview/${componentName}?embed=true` : null;
 
   // Show iframe at full opacity only when hovered AND ready
   const showIframe = isHovered && iframeReady;

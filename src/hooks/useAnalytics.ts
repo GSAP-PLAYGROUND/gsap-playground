@@ -1,9 +1,28 @@
 "use client";
 
+import { useMutation } from "convex/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { useMutation } from "convex/react";
+
 import { api } from "../../convex/_generated/api";
+
+/**
+ * Safely wraps `useMutation` — returns `null` when no ConvexProvider is in the
+ * tree (e.g. preview/embed iframes that skip Convex entirely).
+ *
+ * React hooks must be called unconditionally, so we always call `useMutation`
+ * but catch the invariant error thrown when the provider is absent.
+ */
+function useSafeMutation<T extends (...args: any[]) => any>(
+  mutation: any,
+): T | null {
+  try {
+    // biome-ignore lint/correctness/useHookAtTopLevel: Intentional — always called, provider may be absent
+    return useMutation(mutation) as unknown as T;
+  } catch {
+    return null;
+  }
+}
 
 /**
  * Tracks page views on route changes.
@@ -17,28 +36,19 @@ import { api } from "../../convex/_generated/api";
  */
 export function useAnalytics() {
   const pathname = usePathname();
-
-  // useMutation will crash without ConvexProvider (preview/embed pages).
-  // We can't conditionally call hooks, so we use a try-catch wrapper.
-  let trackPageView: ((args: {
-    path: string;
-    componentName?: string;
-    sessionId?: string;
-    referrer?: string;
-  }) => Promise<unknown>) | null = null;
-
-  try {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    trackPageView = useMutation(api.analytics.trackPageView);
-  } catch {
-    // No Convex provider (preview/embed pages) — analytics disabled
-  }
-
+  const trackPageView = useSafeMutation<
+    (args: {
+      path: string;
+      componentName?: string;
+      sessionId?: string;
+      referrer?: string;
+    }) => Promise<unknown>
+  >(api.analytics.trackPageView);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastTrackedRef = useRef<string>("");
 
   useEffect(() => {
-    if (!pathname) return;
+    if (!pathname || !trackPageView) return;
 
     // Skip tracking for preview/embed, API, and internal routes
     if (
@@ -92,12 +102,12 @@ export function useAnalytics() {
         // SSR or restricted context
       }
 
-      trackPageView?.({
+      trackPageView({
         path: pathname,
         componentName,
         sessionId,
         referrer,
-      })?.catch(() => {
+      }).catch(() => {
         // Silently ignore — analytics must never break the app
       });
     }, 300);

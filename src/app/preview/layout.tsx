@@ -1,11 +1,11 @@
 "use client";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import type React from "react";
 import { Suspense, useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PreviewLenis from "./PreviewLenis";
 
 /**
@@ -347,21 +347,28 @@ function EmbedBridge() {
         case "auto-scroll-start":
           stopAll();
           el.scrollTop = 0;
-          ScrollTrigger.refresh();
-          startAutoScroll(el);
+          // Remount component to reset all GSAP timelines to initial state
+          (window as unknown as Record<string, () => void>).__resetPreview?.();
+          requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+            startAutoScroll(el);
+          });
           break;
         case "auto-cursor-start":
           stopAll();
           el.scrollTop = 0;
-          startAutoCursor();
+          (window as unknown as Record<string, () => void>).__resetPreview?.();
+          requestAnimationFrame(() => startAutoCursor());
           break;
         case "auto-tabs-start":
           stopAll();
-          startAutoTabs();
+          (window as unknown as Record<string, () => void>).__resetPreview?.();
+          requestAnimationFrame(() => startAutoTabs());
           break;
         case "auto-click-start":
           stopAll();
-          startAutoClick();
+          (window as unknown as Record<string, () => void>).__resetPreview?.();
+          requestAnimationFrame(() => startAutoClick());
           break;
         case "stop-all":
           stopAll();
