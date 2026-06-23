@@ -14,20 +14,16 @@ interface AnimationMiniPreviewProps {
 }
 
 /**
- * Industry-grade iframe preview with three-layer optimization:
+ * Industry-grade iframe preview with two-layer optimization:
  *
  * Layer 1 — Route prefetch:
- *   <link rel="prefetch"> injected when card enters viewport (~5KB HTML).
+ *   <link rel="preload"> injected when card enters viewport.
  *   No rendering, no JS execution — just browser cache warming.
  *
  * Layer 2 — LRU iframe pool:
  *   Max 4 concurrent iframes globally. Hover requests a pool slot;
  *   LRU eviction destroys the oldest cached iframe when pool is full.
  *   Re-hover within 30s is instant (iframe is still alive in the pool).
- *
- * Layer 3 — GPU compositing:
- *   Quantised scale, will-change, backface-visibility, translate3d
- *   for smooth animations inside scaled iframes.
  */
 export default function AnimationMiniPreview({
   componentName,
@@ -68,8 +64,10 @@ export default function AnimationMiniPreview({
   }, []);
 
   // ── Layer 1: Viewport preload — prefetch HTML + request non-evicting pool slot ──
-  const isHoveredRef = useRef(false);
-  isHoveredRef.current = isHovered;
+  const isHoveredRef = useRef(isHovered);
+  useEffect(() => {
+    isHoveredRef.current = isHovered;
+  }, [isHovered]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -262,7 +260,8 @@ export default function AnimationMiniPreview({
           style={{
             width: "1440px",
             height: "810px",
-            zoom: scale,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
             opacity: showIframe ? 1 : 0,
           }}
         />
