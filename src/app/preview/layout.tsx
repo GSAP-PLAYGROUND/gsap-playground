@@ -336,6 +336,9 @@ function EmbedBridge() {
       );
     };
 
+    // Track if animation has played — first play doesn't need __resetPreview
+    let hasPlayed = false;
+
     // ── Message handler ──
     const handler = (e: MessageEvent) => {
       if (e.data?.type !== "tweenlabs-embed") return;
@@ -343,13 +346,24 @@ function EmbedBridge() {
       const el = document.getElementById("main-scroller");
       if (!el) return;
 
+      // Helper: reset GSAP state (only needed for replay, not first play)
+      const resetAndRun = (fn: () => void) => {
+        if (hasPlayed) {
+          (window as unknown as Record<string, () => void>).__resetPreview?.();
+          setTimeout(() => {
+            fn();
+          }, 200);
+        } else {
+          hasPlayed = true;
+          fn();
+        }
+      };
+
       switch (e.data.command) {
         case "auto-scroll-start":
           stopAll();
           el.scrollTop = 0;
-          // Remount component to reset all GSAP timelines to initial state
-          (window as unknown as Record<string, () => void>).__resetPreview?.();
-          requestAnimationFrame(() => {
+          resetAndRun(() => {
             ScrollTrigger.refresh();
             startAutoScroll(el);
           });
@@ -357,18 +371,15 @@ function EmbedBridge() {
         case "auto-cursor-start":
           stopAll();
           el.scrollTop = 0;
-          (window as unknown as Record<string, () => void>).__resetPreview?.();
-          requestAnimationFrame(() => startAutoCursor());
+          resetAndRun(() => startAutoCursor());
           break;
         case "auto-tabs-start":
           stopAll();
-          (window as unknown as Record<string, () => void>).__resetPreview?.();
-          requestAnimationFrame(() => startAutoTabs());
+          resetAndRun(() => startAutoTabs());
           break;
         case "auto-click-start":
           stopAll();
-          (window as unknown as Record<string, () => void>).__resetPreview?.();
-          requestAnimationFrame(() => startAutoClick());
+          resetAndRun(() => startAutoClick());
           break;
         case "stop-all":
           stopAll();
